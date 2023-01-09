@@ -1,4 +1,3 @@
-import pyautogui
 import time
 
 SHIP_TASK_TYPES = {
