@@ -1,5 +1,4 @@
-import pyautogui
-import time
+import json
 
 SHIP_TASK_TYPES = {
                     "Align Engine Output" : {"Upper Engine" : (-19.0939, -1.25595), "Lower Engine": (-18.9193, -13.4284)}, "Calibrate Distributor" : {"Electrical" : (-5.9473, -8.26674)}, "Chart Course" : {}, "Clean O2 Filter" : {"Oxygen" : (5.875643, -3.462795)}, "Vent Cleaning" : {}, 
@@ -32,6 +31,8 @@ UNUSED_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Ox
 
 SEND_DATA_PATH = "sendData.txt"
 
+MAP = "SHIP"
+
 def getGameData():
     x,y,status,tasks, task_locations, map_id = None, None, None, None, None, None
     with open(SEND_DATA_PATH) as file:
@@ -49,36 +50,30 @@ def getGameData():
 
     return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "map_id" : map_id}
 
-def printConstantGameData():
-    try:
-        while True:
-            data = getGameData()
-            if not data:
-                continue
-            print(data["position"])
-            print(data["status"])
-            print(data["tasks"])
-            print(data["task_locations"])
-            print(data["map_id"])
-            print()
-            time.sleep(2)
+def save_dict_file(dict_to_save, dict_name):
+    with open(f'{dict_name}.json', 'w') as f:
+        json.dump(dict_to_save, f)
 
-    except KeyboardInterrupt:
-        pass
+def save_current():
+    if MAP == "SHIP":
+        save_dict_file(SHIP_TASK_TYPES, "SHIP_TASK_TYPES")
+    elif MAP == "AIRSHIP":
+        save_dict_file(AIRSHIP_TASK_TYPES, "AIRSHIP_TASK_TYPES")
+    elif MAP == "PB":
+        save_dict_file(PB_TASK_TYPES, "PB_TASK_TYPES")
+    elif MAP == "HQ":
+        save_dict_file(HQ_TASK_TYPES, "HQ_TASK_TYPES")
 
-def printGameData():
-    data = getGameData()
-    while not data:
-        data = getGameData()
-    print(data["position"])
-    print(data["status"])
-    print(data["tasks"])
-    print(data["task_locations"])
-    print(data["map_id"])
-    print()
+def update_tasks(dict_to_use, dict_name):
+    return
 
-if __name__ == "__main__":
-    printGameData()
-    data = getGameData()
-
-
+def update_current():
+    if MAP == "SHIP":
+        update_tasks(SHIP_TASK_TYPES, "SHIP_TASK_TYPES")
+    elif MAP == "AIRSHIP":
+        update_tasks(AIRSHIP_TASK_TYPES, "AIRSHIP_TASK_TYPES")
+    elif MAP == "PB":
+        update_tasks(PB_TASK_TYPES, "PB_TASK_TYPES")
+    elif MAP == "HQ":
+        update_tasks(HQ_TASK_TYPES, "HQ_TASK_TYPES")
+    return

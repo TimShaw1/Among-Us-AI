@@ -1,5 +1,5 @@
--0.172768 2.12351
+-6.83763 -4.49895
 crewmate
 [Swipe Card, Inspect Sample, Divert Power, Upload Data]
-[Admin, MedBay, Electrical, Navigation]
+[Admin, MedBay, Electrical, Electrical]
 Ship
