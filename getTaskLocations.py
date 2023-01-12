@@ -34,7 +34,7 @@ SEND_DATA_PATH = "sendData.txt"
 MAP = "SHIP"
 
 def getGameData():
-    x,y,status,tasks, task_locations, map_id = None, None, None, None, None, None
+    x,y,status,tasks, task_locations, task_steps, map_id = None, None, None, None, None, None, None
     with open(SEND_DATA_PATH) as file:
         lines = file.readlines()
         if len(lines) > 0:
@@ -46,9 +46,11 @@ def getGameData():
             if len(lines) > 3:
                 task_locations = lines[3].rstrip().strip('][').split(", ")
             if len(lines) > 4:
-                map_id = lines[4].rstrip()
+                task_steps = lines[4].rstrip().strip('][').split(", ")
+            if len(lines) > 5:
+                map_id = lines[-1].rstrip()
 
-    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "map_id" : map_id}
+    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id}
 
 def save_dict_file(dict_to_save, dict_name):
     with open(f'{dict_name}.json', 'w') as f:

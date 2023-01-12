@@ -1,5 +1,6 @@
--6.83763 -4.49895
+-0.172768 2.12351
 crewmate
-[Swipe Card, Inspect Sample, Divert Power, Upload Data]
-[Admin, MedBay, Electrical, Electrical]
+[Fix Wiring, Inspect Sample, Calibrate Distributor, Prime Shields]
+[Admin, MedBay, Electrical, Shields]
+[0/3, 0/1, 0/1, 0/1]
 Ship
