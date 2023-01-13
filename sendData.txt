@@ -1,6 +1,6 @@
--0.172768 2.12351
+-5.04792 4.8081
 crewmate
-[Fix Wiring, Inspect Sample, Calibrate Distributor, Prime Shields]
-[Admin, MedBay, Electrical, Shields]
-[0/3, 0/1, 0/1, 0/1]
+[Fix Wiring, Empty Garbage, Divert Power, Upload Data]
+[Security, Cafeteria, Electrical, Electrical]
+[2/3, 0/2, 0/2, 0/2]
 Ship

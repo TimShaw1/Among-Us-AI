@@ -1,3 +1,26 @@
-Swipe Card
-Admin
--6.83763 -4.49895
+SHIP_TASK_TYPES = {
+                    "Align Engine Output" : {}, "Calibrate Distributor" : {}, "Chart Course" : {}, "Clean O2 Filter" : {}, "Vent Cleaning" : {}, 
+                    "Clear Asteroids" : {}, "Divert Power" : {}, "Empty Chute" : {}, "Empty Garbage" : {}, 
+                    "Fix Wiring" : {}, "Fuel Engines" : {}, "Inspect Sample" : {}, 
+                    "Prime Shields" : {}, "Stabilize Steering" : {}, "Start Reactor" : {}, "Submit Scan" : {}, "Swipe Card" : {}, "Unlock Manifolds" : {}, "Upload Data" : {}
+                  }
+
+AIRSHIP_TASK_TYPES = {  
+                        "Calibrate Distributor" : {}, "Clean Toilet" : {}, "Vent Cleaning" : {}, "Decontaminate" : {}, "Develop Photos" : {}, "Divert Power" : {}, 
+                        "Dress Mannequin" : {}, "Empty Garbage" : {}, "Enter ID Code" : {}, "Fix Shower" : {}, "Fix Wiring" : {}, "Fuel Engines" : {}, "Make Burger" : {}, 
+                        "Pick Up Towels" : {}, "Polish Ruby" : {}, "Put Away Pistols" : {}, "Put Away Rifles" : {}, "Reset Breakers" : {}, "Rewind Tapes" : {}, 
+                        "Sort Records" : {}, "Stabilize Steering" : {}, "Start Fans" : {}, "Unlock Safe" : {}, "Upload Data" : {}
+                     }
+
+PB_TASK_TYPES = {   
+                    "Align Telecopse" : {}, "Chart Course" : {}, "Clear Asteroids" : {}, "Empty Garbage" : {}, "Fill Canisters" : {}, "Activate Weather Nodes" : {}, 
+                    "Fix Wiring" : {}, "Fuel Engines" : {}, "Insert Keys" : {}, "Inspect Sample" : {}, "Monitor Oxygen" : {}, "Open Waterways" : {}, "Reboot Wifi" : {}, 
+                    "Record Temperature" : {}, "Repair Drill" : {}, "Replace Water Jug" : {}, "Scan Boarding Pass" : {}, "Start Reactor" : {}, "Store Artifacts" : {}, 
+                    "Submit Scan" : {}, "Swipe Card" : {}, "Unlock Manifolds" : {}, "Upload Data" : {}
+                }
+
+HQ_TASK_TYPES = {   
+                    "Assemble Artifact" : {}, "Buy Beverage" : {}, "Chart Course" : {}, "Clean O2 Filter" : {}, "Vent Cleaning" : {}, "Clear Asteroids" : {}, 
+                    "Divert Power" : {}, "Empty Garbage" : {}, "Enter ID Code" : {}, "Fix Wiring" : {}, "Fuel Engines" : {}, "Measure Weather" : {}, "Prime Shields" : {}, 
+                    "Process Data" : {}, "Run Diagnostics" : {}, "Sort Samples" : {}, "Start Reactor" : {}, "Submit Scan" : {}, "Unlock Manifolds" : {}, "Water Plants" : {}
+                }
