@@ -1,6 +1,6 @@
-17.4299 -3.11914
+5.91286 -8.78456
 crewmate
-[Fix Wiring, Fuel Engines, Chart Course, Stabilize Steering]
-[Storage, Storage, Navigation, Navigation]
-[0/3, 0/2, 1/1, 1/1]
+[Fix Wiring, Fuel Engines, Vent Cleaning, Clean O2 Filter, Swipe Card]
+[Electrical, Storage, Upper Engine, Oxygen, Admin]
+[0/3, 0/2, 0/1, 0/6, 1/1]
 Ship

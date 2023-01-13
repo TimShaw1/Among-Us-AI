@@ -50,7 +50,7 @@ def save_current():
         save_dict_file(HQ_TASK_TYPES, "HQ_TASK_TYPES")
 
 def update_tasks(dict_to_use, dict_name, data, i):
-    if data["map_id"].upper() != MAP:
+    if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
     if data["task_locations"][i] not in dict_to_use[data["tasks"][i]].keys():
         dict_to_use[data["tasks"][i]][data["task_locations"][i]] = data["position"]
@@ -62,7 +62,7 @@ def update_tasks(dict_to_use, dict_name, data, i):
 
 def update_current(data, i):
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
-    if data["map_id"].upper() != MAP:
+    if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
     if MAP == "SHIP":
         update_tasks(SHIP_TASK_TYPES, "SHIP_TASK_TYPES", data, i)
