@@ -10,19 +10,22 @@ def check_changes(new_list, old_list):
                 return i
     return -1
 
-load_dict()
-
 data = getGameData()
 while not data["task_steps"]:
     data = getGameData()
 old_list = data["task_steps"]
 old_data = data
 
+load_dict()
+
 try:
     while True:
         data = getGameData()
         if not data:
             continue
+
+        if data["map_id"]:
+            MAP = data["map_id"].upper()
 
         change_index = check_changes(data["task_steps"], old_list)
 

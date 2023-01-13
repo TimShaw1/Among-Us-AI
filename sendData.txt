@@ -1,6 +1,6 @@
--5.04792 4.8081
+17.4299 -3.11914
 crewmate
-[Fix Wiring, Empty Garbage, Divert Power, Upload Data]
-[Security, Cafeteria, Electrical, Electrical]
-[2/3, 0/2, 0/2, 0/2]
+[Fix Wiring, Fuel Engines, Chart Course, Stabilize Steering]
+[Storage, Storage, Navigation, Navigation]
+[0/3, 0/2, 1/1, 1/1]
 Ship

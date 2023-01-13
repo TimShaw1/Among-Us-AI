@@ -34,12 +34,12 @@ def getGameData():
     return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id}
 
 def save_dict_file(dict_to_save, dict_name):
-    print(f"not saving {dict_name}...")
-    #with open(f'tasks-json\{dict_name}.json', 'w') as f:
-        #json.dump(dict_to_save, f)
+    print(f"saving {dict_name}...")
+    with open(f'tasks-json\{dict_name}.json', 'w') as f:
+        json.dump(dict_to_save, f)
 
 def save_current():
-    global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES
+    global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
         save_dict_file(SHIP_TASK_TYPES, "SHIP_TASK_TYPES")
     elif MAP == "AIRSHIP":
@@ -50,14 +50,20 @@ def save_current():
         save_dict_file(HQ_TASK_TYPES, "HQ_TASK_TYPES")
 
 def update_tasks(dict_to_use, dict_name, data, i):
+    if data["map_id"].upper() != MAP:
+        raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
     if data["task_locations"][i] not in dict_to_use[data["tasks"][i]].keys():
         dict_to_use[data["tasks"][i]][data["task_locations"][i]] = data["position"]
         print(f"task: {data['tasks'][i]} location:{[data['task_locations'][i]]} position: {data['position']}")
+        print(dict_to_use[data["tasks"][i]][data["task_locations"][i]])
+        save_current()
     else:
         print("already have it")
 
 def update_current(data, i):
-    global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES
+    global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
+    if data["map_id"].upper() != MAP:
+        raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
     if MAP == "SHIP":
         update_tasks(SHIP_TASK_TYPES, "SHIP_TASK_TYPES", data, i)
     elif MAP == "AIRSHIP":
@@ -69,7 +75,7 @@ def update_current(data, i):
     return
 
 def load_dict():
-    global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES
+    global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
         with open("tasks-json\SHIP_TASK_TYPES.json") as file:
             SHIP_TASK_TYPES = json.load(file)
