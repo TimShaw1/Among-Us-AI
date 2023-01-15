@@ -91,3 +91,17 @@ def load_dict():
         with open("tasks-json\HQ_TASK_TYPES.json") as file:
             HQ_TASK_TYPES = json.load(file)
     return
+
+
+# Returns the x and y coordinates of a task in a list
+# accepts the game data and the index of the task
+def get_task_position(data, i):
+    global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
+    if MAP == "SHIP":
+        return SHIP_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
+    elif MAP == "AIRSHIP":
+        return AIRSHIP_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
+    elif MAP == "PB":
+        return PB_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
+    elif MAP == "HQ":
+        return HQ_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
