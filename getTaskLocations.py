@@ -39,7 +39,7 @@ try:
             continue
 
         # Check for updated task steps
-        if (change_index >= 0):
+        if (change_index >= 0 and not data["dead"]):
             old_data["position"] = data["position"]
             update_current(old_data, change_index)
             old_data = copy.deepcopy(data)

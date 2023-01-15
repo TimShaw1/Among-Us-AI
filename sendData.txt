@@ -1,6 +1,7 @@
-5.91286 -8.78456
+-1.66046 -0.674427
 crewmate
-[Fix Wiring, Fuel Engines, Vent Cleaning, Clean O2 Filter, Swipe Card]
-[Electrical, Storage, Upper Engine, Oxygen, Admin]
-[0/3, 0/2, 0/1, 0/6, 1/1]
+[Submit Scan, Fix Wiring, Clear Asteroids, Upload Data, Stabilize Steering]
+[Hallway, Electrical, Weapons, Navigation, Navigation]
+[0/3, 0/20, 0/2, 0/1]
 Ship
+1
