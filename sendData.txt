@@ -1,7 +1,7 @@
--1.66046 -0.674427
+-18.0392 -0.607673
 crewmate
-[Submit Scan, Fix Wiring, Clear Asteroids, Upload Data, Stabilize Steering]
-[Hallway, Electrical, Weapons, Navigation, Navigation]
-[0/3, 0/20, 0/2, 0/1]
+[Upload Data, Upload Data, Upload Data, Upload Data, Empty Garbage, Vent Cleaning, Divert Power, Divert Power]
+[Admin, Admin, Admin, Admin, Storage, Lower Engine, Upper Engine, Lower Engine]
+[2/2, 2/2, 2/2, 2/2, 2/2, 0/1, 1/2, 1/2]
 Ship
-1
+0

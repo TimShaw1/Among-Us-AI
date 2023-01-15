@@ -29,9 +29,9 @@ def getGameData():
             if len(lines) > 4:
                 task_steps = lines[4].rstrip().strip('][').split(", ")
             if len(lines) > 5:
-                map_id = lines[-2].rstrip()
+                map_id = lines[5].rstrip()
             if len(lines) > 6:
-                dead = bool(int(lines[-1].rstrip()))
+                dead = bool(int(lines[6].rstrip()))
 
     return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead}
 
