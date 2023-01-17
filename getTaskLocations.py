@@ -45,7 +45,7 @@ try:
             old_data = copy.deepcopy(data)
             print()
 
-        time.sleep(0.01)
+        time.sleep(0.0166)
 
 except KeyboardInterrupt:
     pass
