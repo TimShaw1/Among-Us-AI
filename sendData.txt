@@ -1,7 +1,7 @@
--18.0392 -0.607673
+2.862 0.163093
 crewmate
-[Upload Data, Upload Data, Upload Data, Upload Data, Empty Garbage, Vent Cleaning, Divert Power, Divert Power]
-[Admin, Admin, Admin, Admin, Storage, Lower Engine, Upper Engine, Lower Engine]
-[2/2, 2/2, 2/2, 2/2, 2/2, 0/1, 1/2, 1/2]
+[Swipe Card, Empty Chute, Divert Power, Clean O2 Filter]
+[Admin, Oxygen, Electrical, Oxygen]
+[0/1, 0/2, 0/2, 0/6]
 Ship
 0
