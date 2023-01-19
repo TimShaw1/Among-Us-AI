@@ -1,6 +1,7 @@
 from utility import *
 import keyboard
 import time
+import math
 
 graph = []
 
@@ -22,6 +23,7 @@ try:
 except KeyboardInterrupt:
     pass
 
+print(points_to_gamepad(graph[0], graph[1]))
 print(graph)
 
  

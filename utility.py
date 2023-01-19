@@ -1,4 +1,5 @@
 import json
+from math import atan2, sin, cos
 
 SHIP_TASK_TYPES = {}
 
@@ -105,3 +106,14 @@ def get_task_position(data, i):
         return PB_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
     elif MAP == "HQ":
         return HQ_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
+
+
+def get_angle_radians(point1, point2):
+    # atan2(y,x)
+    return atan2(point2[1] - point1[1], point2[0] - point1[0])
+
+# Return the x and y percentages the gamepad should be held at
+def points_to_gamepad(point1, point2):
+    angle = get_angle_radians(point1, point2)
+    return (round(cos(angle), 5), round(sin(angle), 5))
+
