@@ -221,7 +221,7 @@ def move(dest_list):
             data = getGameData()
 
         pos = data["position"]
-        time.sleep(1/120)
+        time.sleep(1/60)
 
     gamepad.reset()
     gamepad.update()

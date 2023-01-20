@@ -1,7 +1,7 @@
--9.01662 -8.06871
+-9.02244 -8.06855
 crewmate
-[Fix Wiring, Submit Scan, Upload Data, Divert Power]
-[Electrical, MedBay, Communications, Electrical]
-[0/3, 0/1, 0/2, 0/2]
+[Swipe Card, Empty Chute, Upload Data, Divert Power]
+[Admin, Oxygen, Weapons, Electrical]
+[0/1, 0/2, 0/2, 0/2]
 Ship
 0
