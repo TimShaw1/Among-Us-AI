@@ -55,8 +55,7 @@ def move_test(graph, move_list):
         nearest = move_to_nearest_node(graph)
         G = generate_graph(graph)
         move(list(nx.shortest_path(G, nearest, destination)))
-        print(destination)
-        time.sleep(2)
+        time.sleep(1)
 
 if __name__ == "__main__":
     time.sleep(2)

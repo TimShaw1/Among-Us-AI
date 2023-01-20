@@ -223,7 +223,6 @@ def move(dest_list):
         pos = data["position"]
         time.sleep(1/120)
 
-    print("stopped moving")
     gamepad.reset()
     gamepad.update()
     return

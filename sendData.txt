@@ -1,7 +1,7 @@
-7.52101 -14.4795
+-9.01662 -8.06871
 crewmate
-[Swipe Card, Submit Scan, Prime Shields, Divert Power]
-[Admin, MedBay, Shields, Electrical]
-[0/1, 0/1, 0/1, 0/2]
+[Fix Wiring, Submit Scan, Upload Data, Divert Power]
+[Electrical, MedBay, Communications, Electrical]
+[0/3, 0/1, 0/2, 0/2]
 Ship
 0
