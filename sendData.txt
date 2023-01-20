@@ -1,7 +1,7 @@
--9.96263 -8.04325
+7.52101 -14.4795
 crewmate
-[Fix Wiring, Inspect Sample, Unlock Manifolds, Upload Data]
-[Storage, MedBay, Reactor, Electrical]
-[0/3, 0/1, 0/1, 0/2]
+[Swipe Card, Submit Scan, Prime Shields, Divert Power]
+[Admin, MedBay, Shields, Electrical]
+[0/1, 0/1, 0/1, 0/2]
 Ship
 0

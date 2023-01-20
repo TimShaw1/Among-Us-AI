@@ -206,8 +206,11 @@ def move(dest_list):
         print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
 
         if dist(pos, dest_list[0]) < 0.1:
-            print("\nmoving to new destination")
             dest_list.pop(0)
+            if (len(dest_list) > 0):
+                print("\nmoving to new destination")
+            else:
+                break
         else:
             g_points = points_to_gamepad(pos, dest_list[0])
             gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
@@ -219,6 +222,9 @@ def move(dest_list):
 
         pos = data["position"]
         time.sleep(1/120)
+
+    print("stopped moving")
     gamepad.reset()
+    gamepad.update()
     return
 
