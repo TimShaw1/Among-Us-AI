@@ -1,7 +1,6 @@
 from utility import *
 import keyboard
 import time
-import math
 
 graph = []
 

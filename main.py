@@ -1,5 +1,6 @@
 import time
 from utility import *
+from math import dist
 
 
 def printConstantGameData():
@@ -49,8 +50,9 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
-
 if __name__ == "__main__":
-    printConstantTaskPositions()
+    move([(-15.5, 0.6), (-15.5, 2.5), (-17.172, 2.61)])
+
+# (-7.95224, 0.5086)
 
 

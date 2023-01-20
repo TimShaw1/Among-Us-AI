@@ -1,5 +1,7 @@
 import json
-from math import atan2, sin, cos
+from math import atan2, sin, cos, dist
+import vgamepad as vg
+import time
 
 SHIP_TASK_TYPES = {}
 
@@ -116,4 +118,36 @@ def get_angle_radians(point1, point2):
 def points_to_gamepad(point1, point2):
     angle = get_angle_radians(point1, point2)
     return (round(cos(angle), 5), round(sin(angle), 5))
+
+def move(dest_list):
+    gamepad = vg.VX360Gamepad()
+    time.sleep(2)
+
+    data = getGameData()
+    while not data["position"][0]:
+        data = getGameData()
+
+    pos = data["position"]
+
+    print()
+    while len(dest_list) > 0:
+        print('\r', end='')
+        print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
+
+        if dist(pos, dest_list[0]) < 0.1:
+            print("\nmoving to new destination")
+            dest_list.pop(0)
+        else:
+            g_points = points_to_gamepad(pos, dest_list[0])
+            gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
+            gamepad.update()
+
+        data = getGameData()
+        while not data["position"][0]:
+            data = getGameData()
+
+        pos = data["position"]
+        time.sleep(1/120)
+    gamepad.reset()
+    return
 
