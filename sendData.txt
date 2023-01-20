@@ -1,7 +1,7 @@
--9.02244 -8.06855
+7.52103 -14.4831
 crewmate
-[Swipe Card, Empty Chute, Upload Data, Divert Power]
-[Admin, Oxygen, Weapons, Electrical]
-[0/1, 0/2, 0/2, 0/2]
+[Fix Wiring, Inspect Sample, Divert Power, Prime Shields]
+[Navigation, MedBay, Electrical, Shields]
+[0/3, 0/1, 0/2, 0/1]
 Ship
 0
