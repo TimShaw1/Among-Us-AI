@@ -1,7 +1,7 @@
-7.52103 -14.4831
+-0.172768 2.12351
 crewmate
-[Fix Wiring, Inspect Sample, Divert Power, Prime Shields]
-[Navigation, MedBay, Electrical, Shields]
-[0/3, 0/1, 0/2, 0/1]
+[Fix Wiring, Empty Chute, Divert Power, Upload Data]
+[Storage, Oxygen, Electrical, Weapons]
+[0/3, 0/2, 0/2, 0/2]
 Ship
 0

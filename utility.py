@@ -4,6 +4,7 @@ import vgamepad as vg
 import time
 import pickle
 import networkx as nx
+from datetime import datetime
 
 SHIP_TASK_TYPES = {}
 
@@ -192,13 +193,14 @@ def get_task_list():
 
 def move(dest_list):
     global gamepad
-    time.sleep(2)
 
     data = getGameData()
     while not data["position"][0]:
         data = getGameData()
 
     pos = data["position"]
+    old_pos = pos
+    old_time = datetime.now().second
 
     print()
     while len(dest_list) > 0:
@@ -215,6 +217,20 @@ def move(dest_list):
             g_points = points_to_gamepad(pos, dest_list[0])
             gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
             gamepad.update()
+
+        if round(pos[0] - old_pos[0], 4) != 0 or round(pos[1] - old_pos[1], 4) != 0:
+            old_time = datetime.now().second
+            old_pos = pos
+        else:
+            if abs(old_time - datetime.now().second) > 1:
+                print("\nGetting unstuck...")
+                g_points = points_to_gamepad(pos, dest_list[0])
+                gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
+                gamepad.update()
+                time.sleep(0.7)
+                gamepad.left_joystick_float(x_value_float=0, y_value_float=g_points[1])
+                gamepad.update()
+                time.sleep(0.7)
 
         data = getGameData()
         while not data["position"][0]:
