@@ -37,7 +37,6 @@ def printGameData():
 
 def printConstantTaskPositions():
     try:
-        load_dict()
         while True:
             data = getGameData()
             if not data:
@@ -51,25 +50,21 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
-def move_test(graph):
-    nearest = move_to_nearest_node(graph)
-    G = nx.Graph()
-
-    for point in graph:
-        G.add_node(point)
-
-    for point in graph:
-        for point2 in graph:
-            if dist(point, point2) < 0.8:
-                if point != point2:
-                    G.add_edge(point, point2)
-    nodes = list(G.nodes())
-    move(list(nx.shortest_path(G, nearest, nodes[20])))
+def move_test(graph, move_list):
+    for destination in move_list:
+        nearest = move_to_nearest_node(graph)
+        G = generate_graph(graph)
+        move(list(nx.shortest_path(G, nearest, destination)))
 
 if __name__ == "__main__":
     time.sleep(2)
     graph = get_graph_list("SHIP")
-    move_test(graph)
+    tasks = get_task_list()
+    move_list = []
+    dict = load_dict()
+    for i in range(len(tasks[0])):
+        move_list.append(tuple(dict[tasks[0][i]][tasks[1][i]]))
+    move_test(graph, move_list)
 
 # (-7.95224, 0.5086)
 

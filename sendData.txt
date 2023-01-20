@@ -1,7 +1,7 @@
--16.8751 -3.07726
+-9.96263 -8.04325
 crewmate
-[Swipe Card, Start Reactor, Upload Data, Vent Cleaning]
-[Admin, Reactor, Cafeteria, Electrical]
-[0/1, 0/5, 0/2, 0/1]
+[Fix Wiring, Inspect Sample, Unlock Manifolds, Upload Data]
+[Storage, MedBay, Reactor, Electrical]
+[0/3, 0/1, 0/1, 0/2]
 Ship
 0

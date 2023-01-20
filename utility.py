@@ -3,6 +3,7 @@ from math import atan2, sin, cos, dist
 import vgamepad as vg
 import time
 import pickle
+import networkx as nx
 
 SHIP_TASK_TYPES = {}
 
@@ -17,6 +18,8 @@ UNUSED_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Ox
 SEND_DATA_PATH = "sendData.txt"
 
 MAP = "SHIP"
+
+gamepad = vg.VX360Gamepad()
 
 def write_graph_list(list, map_name):
     with open(f'graphs\{map_name}_graph.pkl', 'wb') as f:
@@ -95,15 +98,19 @@ def load_dict():
     if MAP == "SHIP":
         with open("tasks-json\SHIP_TASK_TYPES.json") as file:
             SHIP_TASK_TYPES = json.load(file)
+            return SHIP_TASK_TYPES
     elif MAP == "AIRSHIP":
         with open("tasks-json\AIRSHIP_TASK_TYPES.json") as file:
             AIRSHIP_TASK_TYPES = json.load(file)
+            return AIRSHIP_TASK_TYPES
     elif MAP == "PB":
         with open("tasks-json\PB_TASK_TYPES.json") as file:
             PB_TASK_TYPES = json.load(file)
+            return PB_TASK_TYPES
     elif MAP == "HQ":
         with open("tasks-json\HQ_TASK_TYPES.json") as file:
             HQ_TASK_TYPES = json.load(file)
+            return HQ_TASK_TYPES
     return
 
 
@@ -154,8 +161,37 @@ def move_to_nearest_node(graph):
     move([nearest])
     return nearest
 
+def generate_graph(graph):
+
+    dict = load_dict()
+
+    G = nx.Graph()
+
+    for point in graph:
+        G.add_node(point)
+
+    for subdict in dict.keys():
+        for location in dict[subdict].keys():
+            G.add_node(tuple(dict[subdict][location]))
+
+    for point in G.nodes:
+        for point2 in G.nodes:
+            if dist(point, point2) < 1:
+                if point != point2:
+                    G.add_edge(point, point2)
+
+    return G
+
+def get_task_list():
+    data = getGameData()
+    while not data["position"][0]:
+        data = getGameData()
+
+    return (data["tasks"], data["task_locations"])
+
+
 def move(dest_list):
-    gamepad = vg.VX360Gamepad()
+    global gamepad
     time.sleep(2)
 
     data = getGameData()
