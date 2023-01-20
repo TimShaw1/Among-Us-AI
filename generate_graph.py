@@ -1,28 +1,37 @@
 from utility import *
 import keyboard
 import time
+import networkx as nx
+import matplotlib as plt
+from math import dist
 
 graph = []
 
+data = getGameData()
+while not data['position'][0]:
+    data = getGameData()
+pos = (round(data['position'][0], 4), round(data['position'][1], 4))
+old_pos = (round(data['position'][0], 4), round(data['position'][1], 4))
+
 try:
     while True:
-        data = getGameData()
-        if data["position"][0] is None:
-            continue
-        pos = (round(data['position'][0], 4), round(data['position'][1], 4))
-        if keyboard.is_pressed('i'):
+        if dist(pos, old_pos) > 0.7 and get_smallest_dist(graph, pos) > 0.7:
             if pos not in graph:
                 graph.append(pos)
+                old_pos = pos
                 print("appended")
-                time.sleep(0.1)
             else:
                 print("got it already")
-                time.sleep(0.1)
+
+        data = getGameData()
+        while not data['position'][0]:
+            data = getGameData()
+        pos = (round(data['position'][0], 4), round(data['position'][1], 4))
 
 except KeyboardInterrupt:
     pass
 
-print(points_to_gamepad(graph[0], graph[1]))
-print(graph)
-
+#print(graph)
+print(len(graph))
+#write_graph_list(graph, "SHIP")
  

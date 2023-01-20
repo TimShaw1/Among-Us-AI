@@ -1,7 +1,7 @@
-2.862 0.163093
+-16.8751 -3.07726
 crewmate
-[Swipe Card, Empty Chute, Divert Power, Clean O2 Filter]
-[Admin, Oxygen, Electrical, Oxygen]
-[0/1, 0/2, 0/2, 0/6]
+[Swipe Card, Start Reactor, Upload Data, Vent Cleaning]
+[Admin, Reactor, Cafeteria, Electrical]
+[0/1, 0/5, 0/2, 0/1]
 Ship
 0

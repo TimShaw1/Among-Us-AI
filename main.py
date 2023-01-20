@@ -1,6 +1,7 @@
 import time
 from utility import *
 from math import dist
+import networkx as nx
 
 
 def printConstantGameData():
@@ -50,8 +51,25 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
+def move_test(graph):
+    nearest = move_to_nearest_node(graph)
+    G = nx.Graph()
+
+    for point in graph:
+        G.add_node(point)
+
+    for point in graph:
+        for point2 in graph:
+            if dist(point, point2) < 0.8:
+                if point != point2:
+                    G.add_edge(point, point2)
+    nodes = list(G.nodes())
+    move(list(nx.shortest_path(G, nearest, nodes[20])))
+
 if __name__ == "__main__":
-    move([(-15.5, 0.6), (-15.5, 2.5), (-17.172, 2.61)])
+    time.sleep(2)
+    graph = get_graph_list("SHIP")
+    move_test(graph)
 
 # (-7.95224, 0.5086)
 

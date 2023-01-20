@@ -2,6 +2,7 @@ import json
 from math import atan2, sin, cos, dist
 import vgamepad as vg
 import time
+import pickle
 
 SHIP_TASK_TYPES = {}
 
@@ -16,6 +17,16 @@ UNUSED_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Ox
 SEND_DATA_PATH = "sendData.txt"
 
 MAP = "SHIP"
+
+def write_graph_list(list, map_name):
+    with open(f'graphs\{map_name}_graph.pkl', 'wb') as f:
+        pickle.dump(list, f)
+    
+    print(f'Wrote to graphs\{map_name}_graph.pkl')
+
+def get_graph_list(map_name):
+    with open(f'graphs\{map_name}_graph.pkl', 'rb') as f:
+        return pickle.load(f)
 
 def getGameData():
     x,y,status,tasks, task_locations, task_steps, map_id, dead = None, None, None, None, None, None, None, None
@@ -118,6 +129,30 @@ def get_angle_radians(point1, point2):
 def points_to_gamepad(point1, point2):
     angle = get_angle_radians(point1, point2)
     return (round(cos(angle), 5), round(sin(angle), 5))
+
+def get_smallest_dist(graph, pos):
+    smallest_dist = 100
+    for item in graph:
+        distance = dist(item, pos)
+        if distance < smallest_dist:
+            smallest_dist = distance
+    return smallest_dist
+
+def move_to_nearest_node(graph):
+    data = getGameData()
+    while not data["position"][0]:
+        data = getGameData()
+    pos = data["position"]
+
+    smallest_dist = 100
+    nearest = ()
+    for item in graph:
+        distance = dist(item, pos)
+        if distance < smallest_dist:
+            smallest_dist = distance
+            nearest = item
+    move([nearest])
+    return nearest
 
 def move(dest_list):
     gamepad = vg.VX360Gamepad()
