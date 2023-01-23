@@ -179,7 +179,7 @@ def generate_graph(graph):
         for point2 in G.nodes:
             if dist(point, point2) < 1:
                 if point != point2:
-                    G.add_edge(point, point2, weight=dist(point, point2))
+                    G.add_edge(point, point2, weight=round(dist(point, point2),4))
 
     return G
 
