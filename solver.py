@@ -7,12 +7,18 @@ def generate_files():
         with open(f"task-solvers\{task}.py", "w") as f:
             f.close()
 
-tasks = get_task_list()[0]
+def solve_task(task_name=None, task_index=None):
+    tasks = get_task_list()[0]
+    if task_name is not None:
+        return_code = subprocess.call(["python", f"task-solvers\{task_name}.py"])
+        return return_code
+    if task_index is not None:
+        return_code = subprocess.call(["python", f"task-solvers\{tasks[task_index]}.py"])
+        return return_code
+    print("error")
 
-def solve_task(task_name):
-    return_code = subprocess.call(["python", f"task-solvers\{task_name}.py"])
-
-solve_task("Align Engine Output")
+if __name__ == "__main__":
+    solve_task("Align Engine Output")
 
 
 

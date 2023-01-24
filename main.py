@@ -2,6 +2,7 @@ import time
 from utility import *
 from math import dist
 import networkx as nx
+from solver import *
 
 
 def printConstantGameData():
@@ -51,11 +52,11 @@ def printConstantTaskPositions():
         pass
 
 def move_test(graph, move_list):
-    for destination in move_list:
+    for i in range(len(move_list)):
         nearest = move_to_nearest_node(graph)
         G = generate_graph(graph)
-        move(list(nx.shortest_path(G, nearest, destination, weight="weight")))
-        time.sleep(1)
+        move(list(nx.shortest_path(G, nearest, move_list[i], weight="weight")))
+        solve_task(task_index=i)
 
 if __name__ == "__main__":
     time.sleep(2)

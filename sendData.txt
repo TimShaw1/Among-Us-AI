@@ -1,7 +1,7 @@
--19.3633 -1.22293
+-5.78812 -1.20994
 crewmate
-[Fix Wiring, Empty Garbage, Divert Power, Upload Data, Align Engine Output]
-[Navigation, Cafeteria, Electrical, Electrical, Upper Engine]
-[0/3, 0/2, 0/2, 0/2, 0/2]
+[Align Engine Output, Swipe Card]
+[Lower Engine, Admin]
+[1/2, 0/1]
 Ship
 0

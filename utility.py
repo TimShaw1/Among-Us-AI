@@ -20,6 +20,7 @@ SEND_DATA_PATH = "sendData.txt"
 
 MAP = "SHIP"
 
+global gamepad
 gamepad = vg.VX360Gamepad()
 
 def write_graph_list(list, map_name):
