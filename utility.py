@@ -189,7 +189,43 @@ def get_task_list():
     while not data["position"][0]:
         data = getGameData()
 
-    return (data["tasks"], data["task_locations"])
+    return [data["tasks"], data["task_locations"], data["task_steps"]]
+
+def get_move_list(tasks):
+    move_list = []
+    dict = load_dict()
+    for i in range(len(tasks[0])):
+        move_list.append(tuple(dict[tasks[0][i]][tasks[1][i]]))
+
+    return move_list
+
+def update_move_list(move_list, old_tasks):
+    tasks = get_task_list()
+    dict = load_dict()
+
+    # Get progress of current task
+    progress = old_tasks[2][0].split("/")
+
+    progress = old_tasks[2][0].split("/")
+    progress = [int(i) for i in progress]
+    progress[0] += 1
+
+    # If task is incomplete, 
+    if progress[0] != progress[1]:
+
+        # Get correct index of updated task
+        index = tasks[0].index(old_tasks[0][0])
+
+        # Add next task step to move list
+        move_list.append(tuple(dict[tasks[0][index]][tasks[1][index]]))
+
+        # Add next task step to our old tasks
+        old_tasks[0].append(tasks[0][index])
+        old_tasks[1].append(tasks[1][index])
+        old_tasks[2].append(tasks[2][index])
+        return tasks[1][0]
+    return None
+    
 
 
 def move(dest_list):
@@ -205,13 +241,14 @@ def move(dest_list):
 
     print()
     while len(dest_list) > 0:
-        print('\r', end='')
-        print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
+        #print('\r', end='')
+        #print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
 
         if dist(pos, dest_list[0]) < 0.1:
             dest_list.pop(0)
             if (len(dest_list) > 0):
-                print("\nmoving to new destination")
+                #print("\nmoving to new destination")
+                print(end='')
             else:
                 break
         else:

@@ -5,7 +5,7 @@ import os
 import time
 
 click_use()
-time.sleep(0.7)
+time.sleep(0.8)
 
 dimensions = get_dimensions()
 
@@ -13,8 +13,6 @@ dimensions[0] += round(dimensions[2] / 1.68)
 dimensions[2] /= 7.68
 dimensions[2] = round(dimensions[2])
 y_center = ((dimensions[1] + round(dimensions[1] / 1.2) + dimensions[3]) / 2)
-
-print(dimensions)
 
 screenshot = get_screenshot(dimensions)
 

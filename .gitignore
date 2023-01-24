@@ -5037,3 +5037,6 @@ task-solvers/__pycache__/wake_keyboard.cpython-39.pyc
 .venv/share/doc/networkx-3.0/examples/subclass/__pycache__/plot_antigraph.cpython-310.pyc
 .venv/share/doc/networkx-3.0/examples/subclass/__pycache__/plot_printgraph.cpython-310.pyc
 >>>>>>> 68fbdcb28eafa9d3667a753bb0ee29cd91484f15
+__pycache__/solver.cpython-310.pyc
+task-solvers/__pycache__/task_utility.cpython-310.pyc
+task-solvers/__pycache__/wake_keyboard.cpython-310.pyc

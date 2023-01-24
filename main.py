@@ -51,22 +51,31 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
-def move_test(graph, move_list):
-    for i in range(len(move_list)):
+def move_test(graph, move_list, tasks):
+    while len(move_list) > 0:
         nearest = move_to_nearest_node(graph)
         G = generate_graph(graph)
-        move(list(nx.shortest_path(G, nearest, move_list[i], weight="weight")))
-        solve_task(task_index=i)
+        move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
+        solve_task(task_name=tasks[0][0])
+
+        # Add next task step to move list, if any
+        update_move_list(move_list, tasks)
+
+        # Remove completed task from tasks and move list
+        for i in range(len(tasks)):
+            tasks[i].pop(0)
+        move_list.pop(0)
+        time.sleep(2)
+        
+
+
 
 if __name__ == "__main__":
     time.sleep(2)
     graph = get_graph_list("SHIP")
     tasks = get_task_list()
-    move_list = []
-    dict = load_dict()
-    for i in range(len(tasks[0])):
-        move_list.append(tuple(dict[tasks[0][i]][tasks[1][i]]))
-    move_test(graph, move_list)
+    move_list = get_move_list(tasks)
+    move_test(graph, move_list, tasks)
 
 # (-7.95224, 0.5086)
 
