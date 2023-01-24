@@ -3798,3 +3798,5 @@ __pycache__/utility.cpython-39.pyc
 .venv/lib/python3.10/site-packages/vgamepad-0.0.8-py3.10.egg-info/SOURCES.txt
 .venv/lib/python3.10/site-packages/vgamepad-0.0.8-py3.10.egg-info/top_level.txt
 task-solvers/__pycache__/task_utility.cpython-39.pyc
+__pycache__/solver.cpython-39.pyc
+task-solvers/__pycache__/wake_keyboard.cpython-39.pyc
