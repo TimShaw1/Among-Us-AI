@@ -52,21 +52,28 @@ def printConstantTaskPositions():
         pass
 
 def move_test(graph, move_list, tasks):
+    G = generate_graph(graph)
+    nearest = move_to_nearest_node(graph)
+    move_list = sort_shortest_path(G, nearest, move_list, tasks)
     while len(move_list) > 0:
-        nearest = move_to_nearest_node(graph)
-        G = generate_graph(graph)
         move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
-        solve_task(task_name=tasks[0][0])
+        solve_task(task_name=get_nearest_task())
+
+        time.sleep(1)
+
+        nearest = move_to_nearest_node(graph)
 
         # Add next task step to move list, if any
         time.sleep(1/60)
         update_move_list(move_list, tasks)
 
+        # Sort move list by distance
+        move_list = sort_shortest_path(G, nearest, move_list, tasks)
+
         # Remove completed task from tasks and move list
         for i in range(len(tasks)):
             tasks[i].pop(0)
         move_list.pop(0)
-        print(move_list)
         time.sleep(1)
         
 

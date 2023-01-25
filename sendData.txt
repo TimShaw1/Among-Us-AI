@@ -1,7 +1,7 @@
--16.9193 -4.92845
+5.92893 -9.34739
 crewmate
-[Align Engine Output, Swipe Card]
-[Lower Engine, Admin]
-[2/2, 0/1]
+[Swipe Card, Align Engine Output]
+[Admin, Lower Engine]
+[1/1, 2/2]
 Ship
 0

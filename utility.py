@@ -129,6 +129,23 @@ def get_task_position(data, i):
     elif MAP == "HQ":
         return HQ_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
 
+def get_nearest_task():
+    data = getGameData()
+    while not data["position"][0]:
+        data = getGameData()
+    pos = data["position"]
+
+    dict = load_dict()
+    smallest_dist = 100
+    nearest = ()
+    for subdict in dict.keys():
+        for location in dict[subdict].keys():
+            d = dist(dict[subdict][location], pos)
+            if d < smallest_dist:
+                smallest_dist = d
+                nearest = subdict
+    return nearest
+
 
 def get_angle_radians(point1, point2):
     # atan2(y,x)
@@ -184,6 +201,10 @@ def generate_graph(graph):
 
     return G
 
+def sort_shortest_path(G, nearest, move_list, tasks):
+    move_list.sort(key = lambda x:nx.shortest_path_length(G, nearest, x, weight="weight"))
+    return move_list
+
 def get_task_list():
     data = getGameData()
     while not data["task_steps"]:
@@ -202,27 +223,26 @@ def get_move_list(tasks):
 def update_move_list(move_list, old_tasks):
     tasks = get_task_list()
     dict = load_dict()
+    task = get_nearest_task()
 
     # Get progress of current task
-    progress = old_tasks[2][0].split("/")
-
-    progress = old_tasks[2][0].split("/")
+    progress = tasks[2][tasks[0].index(task)].split("/")
     progress = [int(i) for i in progress]
-    progress[0] += 1
+
+    print(progress)
 
     # If task is incomplete, 
     if progress[0] != progress[1]:
 
         # Get correct index of updated task
-        index = tasks[0].index(old_tasks[0][0])
+        index = tasks[0].index(task)
 
         # Add next task step to move list
         move_list.append(tuple(dict[tasks[0][index]][tasks[1][index]]))
 
         # Add next task step to our old tasks
-        old_tasks[0].append(tasks[0][index])
-        old_tasks[1].append(tasks[1][index])
-        old_tasks[2].append(tasks[2][index])
+        for i in range(len(old_tasks)):
+            old_tasks[i].append(tasks[i][index])
         return tasks[1][0]
     return None
     
@@ -246,10 +266,7 @@ def move(dest_list):
 
         if dist(pos, dest_list[0]) < 0.1:
             dest_list.pop(0)
-            if (len(dest_list) > 0):
-                #print("\nmoving to new destination")
-                print(end='')
-            else:
+            if (len(dest_list) <= 0):
                 break
         else:
             g_points = points_to_gamepad(pos, dest_list[0])
@@ -260,7 +277,7 @@ def move(dest_list):
             old_time = datetime.now().second
             old_pos = pos
         else:
-            if abs(old_time - datetime.now().second) > 1:
+            if abs(old_time - datetime.now().second) > 1 and abs(old_time - datetime.now().second) < 5:
                 print("\nGetting unstuck...")
                 g_points = points_to_gamepad(pos, dest_list[0])
                 gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
