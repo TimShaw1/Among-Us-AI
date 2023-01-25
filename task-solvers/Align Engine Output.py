@@ -10,7 +10,7 @@ time.sleep(0.8)
 dimensions = get_dimensions()
 
 dimensions[0] += round(dimensions[2] / 1.68)
-dimensions[2] /= 7.68
+dimensions[2] /= 7.4
 dimensions[2] = round(dimensions[2])
 y_center = ((dimensions[1] + round(dimensions[1] / 1.2) + dimensions[3]) / 2)
 
@@ -20,7 +20,7 @@ arrow_pos = None
 arrow_names = ["Arrow", "arrowDown", "arrowUp"]
 
 for name in arrow_names:
-    arrow_pos = pyautogui.locateCenterOnScreen(f"C:\\projects\\AmongUs\\Among-Us-AI\\task-solvers\\cv2-templates\\Align Engine Output\\{name}.png", confidence=0.35, region=dimensions)
+    arrow_pos = pyautogui.locateCenterOnScreen(f"C:\\projects\\AmongUs\\Among-Us-AI\\task-solvers\\cv2-templates\\Align Engine Output\\{name}.png", confidence=0.37, region=dimensions)
     if arrow_pos:
         break
 
