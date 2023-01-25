@@ -59,13 +59,15 @@ def move_test(graph, move_list, tasks):
         solve_task(task_name=tasks[0][0])
 
         # Add next task step to move list, if any
+        time.sleep(1/60)
         update_move_list(move_list, tasks)
 
         # Remove completed task from tasks and move list
         for i in range(len(tasks)):
             tasks[i].pop(0)
         move_list.pop(0)
-        time.sleep(2)
+        print(move_list)
+        time.sleep(1)
         
 
 

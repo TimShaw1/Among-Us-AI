@@ -186,7 +186,7 @@ def generate_graph(graph):
 
 def get_task_list():
     data = getGameData()
-    while not data["position"][0]:
+    while not data["task_steps"]:
         data = getGameData()
 
     return [data["tasks"], data["task_locations"], data["task_steps"]]
