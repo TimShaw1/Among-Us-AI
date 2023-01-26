@@ -1,7 +1,7 @@
--15.7473 -5.96426
+5.56627 0.95083
 crewmate
-[Fix Wiring, Align Engine Output]
-[Security, Lower Engine]
-[3/3, 2/2]
+[Align Engine Output, Fix Wiring, Clear Asteroids]
+[Upper Engine, Admin, Weapons]
+[0/2, 0/3, 20/20]
 Ship
 0

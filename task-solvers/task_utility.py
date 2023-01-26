@@ -11,6 +11,29 @@ from wake_keyboard import wake
 
 ctypes.windll.user32.SetProcessDPIAware()
 
+SEND_DATA_PATH = "sendData.txt"
+
+def getGameData():
+    x,y,status,tasks, task_locations, task_steps, map_id, dead = None, None, None, None, None, None, None, None
+    with open(SEND_DATA_PATH) as file:
+        lines = file.readlines()
+        if len(lines) > 0:
+            x = float(lines[0].split()[0])
+            y = float(lines[0].split()[1])
+            status = lines[1].strip()
+            if len(lines) > 2:
+                tasks = lines[2].rstrip().strip('][').split(", ")
+            if len(lines) > 3:
+                task_locations = lines[3].rstrip().strip('][').split(", ")
+            if len(lines) > 4:
+                task_steps = lines[4].rstrip().strip('][').split(", ")
+            if len(lines) > 5:
+                map_id = lines[5].rstrip()
+            if len(lines) > 6:
+                dead = bool(int(lines[6].rstrip()))
+
+    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead}
+
 def get_screenshot(dimensions=None, window_title="Among Us"):
     if window_title:
         hwnd = win32gui.FindWindow(None, window_title)
@@ -55,3 +78,12 @@ def get_dir():
 def get_screen_coords():
     while True:
         print(pyautogui.position(), end='\r')
+
+def is_task_done(task):
+    data = getGameData()
+    while not data["task_steps"]:
+        data = getGameData()
+
+    index = data["tasks"].index(task)
+    steps = data["task_steps"][index].split('/')
+    return steps[0] == steps[1]
