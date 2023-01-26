@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 from task_utility import *
-import os
 import time
 
 click_use()
@@ -20,7 +19,7 @@ arrow_pos = None
 arrow_names = ["Arrow", "arrowDown", "arrowUp"]
 
 for name in arrow_names:
-    arrow_pos = pyautogui.locateCenterOnScreen(f"C:\\projects\\AmongUs\\Among-Us-AI\\task-solvers\\cv2-templates\\Align Engine Output\\{name}.png", confidence=0.37, region=dimensions)
+    arrow_pos = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Align Engine Output\\{name}.png", confidence=0.37, region=dimensions)
     if arrow_pos:
         break
 

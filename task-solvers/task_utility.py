@@ -51,3 +51,7 @@ def click_use():
 
 def get_dir():
     return os.getcwd()
+
+def get_screen_coords():
+    while True:
+        print(pyautogui.position(), end='\r')

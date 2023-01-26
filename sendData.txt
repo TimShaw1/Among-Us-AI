@@ -1,7 +1,7 @@
-5.92893 -9.34739
+-7.80588 -8.10129
 crewmate
-[Swipe Card, Align Engine Output]
-[Admin, Lower Engine]
-[1/1, 2/2]
+[Inspect Sample, Upload Data, Divert Power, Fix Wiring, Align Engine Output]
+[MedBay, Cafeteria, Electrical, Electrical, Lower Engine]
+[0/1, 0/2, 0/2, 0/3, 1/2]
 Ship
 0
