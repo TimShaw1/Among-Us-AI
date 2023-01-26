@@ -1,7 +1,7 @@
-14.4231 -4.69772
+-15.7473 -5.96426
 crewmate
-[Submit Scan, Chart Course, Upload Data, Fix Wiring]
-[MedBay, Navigation, Navigation, Cafeteria]
-[0/1, 0/1, 0/2, 1/3]
+[Fix Wiring, Align Engine Output]
+[Security, Lower Engine]
+[3/3, 2/2]
 Ship
 0

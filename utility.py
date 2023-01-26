@@ -5,6 +5,7 @@ import time
 import pickle
 import networkx as nx
 from datetime import datetime
+import win32gui
 
 SHIP_TASK_TYPES = {}
 
@@ -229,8 +230,6 @@ def update_move_list(move_list, old_tasks):
     progress = tasks[2][tasks[0].index(task)].split("/")
     progress = [int(i) for i in progress]
 
-    print(progress)
-
     # If task is incomplete, 
     if progress[0] != progress[1]:
 
@@ -246,7 +245,14 @@ def update_move_list(move_list, old_tasks):
         return tasks[1][0]
     return None
     
-
+def focus():
+    window_title="Among Us"
+    hwnd = win32gui.FindWindow(None, window_title)
+    if hwnd:
+        win32gui.SetForegroundWindow(hwnd)
+        time.sleep(1/60)
+    else:
+        print("Window not found")
 
 def move(dest_list):
     global gamepad
@@ -259,7 +265,6 @@ def move(dest_list):
     old_pos = pos
     old_time = datetime.now().second
 
-    print()
     while len(dest_list) > 0:
         #print('\r', end='')
         #print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')

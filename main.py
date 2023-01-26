@@ -59,8 +59,6 @@ def move_test(graph, move_list, tasks):
         move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
         solve_task(task_name=get_nearest_task())
 
-        time.sleep(1)
-
         nearest = move_to_nearest_node(graph)
 
         # Add next task step to move list, if any
@@ -74,13 +72,12 @@ def move_test(graph, move_list, tasks):
         for i in range(len(tasks)):
             tasks[i].pop(0)
         move_list.pop(0)
-        time.sleep(1)
         
 
 
 
 if __name__ == "__main__":
-    time.sleep(2)
+    focus()
     graph = get_graph_list("SHIP")
     tasks = get_task_list()
     move_list = get_move_list(tasks)

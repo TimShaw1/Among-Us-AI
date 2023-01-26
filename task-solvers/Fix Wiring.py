@@ -23,16 +23,12 @@ time.sleep(0.8)
 screenshot = get_screenshot(dimensions)
 
 wire_colors = ["red", "blue", "yellow", "pink"]
-wire_positions = []
 
 for color in wire_colors:
     confidence = 0.7
     if color == "yellow":
         confidence = 0.6
     left = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Fix Wiring\\{color}Wire.png", confidence=confidence, region=left_dimensions)
+    pyautogui.moveTo(left[0] + round(dimensions[2] / 32), left[1])
     right = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Fix Wiring\\{color}Wire.png", confidence=confidence, region=right_dimensions)
-    wire_positions.append([left, right])
-
-for line in wire_positions:
-    pyautogui.moveTo(line[0][0] + round(dimensions[2] / 32), line[0][1])
-    pyautogui.dragTo(line[1][0] - round(dimensions[2] / 19.2), line[1][1], duration=0.2, tween=pyautogui.easeOutQuad)
+    pyautogui.dragTo(right[0] - round(dimensions[2] / 19.2), right[1], duration=0.2, tween=pyautogui.easeOutQuad)
