@@ -5,7 +5,7 @@ import networkx as nx
 import matplotlib as plt
 from math import dist
 
-graph = get_graph_list("SHIP")
+graph = load_graph_list("SHIP")
 
 data = getGameData()
 while not data['position'][0]:

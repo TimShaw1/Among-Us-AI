@@ -30,7 +30,7 @@ def write_graph_list(list, map_name):
     
     print(f'Wrote to graphs\{map_name}_graph.pkl')
 
-def get_graph_list(map_name):
+def load_graph_list(map_name):
     with open(f'graphs\{map_name}_graph.pkl', 'rb') as f:
         return pickle.load(f)
 

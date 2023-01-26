@@ -51,7 +51,7 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
-def move_test(graph, move_list, tasks):
+def move_and_complete_tasks(graph, move_list, tasks):
     G = generate_graph(graph)
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
@@ -78,10 +78,10 @@ def move_test(graph, move_list, tasks):
 
 if __name__ == "__main__":
     focus()
-    graph = get_graph_list("SHIP")
+    graph = load_graph_list("SHIP")
     tasks = get_task_list()
     move_list = get_move_list(tasks)
-    move_test(graph, move_list, tasks)
+    move_and_complete_tasks(graph, move_list, tasks)
 
 # (-7.95224, 0.5086)
 
