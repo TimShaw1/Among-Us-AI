@@ -1,7 +1,0 @@
--1.92794 2.93107
-crewmate
-[Clear Asteroids, Fix Wiring, Align Engine Output]
-[Weapons, Storage, Upper Engine]
-[0/20, 0/3, 0/2]
-Ship
-0
