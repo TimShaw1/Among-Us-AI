@@ -1,5 +1,3 @@
-import numpy as np
-import cv2
 from task_utility import *
 import time
 import cv2
@@ -11,7 +9,6 @@ dimensions = get_dimensions()
 
 dimensions[0] += round(dimensions[2] / 1.56)
 dimensions[2] = 2
-dimensions[2] = round(dimensions[2])
 
 yellow_offset = round(dimensions[3] / 4.8)
 blue_offset = round(dimensions[3] / 2.16)
@@ -43,6 +40,7 @@ while not is_task_done(task="Calibrate Distributor"):
 
     # Blue Check
     if done[1] == False:
+        # Why did I write this like this lmao
         if s_b[0] < 105 and s_b[0] > 80 and s_b[1] < 105 and s_b[1] > 80 and s_b[2] > 250:
             pyautogui.click((dimensions[0], dimensions[1] + blue_offset + button_offset))
             done[1] = True
