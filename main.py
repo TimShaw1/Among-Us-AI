@@ -74,7 +74,6 @@ def move_and_complete_tasks(graph, move_list, tasks):
         move_list = sort_shortest_path(G, nearest, move_list, tasks)
 
         # Remove completed task from tasks and move list
-        print(f"removing {tasks[0][index]}")
         for i in range(len(tasks)):
             tasks[i].pop(index) 
         move_list.pop(0)
