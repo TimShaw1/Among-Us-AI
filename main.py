@@ -59,6 +59,9 @@ def move_and_complete_tasks(graph, move_list, tasks):
         move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
         solve_task(task_name=get_nearest_task(tasks[0]))
 
+        if len(move_list) == 0:
+            break
+
         nearest = move_to_nearest_node(graph)
 
         # Add next task step to move list, if any
