@@ -151,6 +151,8 @@ def get_nearest_task(tasks):
     for subdict in dict.keys():
         if subdict not in tasks:
             continue
+        if is_task_done(subdict):
+            continue
         for location in dict[subdict].keys():
             d = dist(dict[subdict][location], pos)
             if d < smallest_dist:
@@ -228,7 +230,8 @@ def get_move_list(tasks):
     move_list = []
     dict = load_dict()
     for i in range(len(tasks[0])):
-        move_list.append(tuple(dict[tasks[0][i]][tasks[1][i]]))
+        if not is_task_done(tasks[0][i]):
+            move_list.append(tuple(dict[tasks[0][i]][tasks[1][i]]))
 
     return move_list
 

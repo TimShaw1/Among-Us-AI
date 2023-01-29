@@ -29,6 +29,10 @@ for color in wire_colors:
     if color == "yellow":
         confidence = 0.6
     left = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Fix Wiring\\{color}Wire.png", confidence=confidence, region=left_dimensions)
+
+    if not left:
+        break
+
     pyautogui.moveTo(left[0] + round(dimensions[2] / 32), left[1])
     right = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Fix Wiring\\{color}Wire.png", confidence=confidence, region=right_dimensions)
     pyautogui.dragTo(right[0] - round(dimensions[2] / 19.2), right[1], duration=0.2, tween=pyautogui.easeOutQuad)

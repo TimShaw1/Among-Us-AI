@@ -1,4 +1,4 @@
--1.05135 2.26848
+-2.59832 2.24009
 crewmate
 [Clean O2 Filter, Clear Asteroids, Fix Wiring, Calibrate Distributor, Chart Course, Align Engine Output]
 [Oxygen, Weapons, Electrical, Electrical, Navigation, Upper Engine]
