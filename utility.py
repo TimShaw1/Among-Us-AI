@@ -116,6 +116,14 @@ def load_dict():
             return HQ_TASK_TYPES
     return
 
+def is_task_done(task):
+    data = getGameData()
+    while not data["task_steps"]:
+        data = getGameData()
+
+    index = data["tasks"].index(task)
+    steps = data["task_steps"][index].split('/')
+    return steps[0] == steps[1]
 
 # Returns the x and y coordinates of a task in a list
 # accepts the game data and the index of the task
@@ -130,7 +138,7 @@ def get_task_position(data, i):
     elif MAP == "HQ":
         return HQ_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
 
-def get_nearest_task():
+def get_nearest_task(tasks):
     data = getGameData()
     while not data["position"][0]:
         data = getGameData()
@@ -139,7 +147,10 @@ def get_nearest_task():
     dict = load_dict()
     smallest_dist = 100
     nearest = ()
+
     for subdict in dict.keys():
+        if subdict not in tasks:
+            continue
         for location in dict[subdict].keys():
             d = dist(dict[subdict][location], pos)
             if d < smallest_dist:
@@ -224,7 +235,7 @@ def get_move_list(tasks):
 def update_move_list(move_list, old_tasks):
     tasks = get_task_list()
     dict = load_dict()
-    task = get_nearest_task()
+    task = get_nearest_task(old_tasks[0])
 
     # Get progress of current task
     progress = tasks[2][tasks[0].index(task)].split("/")
@@ -242,8 +253,6 @@ def update_move_list(move_list, old_tasks):
         # Add next task step to our old tasks
         for i in range(len(old_tasks)):
             old_tasks[i].append(tasks[i][index])
-        return tasks[1][0]
-    return None
     
 def focus():
     window_title="Among Us"

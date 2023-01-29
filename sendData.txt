@@ -1,7 +1,7 @@
-5.89994 -3.44288
+-1.05135 2.26848
 crewmate
-[Fix Wiring, Start Reactor, Upload Data, Chart Course, Clean O2 Filter]
-[Admin, Reactor, Weapons, Navigation, Oxygen]
-[0/3, 0/5, 0/2, 1/1, 6/6]
+[Clean O2 Filter, Clear Asteroids, Fix Wiring, Calibrate Distributor, Chart Course, Align Engine Output]
+[Oxygen, Weapons, Electrical, Electrical, Navigation, Upper Engine]
+[0/6, 0/20, 0/3, 0/1, 0/1, 0/2]
 Ship
 0
