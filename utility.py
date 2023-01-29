@@ -238,10 +238,10 @@ def get_move_list(tasks):
 
     return move_list
 
-def update_move_list(move_list, old_tasks):
+def update_move_list(move_list, old_tasks, tsk):
     tasks = get_task_list()
     dict = load_dict()
-    task = get_nearest_task(old_tasks[0])
+    task = tsk
 
     if len(old_tasks) == 0:
         return
@@ -250,8 +250,13 @@ def update_move_list(move_list, old_tasks):
     progress = tasks[2][tasks[0].index(task)].split("/")
     progress = [int(i) for i in progress]
 
+    if tsk == "Divert Power" and old_tasks[1][tasks[0].index(tsk)] != "Electrical":
+        progress[0] += 1
+
+    print(f"{task} : {progress}")
+
     # If task is incomplete, 
-    if progress[0] != progress[1]:
+    if progress[0] < progress[1]:
 
         # Get correct index of updated task
         index = tasks[0].index(task)
@@ -262,6 +267,8 @@ def update_move_list(move_list, old_tasks):
         # Add next task step to our old tasks
         for i in range(len(old_tasks)):
             old_tasks[i].append(tasks[i][index])
+    
+    return task
     
 def focus():
     window_title="Among Us"
