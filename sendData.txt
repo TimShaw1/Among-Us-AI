@@ -1,7 +1,7 @@
-16.1017 -3.68687
+-5.83057 -8.23442
 crewmate
-[Fix Wiring, Calibrate Distributor, Align Engine Output, Clean O2 Filter, Clear Asteroids, Divert Power]
-[Cafeteria, Electrical, Lower Engine, Oxygen, Weapons, Navigation]
-[3/3, 1/1, 2/2, 6/6, 20/20, 2/2]
+[Swipe Card, Fuel Engines, Upload Data, Divert Power, Calibrate Distributor]
+[Admin, Storage, Electrical, Electrical, Electrical]
+[0/1, 0/2, 0/2, 0/2, 1/1]
 Ship
 0
