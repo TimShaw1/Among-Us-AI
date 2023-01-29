@@ -20,7 +20,6 @@ s_dimensions[3] = round(s_dimensions[3])
 vent_pos = (dimensions[0] + round(dimensions[2] / 3.11), dimensions[1] + round(dimensions[3] / 2))
 
 screenshot = get_screenshot(s_dimensions)
-print(s_dimensions)
 
 while not is_task_done("Clean O2 Filter"):
     screenshot = get_screenshot(s_dimensions)

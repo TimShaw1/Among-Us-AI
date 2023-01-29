@@ -23,5 +23,5 @@ for name in arrow_names:
     if arrow_pos:
         break
 
-pyautogui.moveTo(arrow_pos)
+pyautogui.moveTo(arrow_pos[0] + 5, arrow_pos[1])
 pyautogui.dragTo(arrow_pos[0], y_center, duration=0.3, tween=pyautogui.easeOutQuad)
