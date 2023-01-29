@@ -1,7 +1,7 @@
-18.2411 -4.04429
+15.5786 -4.70771
 crewmate
-[Fix Wiring, Start Reactor, Divert Power, Chart Course]
-[Electrical, Reactor, Electrical, Navigation]
-[0/3, 0/5, 0/2, 0/1]
+[Fix Wiring, Start Reactor, Upload Data, Clean O2 Filter, Chart Course]
+[Admin, Reactor, Weapons, Oxygen, Navigation]
+[0/3, 0/5, 0/2, 0/6, 1/1]
 Ship
 0
