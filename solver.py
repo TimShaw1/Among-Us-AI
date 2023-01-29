@@ -10,6 +10,7 @@ def generate_files():
 def solve_task(task_name=None, task_index=None):
     tasks = get_task_list()[0]
     if task_name is not None:
+        print(task_name)
         return_code = subprocess.call(["python", f"task-solvers\{task_name}.py"])
         return return_code
     if task_index is not None:

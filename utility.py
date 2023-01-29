@@ -153,7 +153,10 @@ def get_nearest_task(tasks):
             continue
         if is_task_done(subdict):
             continue
+        index = data["tasks"].index(subdict)
         for location in dict[subdict].keys():
+            if location != data["task_locations"][index]:
+                continue
             d = dist(dict[subdict][location], pos)
             if d < smallest_dist:
                 smallest_dist = d
@@ -239,6 +242,9 @@ def update_move_list(move_list, old_tasks):
     tasks = get_task_list()
     dict = load_dict()
     task = get_nearest_task(old_tasks[0])
+
+    if len(old_tasks) == 0:
+        return
 
     # Get progress of current task
     progress = tasks[2][tasks[0].index(task)].split("/")

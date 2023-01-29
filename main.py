@@ -56,24 +56,26 @@ def move_and_complete_tasks(graph, move_list, tasks):
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
     while len(move_list) > 0:
+        print(move_list[0])
         move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
+        print(get_nearest_task(tasks[0]))
         solve_task(task_name=get_nearest_task(tasks[0]))
 
         if len(move_list) == 0:
             break
 
-        nearest = move_to_nearest_node(graph)
-
         # Add next task step to move list, if any
         time.sleep(1/60)
         update_move_list(move_list, tasks)
+
+        nearest = move_to_nearest_node(graph)
 
         # Sort move list by distance
         move_list = sort_shortest_path(G, nearest, move_list, tasks)
 
         # Remove completed task from tasks and move list
         for i in range(len(tasks)):
-            tasks[i].pop(0)
+            tasks[i].pop(0)            # maybe tasks is removing the wrong task here?
         move_list.pop(0)
         
 
