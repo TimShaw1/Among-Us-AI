@@ -1,7 +1,7 @@
--5.83057 -8.23442
+-2.33282 2.40054
 crewmate
-[Swipe Card, Fuel Engines, Upload Data, Divert Power, Calibrate Distributor]
-[Admin, Storage, Electrical, Electrical, Electrical]
-[0/1, 0/2, 0/2, 0/2, 1/1]
+[Divert Power, Align Engine Output, Clean O2 Filter, Fix Wiring, Calibrate Distributor]
+[Electrical, Upper Engine, Oxygen, Electrical, Electrical]
+[0/2, 0/2, 0/6, 0/3, 0/1]
 Ship
 0

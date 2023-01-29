@@ -292,7 +292,7 @@ def move(dest_list):
         #print('\r', end='')
         #print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
 
-        if dist(pos, dest_list[0]) < 0.1:
+        if dist(pos, dest_list[0]) < 0.12:
             dest_list.pop(0)
             if (len(dest_list) <= 0):
                 break
