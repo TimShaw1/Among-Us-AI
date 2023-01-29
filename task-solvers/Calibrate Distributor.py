@@ -30,6 +30,9 @@ while not is_task_done(task="Calibrate Distributor"):
     s_b = screenshot.getpixel((0, blue_offset))
     s_c = screenshot.getpixel((0, cyan_offset))
 
+    if s_y[0] < 5:
+        done = [False, False, False]
+
     # Yellow check
     if done[0] == False:
         if s_y[0] > 200 and s_y[1] > 200 and s_y[2] < 5:
