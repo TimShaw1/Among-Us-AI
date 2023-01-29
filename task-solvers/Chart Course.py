@@ -24,9 +24,6 @@ x_points = [round(dimensions[2] / 6.78) + s_dimensions[0],
             round(dimensions[2] / 2.2) + s_dimensions[0]]
 
 ship_x = round(dimensions[2] / 22.33) + s_dimensions[0]
-print(dimensions)
-print(s_dimensions)
-#get_screen_coords()
 
 screenshot = get_screenshot(s_dimensions)
 
@@ -37,7 +34,7 @@ for x in range(ship_x, ship_x+40):
         for y in range(screenshot.height):
             pixel = screenshot.getpixel((x - s_dimensions[0], y))
 
-            if pixel[1] < 120 and pixel[1] > 110 and pixel[0] < 47 and pixel[0] > 41 and pixel[2] < 165 and pixel[2] > 159:
+            if pixel[0] < 47 and pixel[0] > 41 and pixel[1] < 120 and pixel[1] > 110 and pixel[2] < 165 and pixel[2] > 159:
                 pyautogui.moveTo(x, s_dimensions[1] + y)
                 exit = True
                 break
@@ -53,7 +50,7 @@ while not is_task_done("Chart Course"):
     for i in range(len(x_points)):
         for y in range(screenshot.height):
             pixel = screenshot.getpixel((x_points[i] - s_dimensions[0], y))
-            if pixel[1] < 113 and pixel[1] > 108 and pixel[0] < 38 and pixel[0] > 32 and pixel[2] < 163 and pixel[2] > 158:
+            if pixel[0] < 38 and pixel[0] > 32 and pixel[1] < 113 and pixel[1] > 108 and pixel[2] < 163 and pixel[2] > 158:
                 if i == 3:
                     y_offset = 30
                 pyautogui.dragTo(x_points[i] + 15, s_dimensions[1] + y + y_offset, duration=0.2, tween=pyautogui.easeOutQuad)
