@@ -15,7 +15,7 @@ old_pos = (round(data['position'][0], 4), round(data['position'][1], 4))
 
 try:
     while True:
-        if dist(pos, old_pos) > 0.6 and get_smallest_dist(graph, pos) > 0.6:
+        if dist(pos, old_pos) > 0.5 and get_smallest_dist(graph, pos) > 0.1:
             if pos not in graph:
                 graph.append(pos)
                 old_pos = pos
@@ -33,5 +33,5 @@ except KeyboardInterrupt:
 
 #print(graph)
 print(len(graph))
-#write_graph_list(graph, "SHIP")
+write_graph_list(graph, "SHIP")
  

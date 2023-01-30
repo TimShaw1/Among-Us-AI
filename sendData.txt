@@ -1,7 +1,7 @@
-7.56084 0.872372
+-9.76249 -12.7306
 crewmate
-[Align Engine Output, Empty Chute, Empty Garbage, Fuel Engines]
-[Upper Engine, Oxygen, Cafeteria, Storage]
-[0/2, 0/2, 0/2, 0/2]
+[Align Engine Output, Empty Chute, Empty Garbage, Fuel Engines, Clear Asteroids]
+[Lower Engine, Storage, Storage, Lower Engine, Weapons]
+[2/2, 2/2, 2/2, 2/2, 20/20]
 Ship
 0
