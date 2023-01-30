@@ -14,6 +14,7 @@ x = dimensions[0] + round(dimensions[2] / 1.52)
 y = dimensions[1] + round(dimensions[3] / 1.16)
 pyautogui.click((x,y))
 
+# Bruh
 time.sleep(61)
 
 y_offset = dimensions[3]
