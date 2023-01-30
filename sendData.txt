@@ -1,7 +1,7 @@
--5.18102 0.905249
+-16.6039 -1.51221
 crewmate
-[Empty Chute, Empty Garbage, Fuel Engines, Clear Asteroids, Align Engine Output, Calibrate Distributor, Inspect Sample]
-[Storage, Storage, Lower Engine, Weapons, Lower Engine, Electrical, MedBay]
-[2/2, 2/2, 2/2, 20/20, 2/2, 1/1, 1/1]
+[Empty Chute, Empty Garbage, Fuel Engines, Clear Asteroids, Align Engine Output, Calibrate Distributor, Inspect Sample, Prime Shields, Stabilize Steering, Start Reactor]
+[Storage, Storage, Lower Engine, Weapons, Lower Engine, Electrical, MedBay, Shields, Navigation, Reactor]
+[2/2, 2/2, 2/2, 20/20, 2/2, 1/1, 1/1, 1/1, 1/1, 0/5]
 Ship
 0

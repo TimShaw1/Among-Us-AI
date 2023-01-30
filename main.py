@@ -78,9 +78,6 @@ def move_and_complete_tasks(graph, move_list, tasks):
             tasks[i].pop(index) 
         move_list.pop(0)
         
-
-
-
 if __name__ == "__main__":
     focus()
     graph = load_graph_list("SHIP")
