@@ -85,6 +85,4 @@ if __name__ == "__main__":
     move_list = get_move_list(tasks)
     move_and_complete_tasks(graph, move_list, tasks)
 
-# (-7.95224, 0.5086)
-
 
