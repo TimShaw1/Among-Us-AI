@@ -7,6 +7,8 @@ def generate_files():
         with open(f"task-solvers\{task}.py", "w") as f:
             f.close()
 
+# TODO: Rework to use subprocess.Popen and check if in meeting 
+# - use proccess.poll to check if its still running
 def solve_task(task_name=None, task_index=None):
     tasks = get_task_list()[0]
     if task_name is not None:
