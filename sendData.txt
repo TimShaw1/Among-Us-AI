@@ -1,7 +1,7 @@
-0.713998 -16.8861
+-3.04467 2.08236
 crewmate
-[Swipe Card, Divert Power, Chart Course, Empty Chute, Empty Garbage]
-[Admin, Electrical, Navigation, Storage, Storage]
-[0/1, 0/2, 0/1, 2/2, 2/2]
+[Swipe Card, Divert Power, Chart Course, Empty Garbage, Fuel Engines, Empty Chute, Empty Garbage]
+[Admin, Electrical, Navigation, Storage, Storage, Oxygen, Cafeteria]
+[0/1, 0/2, 0/1, 2/2, 0/2, 0/2, 0/2]
 Ship
 0
