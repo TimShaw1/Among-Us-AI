@@ -52,8 +52,10 @@ def getGameData():
                 map_id = lines[5].rstrip()
             if len(lines) > 6:
                 dead = bool(int(lines[6].rstrip()))
+            if len(lines) > 7:
+                inMeeting = bool(int(lines[7].rstrip()))
 
-    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead}
+    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting}
 
 def save_dict_file(dict_to_save, dict_name):
     print(f"saving {dict_name}...")

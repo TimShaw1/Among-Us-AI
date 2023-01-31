@@ -1,7 +1,8 @@
--7.20918 -5.16473
+-0.172768 2.12351
 crewmate
-[Fuel Engines, Align Engine Output, Clear Asteroids, Prime Shields, Submit Scan]
-[Lower Engine, Lower Engine, Weapons, Shields, MedBay]
-[2/2, 2/2, 20/20, 1/1, 1/1]
+[Fix Wiring, Empty Garbage, Divert Power, Upload Data]
+[Admin, Cafeteria, Electrical, Weapons]
+[0/3, 0/2, 0/2, 0/2]
 Ship
+0
 0
