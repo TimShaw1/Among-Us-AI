@@ -13,8 +13,6 @@ dimensions[2] /= 7.4
 dimensions[2] = round(dimensions[2])
 y_center = ((dimensions[1] + round(dimensions[1] / 1.2) + dimensions[3]) / 2)
 
-screenshot = get_screenshot(dimensions)
-
 arrow_pos = None
 arrow_names = ["Arrow", "arrowDown", "arrowUp"]
 
