@@ -16,8 +16,7 @@ def solve_task(task_name=None, task_index=None):
         # Wait for process to finish
         # TODO: kill task on meeting
         while p.poll() is None:
-            print("waiting...\n")
-            time.sleep(0.1)
+            time.sleep(1/60)
 
         return 0
     if task_index is not None:
@@ -25,8 +24,7 @@ def solve_task(task_name=None, task_index=None):
 
         # Wait for process to finish
         while p.poll() is None:
-            print("waiting...\n")
-            time.sleep(0.1)
+            time.sleep(1/60)
 
         return 0
     print("error")
