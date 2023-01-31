@@ -1,7 +1,7 @@
-8.01789 1.53731
+7.52162 -14.6164
 crewmate
-[Fuel Engines, Align Engine Output, Clear Asteroids]
-[Lower Engine, Lower Engine, Weapons]
-[2/2, 2/2, 20/20]
+[Fuel Engines, Align Engine Output, Clear Asteroids, Prime Shields]
+[Lower Engine, Lower Engine, Weapons, Shields]
+[2/2, 2/2, 20/20, 1/1]
 Ship
 0
