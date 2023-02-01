@@ -1,4 +1,4 @@
-from utility import get_task_list, load_dict
+from utility import get_task_list, load_dict, in_meeting
 import subprocess
 import time
 
@@ -16,7 +16,9 @@ def solve_task(task_name=None, task_index=None):
         # Wait for process to finish
         # TODO: kill task on meeting
         while p.poll() is None:
-            time.sleep(1/60)
+            if in_meeting():
+                p.kill()
+                return 1
 
         return 0
     if task_index is not None:
@@ -24,7 +26,9 @@ def solve_task(task_name=None, task_index=None):
 
         # Wait for process to finish
         while p.poll() is None:
-            time.sleep(1/60)
+            if in_meeting():
+                p.kill()
+                return 1
 
         return 0
     print("error")

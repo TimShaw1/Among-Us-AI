@@ -269,6 +269,13 @@ def update_move_list(move_list, old_tasks, tsk):
             old_tasks[i].append(tasks[i][index])
     
     return task
+
+def in_meeting():
+    data = getGameData()
+    while not data["inMeeting"]:
+        data = getGameData()
+
+    return data["inMeeting"]
     
 def focus():
     window_title="Among Us"
