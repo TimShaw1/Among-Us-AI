@@ -249,10 +249,13 @@ def update_move_list(move_list, old_tasks, tsk):
         return
 
     # Get progress of current task
+    print(tasks)
+    print(old_tasks)
+    print()
     progress = tasks[2][tasks[0].index(task)].split("/")
     progress = [int(i) for i in progress]
 
-    if tsk == "Divert Power" and old_tasks[1][tasks[0].index(tsk)] != "Electrical":
+    if tsk == "Divert Power" and old_tasks[1][old_tasks[0].index(tsk)] != "Electrical":
         progress[0] += 1
 
     # If task is incomplete, 
