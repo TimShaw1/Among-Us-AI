@@ -300,6 +300,8 @@ def move(dest_list):
     while len(dest_list) > 0:
         #print('\r', end='')
         #print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
+        if in_meeting():
+            return
 
         if dist(pos, dest_list[0]) < 0.1:
             dest_list.pop(0)

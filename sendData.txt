@@ -1,8 +1,8 @@
-4.43526 -7.82057
+-0.719961 -7.89753
 crewmate
-[Swipe Card, Align Engine Output, Unlock Manifolds, Divert Power]
-[Admin, Upper Engine, Reactor, Electrical]
-[1/1, 0/2, 0/1, 0/2]
+[Fix Wiring, Fuel Engines, Divert Power, Unlock Manifolds]
+[Admin, Storage, Electrical, Reactor]
+[1/3, 0/2, 0/2, 0/1]
 Ship
 0
 0
