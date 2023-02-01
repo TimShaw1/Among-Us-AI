@@ -1,8 +1,8 @@
-1.56426 -7.5003
+14.2042 -5.05597
 crewmate
-[Fix Wiring, Clear Asteroids, Upload Data, Unlock Manifolds]
-[Navigation, Weapons, Admin, Reactor]
-[2/3, 0/20, 2/2, 0/1]
+[Fix Wiring, Divert Power, Upload Data, Clear Asteroids]
+[Navigation, Lower Engine, Admin, Weapons]
+[3/3, 1/2, 2/2, 20/20]
 Ship
 0
 0

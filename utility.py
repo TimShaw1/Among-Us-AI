@@ -163,7 +163,7 @@ def get_nearest_task(tasks):
             if d < smallest_dist:
                 smallest_dist = d
                 nearest = subdict
-    return nearest
+    return (nearest, smallest_dist)
 
 
 def get_angle_radians(point1, point2):
@@ -294,7 +294,7 @@ def move(dest_list):
         #print('\r', end='')
         #print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
 
-        if dist(pos, dest_list[0]) < 0.12:
+        if dist(pos, dest_list[0]) < 0.1:
             dest_list.pop(0)
             if (len(dest_list) <= 0):
                 break
