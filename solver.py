@@ -18,7 +18,7 @@ def solve_task(task_name=None, task_index=None):
             if in_meeting():
                 p.kill()
                 return 1
-            time.sleep(1/60)
+            time.sleep(1/30)
 
         return 0
     if task_index is not None:
@@ -29,7 +29,7 @@ def solve_task(task_name=None, task_index=None):
             if in_meeting():
                 p.kill()
                 return 1
-            time.sleep(1/60)
+            time.sleep(1/30)
 
         return 0
     print("error")

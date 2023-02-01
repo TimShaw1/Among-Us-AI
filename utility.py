@@ -272,9 +272,10 @@ def update_move_list(move_list, old_tasks, tsk):
 
 def in_meeting():
     data = getGameData()
-    while not data["inMeeting"]:
+    while data["inMeeting"] is None:
         data = getGameData()
 
+    print(data["inMeeting"])
     return data["inMeeting"]
     
 def focus():

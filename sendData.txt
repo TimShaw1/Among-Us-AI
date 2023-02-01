@@ -1,8 +1,8 @@
--16.8742 -5.50034
+-0.172768 2.12351
 crewmate
-[Fix Wiring, Inspect Sample, Calibrate Distributor, Divert Power, Vent Cleaning]
-[Security, MedBay, Electrical, Upper Engine, Admin]
-[2/3, 1/1, 1/1, 2/2, 1/1]
+[Swipe Card, Align Engine Output, Unlock Manifolds, Divert Power]
+[Admin, Upper Engine, Reactor, Electrical]
+[0/1, 0/2, 0/1, 0/2]
 Ship
 0
 0
