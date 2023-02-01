@@ -13,11 +13,6 @@ dimensions[1] += round(dimensions[3] / 2.9)
 dimensions[2] = round(dimensions[2] / 2.4)
 dimensions[3] = round(dimensions[3] / 3.1)
 
-pos_list = []
-
 for i in range(1, 11):
     pos = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Unlock Manifolds\\{i}.png", confidence=0.8, region=dimensions, grayscale=True)
-    pos_list.append(pos)
-
-for pos in pos_list:
     pyautogui.click(pos)

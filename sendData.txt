@@ -1,4 +1,4 @@
--22.5824 -2.9263
+-22.3907 -2.8687
 crewmate
 [Empty Garbage, Align Engine Output, Stabilize Steering, Start Reactor, Swipe Card, Unlock Manifolds]
 [Storage, Lower Engine, Navigation, Reactor, Admin, Reactor]
