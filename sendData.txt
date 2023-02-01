@@ -1,8 +1,8 @@
-14.2042 -5.05597
+16.0407 -3.60692
 crewmate
-[Fix Wiring, Divert Power, Upload Data, Clear Asteroids]
-[Navigation, Lower Engine, Admin, Weapons]
-[3/3, 1/2, 2/2, 20/20]
+[Empty Chute, Divert Power]
+[Storage, Navigation]
+[2/2, 2/2]
 Ship
 0
 0

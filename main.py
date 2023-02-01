@@ -58,8 +58,6 @@ def move_and_complete_tasks(graph, move_list, tasks):
     while len(move_list) > 0:
         move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
         tsk = get_nearest_task(tasks[0])
-        if tsk[1] > 1.5:
-            continue
         solve_task(task_name=tsk[0])
 
         if len(move_list) == 0:

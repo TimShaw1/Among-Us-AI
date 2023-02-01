@@ -29,7 +29,7 @@ if data["task_locations"][data["tasks"].index("Divert Power")] == "Electrical":
             pixel = screenshot.getpixel((x,y))
             if pixel[0] > 250 and pixel[1] > 96 and pixel[1] < 100 and pixel[2] < 2:
                 pyautogui.moveTo(x + dimensions[0], y + dimensions[1])
-                pyautogui.dragTo(x + dimensions[0], y + dimensions[1] - round(dimensions[3] / 10.8), duration=0.2, tween=pyautogui.easeOutQuad)
+                pyautogui.dragTo(x + dimensions[0], y + dimensions[1] - round(dimensions[3] / 10.5), duration=0.2, tween=pyautogui.easeOutQuad)
                 exit = True
                 break
     # 255 98 0
