@@ -275,7 +275,6 @@ def in_meeting():
     while data["inMeeting"] is None:
         data = getGameData()
 
-    print(data["inMeeting"])
     return data["inMeeting"]
     
 def focus():
