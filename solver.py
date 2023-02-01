@@ -14,7 +14,6 @@ def solve_task(task_name=None, task_index=None):
         p = subprocess.Popen(["python", f"task-solvers\{task_name}.py"])
 
         # Wait for process to finish
-        # TODO: kill task on meeting
         while p.poll() is None:
             if in_meeting():
                 p.kill()
