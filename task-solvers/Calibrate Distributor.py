@@ -1,6 +1,7 @@
 from task_utility import *
 import time
 import cv2
+import pyautogui
 
 click_use()
 time.sleep(0.8)

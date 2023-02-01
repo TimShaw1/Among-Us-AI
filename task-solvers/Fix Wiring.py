@@ -3,6 +3,7 @@ import cv2
 from task_utility import *
 import time
 import copy
+import pyautogui
 
 dimensions = get_dimensions()
 left_dimensions = copy.deepcopy(dimensions)
