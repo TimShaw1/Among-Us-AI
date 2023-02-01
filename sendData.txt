@@ -1,8 +1,8 @@
--2.67497 2.19377
+16.9913 -6.01789
 crewmate
-[Swipe Card, Empty Garbage, Divert Power, Upload Data, Stabilize Steering]
-[Admin, Cafeteria, Electrical, Navigation, Navigation]
-[0/1, 0/2, 0/2, 0/2, 1/1]
+[Empty Garbage, Align Engine Output, Stabilize Steering]
+[Cafeteria, Upper Engine, Navigation]
+[0/2, 0/2, 0/1]
 Ship
 0
 0

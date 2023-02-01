@@ -35,7 +35,7 @@ def load_graph_list(map_name):
         return pickle.load(f)
 
 def getGameData():
-    x,y,status,tasks, task_locations, task_steps, map_id, dead = None, None, None, None, None, None, None, None
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting = None, None, None, None, None, None, None, None, None
     with open(SEND_DATA_PATH) as file:
         lines = file.readlines()
         if len(lines) > 0:
