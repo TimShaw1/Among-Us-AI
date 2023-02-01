@@ -1,8 +1,8 @@
--22.3907 -2.8687
+1.56426 -7.5003
 crewmate
-[Empty Garbage, Align Engine Output, Stabilize Steering, Start Reactor, Swipe Card, Unlock Manifolds]
-[Storage, Lower Engine, Navigation, Reactor, Admin, Reactor]
-[2/2, 2/2, 1/1, 5/5, 1/1, 1/1]
+[Fix Wiring, Clear Asteroids, Upload Data, Unlock Manifolds]
+[Navigation, Weapons, Admin, Reactor]
+[2/3, 0/20, 2/2, 0/1]
 Ship
 0
 0
