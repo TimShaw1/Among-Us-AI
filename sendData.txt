@@ -1,8 +1,8 @@
--7.53999 0.60602
+2.6383 -10.089
 crewmate
-[Fix Wiring, Inspect Sample, Calibrate Distributor, Divert Power]
-[Security, MedBay, Electrical, Upper Engine]
-[2/3, 1/1, 1/1, 2/2]
+[Fix Wiring, Inspect Sample, Calibrate Distributor, Divert Power, Vent Cleaning]
+[Security, MedBay, Electrical, Upper Engine, Admin]
+[2/3, 1/1, 1/1, 2/2, 1/1]
 Ship
 0
 0
