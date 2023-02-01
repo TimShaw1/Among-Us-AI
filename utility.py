@@ -249,9 +249,6 @@ def update_move_list(move_list, old_tasks, tsk):
         return
 
     # Get progress of current task
-    print(tasks)
-    print(old_tasks)
-    print()
     progress = tasks[2][tasks[0].index(task)].split("/")
     progress = [int(i) for i in progress]
 
