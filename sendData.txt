@@ -1,8 +1,8 @@
--21.3243 -5.64878
+-21.3507 -5.9768
 crewmate
-[Empty Garbage, Align Engine Output, Stabilize Steering, Start Reactor]
-[Storage, Lower Engine, Navigation, Reactor]
-[2/2, 2/2, 1/1, 5/5]
+[Empty Garbage, Align Engine Output, Stabilize Steering, Start Reactor, Swipe Card]
+[Storage, Lower Engine, Navigation, Reactor, Admin]
+[2/2, 2/2, 1/1, 5/5, 1/1]
 Ship
 0
 0
