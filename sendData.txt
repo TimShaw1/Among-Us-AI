@@ -1,8 +1,8 @@
--0.172768 2.12351
+-2.67497 2.19377
 crewmate
-[Fix Wiring, Empty Garbage, Divert Power, Upload Data]
-[Admin, Cafeteria, Electrical, Weapons]
-[0/3, 0/2, 0/2, 0/2]
+[Swipe Card, Empty Garbage, Divert Power, Upload Data, Stabilize Steering]
+[Admin, Cafeteria, Electrical, Navigation, Navigation]
+[0/1, 0/2, 0/2, 0/2, 1/1]
 Ship
 0
 0
