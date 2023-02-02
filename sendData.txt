@@ -1,8 +1,8 @@
--0.719961 -7.89753
+9.52766 -0.820982
 crewmate
-[Fix Wiring, Fuel Engines, Divert Power, Unlock Manifolds]
-[Admin, Storage, Electrical, Reactor]
-[1/3, 0/2, 0/2, 0/1]
+[Submit Scan, Fix Wiring, Empty Garbage, Divert Power, Stabilize Steering]
+[Hallway, Security, Storage, Navigation, Navigation]
+[2/3, 2/2, 2/2, 1/1]
 Ship
-0
+1
 0
