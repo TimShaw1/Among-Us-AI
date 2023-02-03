@@ -1,4 +1,4 @@
--1.41421 2.06155
+-0.719961 -7.89753
 crewmate
 [Fix Wiring, Swipe Card, Inspect Sample, Divert Power, Upload Data]
 [Storage, Admin, MedBay, Electrical, Electrical]

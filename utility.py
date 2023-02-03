@@ -324,10 +324,10 @@ def move(dest_list):
                 g_points = points_to_gamepad(pos, dest_list[0])
                 gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
                 gamepad.update()
-                time.sleep(0.7)
+                time.sleep(0.5)
                 gamepad.left_joystick_float(x_value_float=0, y_value_float=g_points[1])
                 gamepad.update()
-                time.sleep(0.7)
+                time.sleep(0.5)
 
         data = getGameData()
         while not data["position"][0]:
