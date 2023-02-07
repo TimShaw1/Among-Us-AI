@@ -123,11 +123,11 @@ def is_task_done(task):
     while not data["task_steps"]:
         data = getGameData()
 
-    index = data["tasks"].index(task)
     try:
+        index = data["tasks"].index(task)
         steps = data["task_steps"][index].split('/')
         return steps[0] == steps[1]
-    except IndexError:
+    except IndexError, ValueError:
         return True
 
 # Returns the x and y coordinates of a task in a list
