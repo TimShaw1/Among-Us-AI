@@ -42,6 +42,7 @@ def load_graph_list(map_name):
 # reads sendData.txt and parses data.
 # Returns a dict containing all the data
 def getGameData():
+    global impostor
     x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting = None, None, None, None, None, None, None, None, None
     with open(SEND_DATA_PATH) as file:
         lines = file.readlines()
@@ -282,6 +283,10 @@ def get_move_list(tasks):
 
 # Updates the move list
 def update_move_list(move_list, old_tasks, tsk):
+
+    if isImpostor():
+        return
+
     tasks = get_task_list()
     dict = load_dict()
     task = tsk

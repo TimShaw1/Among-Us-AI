@@ -1,4 +1,4 @@
-from utility import get_task_list, load_dict, in_meeting
+from utility import get_task_list, load_dict, in_meeting, isImpostor
 import subprocess
 import time
 
@@ -9,6 +9,9 @@ def generate_files():
             f.close()
 
 def solve_task(task_name=None, task_index=None):
+    if isImpostor():
+        time.sleep(5) # Fake doing stuff
+        return 0
     tasks = get_task_list()[0]
     if task_name is not None:
         p = subprocess.Popen(["python", f"task-solvers\{task_name}.py"])
