@@ -10,13 +10,13 @@ def printConstantGameData():
         load_dict()
         while True:
             data = getGameData()
-            if not data:
+            if data["position"] is None:
                 continue
             for key in data.keys():
                 print(data[key])
-            for i in range(len(data["tasks"])):
-                print(f"{data['tasks'][i]}: ", end='')
-                print(get_task_position(data, i))
+            #for i in range(len(data["tasks"])):
+                #print(f"{data['tasks'][i]}: ", end='')
+                #print(get_task_position(data, i))
             print()
             time.sleep(2)
 
@@ -89,6 +89,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
         
 if __name__ == "__main__":
     focus()
+    printConstantGameData()
     graph = load_graph_list("SHIP")
     tasks = get_task_list()
     move_list = get_move_list(tasks)

@@ -59,6 +59,10 @@ def getGameData():
             if len(lines) > 7:
                 inMeeting = bool(int(lines[7].rstrip()))
 
+    if status == "impostor":
+        if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
+            tasks.pop(0)
+            task_locations.pop(0)
     return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting}
 
 # Saves the given coordinate dictionary dict_to_save to a json file named dict_name
