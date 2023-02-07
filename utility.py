@@ -149,20 +149,20 @@ def get_nearest_task(tasks):
         data = getGameData()
     pos = data["position"]
 
-    dict = load_dict()
+    dict1 = load_dict()
     smallest_dist = 100
     nearest = ()
 
-    for subdict in dict.keys():
+    for subdict in dict1.keys():
         if subdict not in tasks:
             continue
         if is_task_done(subdict):
             continue
         index = data["tasks"].index(subdict)
-        for location in dict[subdict].keys():
+        for location in dict1[subdict].keys():
             if location != data["task_locations"][index]:
                 continue
-            d = dist(dict[subdict][location], pos)
+            d = dist(dict1[subdict][location], pos)
             if d < smallest_dist:
                 smallest_dist = d
                 nearest = subdict
