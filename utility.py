@@ -24,6 +24,9 @@ MAP = "SHIP"
 global gamepad
 gamepad = vg.VX360Gamepad()
 
+global impostor 
+impostor = False
+
 # save the current map's graph
 def write_graph_list(list, map_name):
     with open(f'graphs\{map_name}_graph.pkl', 'wb') as f:
@@ -46,6 +49,7 @@ def getGameData():
             x = float(lines[0].split()[0])
             y = float(lines[0].split()[1])
             status = lines[1].strip()
+            impostor = status
             if len(lines) > 2:
                 tasks = lines[2].rstrip().strip('][').split(", ")
             if len(lines) > 3:
@@ -314,6 +318,9 @@ def in_meeting():
         data = getGameData()
 
     return data["inMeeting"]
+
+def isImpostor():
+    return impostor
     
 # focuses the among us window
 def focus():
