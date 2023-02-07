@@ -139,7 +139,7 @@ def is_task_done(task):
         index = data["tasks"].index(task)
         steps = data["task_steps"][index].split('/')
         return steps[0] == steps[1]
-    except IndexError, ValueError:
+    except (IndexError, ValueError):
         return True
 
 # Returns the x and y coordinates of a task in a list
@@ -248,10 +248,13 @@ def generate_graph(graph):
 
     return G
 
+# Sorts the move list in ascending order in terms of 
+# distance from the player to the destination
 def sort_shortest_path(G, nearest, move_list, tasks):
     move_list.sort(key = lambda x:nx.shortest_path_length(G, nearest, x, weight="weight"))
     return move_list
 
+# Gets task list from game data
 def get_task_list():
     data = getGameData()
     while not data["task_steps"]:
@@ -259,6 +262,7 @@ def get_task_list():
 
     return [data["tasks"], data["task_locations"], data["task_steps"]]
 
+# Generates a list of destination coordinates
 def get_move_list(tasks):
     move_list = []
     dict = load_dict()
@@ -268,6 +272,7 @@ def get_move_list(tasks):
 
     return move_list
 
+# Updates the move list
 def update_move_list(move_list, old_tasks, tsk):
     tasks = get_task_list()
     dict = load_dict()
@@ -298,6 +303,7 @@ def update_move_list(move_list, old_tasks, tsk):
     
     return task
 
+# Checks if we are in a meeting
 def in_meeting():
     data = getGameData()
     while data["inMeeting"] is None:
@@ -305,6 +311,7 @@ def in_meeting():
 
     return data["inMeeting"]
     
+# focuses the among us window
 def focus():
     window_title="Among Us"
     hwnd = win32gui.FindWindow(None, window_title)
@@ -314,6 +321,7 @@ def focus():
     else:
         print("Window not found")
 
+# handles player movement
 def move(dest_list):
     global gamepad
 
@@ -326,8 +334,6 @@ def move(dest_list):
     old_time = datetime.now().second
 
     while len(dest_list) > 0:
-        #print('\r', end='')
-        #print(f"Distance to destination: {round(dist(pos, dest_list[0]), 4)}", end='')
         if in_meeting():
             return
 
