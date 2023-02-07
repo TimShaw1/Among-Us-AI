@@ -24,16 +24,20 @@ MAP = "SHIP"
 global gamepad
 gamepad = vg.VX360Gamepad()
 
+# save the current map's graph
 def write_graph_list(list, map_name):
     with open(f'graphs\{map_name}_graph.pkl', 'wb') as f:
         pickle.dump(list, f)
     
     print(f'Wrote to graphs\{map_name}_graph.pkl')
 
+# load the given map's graph 
 def load_graph_list(map_name):
     with open(f'graphs\{map_name}_graph.pkl', 'rb') as f:
         return pickle.load(f)
 
+# reads sendData.txt and parses data.
+# Returns a dict containing all the data
 def getGameData():
     x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting = None, None, None, None, None, None, None, None, None
     with open(SEND_DATA_PATH) as file:
@@ -57,11 +61,13 @@ def getGameData():
 
     return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting}
 
+# Saves the given coordinate dictionary dict_to_save to a json file named dict_name
 def save_dict_file(dict_to_save, dict_name):
     print(f"saving {dict_name}...")
     with open(f'tasks-json\{dict_name}.json', 'w') as f:
         json.dump(dict_to_save, f)
 
+# Saves the current coordinate dictionary using save_dict_file
 def save_current():
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
@@ -73,6 +79,7 @@ def save_current():
     elif MAP == "HQ":
         save_dict_file(HQ_TASK_TYPES, "HQ_TASK_TYPES")
 
+# Updates the dictionary of graph coordinates for the given map (specified in dict_name)
 def update_tasks(dict_to_use, dict_name, data, i):
     if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
@@ -84,6 +91,7 @@ def update_tasks(dict_to_use, dict_name, data, i):
     else:
         print("already have it")
 
+# Helper function to call update_tasks
 def update_current(data, i):
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if data["map_id"] and data["map_id"].upper() != MAP:
@@ -98,6 +106,8 @@ def update_current(data, i):
         update_tasks(HQ_TASK_TYPES, "HQ_TASK_TYPES", data, i)
     return
 
+# Loads the current map's coordinate dictionary and 
+# returns a dict object containing the task coordinate data.
 def load_dict():
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
@@ -118,6 +128,8 @@ def load_dict():
             return HQ_TASK_TYPES
     return
 
+# Determines if a task is complete and returns True/False.
+# If task is not found, returns True
 def is_task_done(task):
     data = getGameData()
     while not data["task_steps"]:
@@ -143,6 +155,7 @@ def get_task_position(data, i):
     elif MAP == "HQ":
         return HQ_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
 
+# Returns a tuple with (nearest task, dist to task) as parameters
 def get_nearest_task(tasks):
     data = getGameData()
     while not data["position"][0]:
@@ -153,22 +166,31 @@ def get_nearest_task(tasks):
     smallest_dist = 100
     nearest = ()
 
+    # Loop through task names
     for subdict in dict1.keys():
+
+        # Check for irrelevant data
         if subdict not in tasks:
             continue
         if is_task_done(subdict):
             continue
         index = data["tasks"].index(subdict)
+
+        # Loop through coordinates in dict at current location
         for location in dict1[subdict].keys():
+            
+            # Check for correct task but wrong location
             if location != data["task_locations"][index]:
                 continue
+
+            # Calculate distance and determine if it is the smallest
             d = dist(dict1[subdict][location], pos)
             if d < smallest_dist:
                 smallest_dist = d
                 nearest = subdict
     return (nearest, smallest_dist)
 
-
+# converts 2 points to an angle in radians
 def get_angle_radians(point1, point2):
     # atan2(y,x)
     return atan2(point2[1] - point1[1], point2[0] - point1[0])
@@ -178,6 +200,7 @@ def points_to_gamepad(point1, point2):
     angle = get_angle_radians(point1, point2)
     return (round(cos(angle), 5), round(sin(angle), 5))
 
+# returns the smallest dist from pos to the nearest node on the graph
 def get_smallest_dist(graph, pos):
     smallest_dist = 100
     for item in graph:
@@ -186,6 +209,7 @@ def get_smallest_dist(graph, pos):
             smallest_dist = distance
     return smallest_dist
 
+# moves the player to the nearest node on the graph
 def move_to_nearest_node(graph):
     data = getGameData()
     while not data["position"][0]:
@@ -202,6 +226,7 @@ def move_to_nearest_node(graph):
     move([nearest])
     return nearest
 
+# Creates a graph and adds nodes and edges between (if distance is great enough)
 def generate_graph(graph):
 
     dict = load_dict()
