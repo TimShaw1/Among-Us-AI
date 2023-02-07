@@ -10,7 +10,7 @@ def printConstantGameData():
         load_dict()
         while True:
             data = getGameData()
-            if data["position"] is None:
+            if data["inMeeting"] is None:
                 continue
             for key in data.keys():
                 print(data[key])
@@ -89,7 +89,6 @@ def move_and_complete_tasks(graph, move_list, tasks):
         
 if __name__ == "__main__":
     focus()
-    printConstantGameData()
     graph = load_graph_list("SHIP")
     tasks = get_task_list()
     move_list = get_move_list(tasks)
