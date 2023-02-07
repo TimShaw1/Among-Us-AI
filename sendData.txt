@@ -1,4 +1,4 @@
-2.03061 -7.29792
+0.393042 -7.49043
 impostor
 [Submit Scan, Fix Wiring, Start Reactor, Upload Data, Stabilize Steering]
 [Hallway, Electrical, Reactor, Navigation, Navigation]

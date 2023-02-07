@@ -59,7 +59,7 @@ def getGameData():
             if len(lines) > 7:
                 inMeeting = bool(int(lines[7].rstrip()))
 
-    if status == "impostor":
+    if status == "impostor" and tasks is not None and task_locations is not None:
         if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
             tasks.pop(0)
             task_locations.pop(0)
