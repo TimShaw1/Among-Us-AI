@@ -325,7 +325,7 @@ def in_meeting():
     return data["inMeeting"]
 
 def isImpostor():
-    return impostor
+    return impostor == "impostor"
     
 # focuses the among us window
 def focus():
