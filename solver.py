@@ -10,7 +10,17 @@ def generate_files():
 
 def solve_task(task_name=None, task_index=None):
     if isImpostor():
-        time.sleep(5) # Fake doing stuff
+        time.sleep(1.5)
+        p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
+
+        # Wait for process to finish
+        while p.poll() is None:
+            if in_meeting():
+                p.kill()
+                return 1
+            time.sleep(1/30)
+
+        time.sleep(3) # Fake doing stuff
         return 0
     tasks = get_task_list()[0]
     if task_name is not None:

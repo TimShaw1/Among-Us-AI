@@ -6,6 +6,7 @@ import pickle
 import networkx as nx
 from datetime import datetime
 import win32gui
+import pyautogui
 
 SHIP_TASK_TYPES = {}
 
@@ -329,6 +330,11 @@ def in_meeting():
 
 def isImpostor():
     return impostor == "impostor"
+
+def check_report():
+    #220 37 0
+    while True:
+        print(pyautogui.position())
     
 # focuses the among us window
 def focus():

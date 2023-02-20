@@ -1,8 +1,8 @@
-1.98641 -7.5476
-crewmate
-[Fix Wiring, Align Engine Output, Divert Power, Upload Data, Restore Oxygen]
-[Cafeteria, Lower Engine, Weapons, Admin, Oxygen]
-[3/3, 2/2, 2/2, 2/2]
+17.2216 -4.88884
+impostor
+[Submit Scan, Swipe Card, Fuel Engines, Upload Data, Stabilize Steering, Reset Reactor]
+[Hallway, Admin, Storage, Electrical, Navigation, Reactor]
+[0/1, 0/2, 0/2, 0/1]
 Ship
 0
 0
