@@ -84,7 +84,10 @@ def move_and_complete_tasks(graph, move_list, tasks):
 
         # Remove completed task from tasks and move list
         for i in range(len(tasks)):
-            tasks[i].pop(index) 
+            try:
+                tasks[i].pop(index) 
+            except IndexError:
+                continue
         move_list.pop(0)
         
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
--6.10109 -8.26802
+1.98641 -7.5476
 crewmate
-[Fix Wiring, Start Reactor, Unlock Manifolds, Calibrate Distributor]
-[Security, Reactor, Reactor, Electrical]
-[3/3, 5/5, 1/1, 1/1]
+[Fix Wiring, Align Engine Output, Divert Power, Upload Data, Restore Oxygen]
+[Cafeteria, Lower Engine, Weapons, Admin, Oxygen]
+[3/3, 2/2, 2/2, 2/2]
 Ship
 0
 0

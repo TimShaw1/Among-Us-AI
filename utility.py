@@ -277,7 +277,10 @@ def get_move_list(tasks):
     dict = load_dict()
     for i in range(len(tasks[0])):
         if not is_task_done(tasks[0][i]):
-            move_list.append(tuple(dict[tasks[0][i]][tasks[1][i]]))
+            try:
+                move_list.append(tuple(dict[tasks[0][i]][tasks[1][i]]))
+            except KeyError:
+                continue
 
     return move_list
 
