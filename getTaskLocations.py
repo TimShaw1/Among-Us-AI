@@ -29,7 +29,6 @@ old_data = copy.deepcopy(data)
 
 load_dict()
 
-# Note - sabotages with 2 steps require the LOWER step to be moved to within the solver
 try:
     while True:
         data = getGameData()
