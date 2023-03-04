@@ -3,12 +3,9 @@ import time
 import copy
 from utility import *
 
-global sabotage
-sabotage = False
-
 # Check for changes in a list
 def check_changes(new_data, old_data):
-    if new_data['tasks'] and old_data['tasks']:
+    if new_data['tasks'] and old_data['tasks'] and data["status"]:
         if len(new_data['tasks']) > len(old_data['tasks']):
             return len(data['tasks']) - 1
     if new_data['task_steps'] and old_data['task_steps']:
