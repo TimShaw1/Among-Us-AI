@@ -1,8 +1,8 @@
-6.74736 -3.43035
+6.43475 -3.40475
 impostor
-[Submit Scan, Swipe Card, Empty Chute, Divert Power, Clean O2 Filter, Restore Oxygen]
-[Hallway, Admin, Oxygen, Electrical, Oxygen, Oxygen]
-[0/1, 0/2, 0/2, 0/6]
+[Submit Scan, Fix Wiring, Empty Garbage, Divert Power, Prime Shields, Restore Oxygen]
+[Hallway, Storage, Cafeteria, Electrical, Shields, Oxygen]
+[0/3, 0/2, 0/2, 0/1]
 Ship
 0
 0
