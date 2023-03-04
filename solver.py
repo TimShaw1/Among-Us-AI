@@ -8,6 +8,8 @@ def generate_files():
         with open(f"task-solvers\{task}.py", "w") as f:
             f.close()
 
+# Runs the correct task solver file in a subprocess
+# Note - the AI only goes to the upper location of sabotages
 def solve_task(task_name=None, task_index=None):
     if isImpostor():
         time.sleep(1.5)
