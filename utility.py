@@ -16,7 +16,7 @@ PB_TASK_TYPES = {}
 
 HQ_TASK_TYPES = {}
 
-UNUSED_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Oxygen", "Reset Seismic Stabilizers", "Get Biggol Sword", "Stop Charles"]
+UNUSED_TASKS = ["Reset Seismic Stabilizers", "Get Biggol Sword", "Stop Charles"]
 
 SEND_DATA_PATH = "sendData.txt"
 
@@ -93,6 +93,10 @@ def save_current():
 def update_tasks(dict_to_use, dict_name, data, i):
     if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
+    
+    if data["tasks"][i] not in dict_to_use:
+        dict_to_use[data["tasks"][i]] = {}
+
     if data["task_locations"][i] not in dict_to_use[data["tasks"][i]].keys():
         dict_to_use[data["tasks"][i]][data["task_locations"][i]] = data["position"]
         print(f"task: {data['tasks'][i]} location:{[data['task_locations'][i]]} position: {data['position']}")

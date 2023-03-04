@@ -1,8 +1,8 @@
-17.2216 -4.88884
+6.74736 -3.43035
 impostor
-[Submit Scan, Swipe Card, Fuel Engines, Upload Data, Stabilize Steering, Reset Reactor]
-[Hallway, Admin, Storage, Electrical, Navigation, Reactor]
-[0/1, 0/2, 0/2, 0/1]
+[Submit Scan, Swipe Card, Empty Chute, Divert Power, Clean O2 Filter, Restore Oxygen]
+[Hallway, Admin, Oxygen, Electrical, Oxygen, Oxygen]
+[0/1, 0/2, 0/2, 0/6]
 Ship
 0
 0
