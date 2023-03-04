@@ -3,8 +3,14 @@ import time
 import copy
 from utility import *
 
+global sabotage
+sabotage = False
+
 # Check for changes in a list
 def check_changes(new_data, old_data):
+    if new_data['tasks'] and old_data['tasks']:
+        if len(new_data['tasks']) > len(old_data['tasks']):
+            return len(data['tasks']) - 1
     if new_data['task_steps'] and old_data['task_steps']:
         if len(new_data['task_steps']) != len(old_data['task_steps']):
             return -2
@@ -23,6 +29,7 @@ old_data = copy.deepcopy(data)
 
 load_dict()
 
+# Note - sabotages with 2 steps require the LOWER step to be moved to within the solver
 try:
     while True:
         data = getGameData()
@@ -41,7 +48,7 @@ try:
         # Check for updated task steps -- fuel engines is broken
         if (change_index >= 0 and not data["dead"]):
             old_data["position"] = data["position"]
-            update_current(old_data, change_index)
+            update_current(data, change_index)
             old_data = copy.deepcopy(data)
             print()
 
