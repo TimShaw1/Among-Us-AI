@@ -21,9 +21,10 @@ s_dimensions[3] = round(s_dimensions[3] / 4.39)
 
 screenshot = get_screenshot(s_dimensions)
 
+# rotate image so digit detection works
 s2 = screenshot.rotate(335, Image.NEAREST, expand = 1).convert('L')
 
-#might need to rotate
+# get text from image
 text = pytesseract.image_to_string(s2)
 nums = re.findall(r'\b\d+\b', text)[0]
 
