@@ -21,7 +21,7 @@ SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore 
 
 with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
-    SEND_DATA_PATH = line
+    SEND_DATA_PATH = line + "\\sendData.txt"
 
 MAP = "SHIP"
 
