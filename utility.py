@@ -45,7 +45,7 @@ def load_graph_list(map_name):
 # Returns a dict containing all the data
 def getGameData():
     global impostor
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting = None, None, None, None, None, None, None, None, None
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed = None, None, None, None, None, None, None, None, None, None
     with open(SEND_DATA_PATH) as file:
         lines = file.readlines()
         if len(lines) > 0:
@@ -65,12 +65,14 @@ def getGameData():
                 dead = bool(int(lines[6].rstrip()))
             if len(lines) > 7:
                 inMeeting = bool(int(lines[7].rstrip()))
+            if len(lines) > 8:
+                speed = float(lines[8].rstrip())
 
     if status == "impostor" and tasks is not None and task_locations is not None:
         if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
             tasks.pop(0)
             task_locations.pop(0)
-    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting}
+    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, "speed" : speed}
 
 # Saves the given coordinate dictionary dict_to_save to a json file named dict_name
 def save_dict_file(dict_to_save, dict_name):
@@ -396,7 +398,10 @@ def move(dest_list):
         if in_meeting():
             return
 
-        if dist(pos, dest_list[0]) < 0.1:
+        increment = 0.1
+        if data['speed'] is not None:
+            increment *= data['speed'] * 2
+        if dist(pos, dest_list[0]) < increment:
             dest_list.pop(0)
             if (len(dest_list) <= 0):
                 break
@@ -405,6 +410,7 @@ def move(dest_list):
             gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
             gamepad.update()
 
+        # Check if stuck
         if round(pos[0] - old_pos[0], 4) != 0 or round(pos[1] - old_pos[1], 4) != 0:
             old_time = datetime.now().second
             old_pos = pos
