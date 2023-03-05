@@ -1,8 +1,8 @@
--19.8221 -5.80194
-impostor
-[Submit Scan, Swipe Card, Empty Chute, Divert Power, Stabilize Steering, Reset Reactor]
-[Hallway, Admin, Oxygen, Electrical, Navigation, Reactor]
-[0/1, 0/2, 0/2, 0/1]
+-17.0779 -9.23472
+crewmate
+[Fix Wiring, Empty Garbage, Clean O2 Filter, Upload Data, Reset Reactor]
+[Electrical, Cafeteria, Oxygen, Electrical, Reactor]
+[0/3, 0/2, 0/6, 0/2]
 Ship
 0
 0

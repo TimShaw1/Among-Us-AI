@@ -166,9 +166,9 @@ def is_urgent_task() -> str:
     while not data["tasks"]:
         data = getGameData()
 
-    urgent_tasks = ["Reset Reactor", "Restore Oxygen"]
+    urgent_tasks = [("Reset Reactor", "Reactor"), ("Restore Oxygen", "Oxygen")]
     for task in urgent_tasks:
-        if task in data['tasks']:
+        if task[0] in data['tasks']:
             return task
     return None
 
@@ -282,6 +282,12 @@ def generate_graph(graph):
 # distance from the player to the destination
 def sort_shortest_path(G, nearest, move_list, tasks):
     move_list.sort(key = lambda x:nx.shortest_path_length(G, nearest, x, weight="weight"))
+    urgent = is_urgent_task()
+    if urgent is not None:
+        dict = load_dict()
+        item = tuple(dict[urgent[0]][urgent[1]])
+        move_list.remove(item)
+        move_list.insert(0, item)
     return move_list
 
 # Gets task list from game data
@@ -314,9 +320,14 @@ def update_move_list(move_list, old_tasks, tsk):
     tasks = get_task_list()
     dict = load_dict()
     task = tsk
+    urgent_tasks = ["Reset Reactor", "Restore Oxygen"]
 
     if len(old_tasks) == 0:
         return
+    
+    for task1 in urgent_tasks:
+        if task1 in tasks[0]:
+            return
 
     # Get progress of current task
     progress = tasks[2][tasks[0].index(task)].split("/")
