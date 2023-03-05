@@ -1,9 +1,0 @@
--0.172768 2.12351
-crewmate
-[Fix Wiring, Start Reactor, Divert Power, Upload Data]
-[Storage, Reactor, Electrical, Weapons]
-[0/3, 0/5, 0/2, 0/2]
-Ship
-0
-0
-1

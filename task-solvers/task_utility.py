@@ -11,7 +11,9 @@ from wake_keyboard import wake
 
 ctypes.windll.user32.SetProcessDPIAware()
 
-SEND_DATA_PATH = "sendData.txt"
+with open("sendDataDir.txt") as f:
+    line = f.readline().rstrip()
+    SEND_DATA_PATH = line
 
 SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Oxygen"]
 

@@ -19,7 +19,9 @@ HQ_TASK_TYPES = {}
 UNUSED_TASKS = ["Reset Seismic Stabilizers", "Get Biggol Sword", "Stop Charles"]
 SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Oxygen"]
 
-SEND_DATA_PATH = "sendData.txt"
+with open("sendDataDir.txt") as f:
+    line = f.readline().rstrip()
+    SEND_DATA_PATH = line
 
 MAP = "SHIP"
 
