@@ -17,6 +17,7 @@ PB_TASK_TYPES = {}
 HQ_TASK_TYPES = {}
 
 UNUSED_TASKS = ["Reset Seismic Stabilizers", "Get Biggol Sword", "Stop Charles"]
+SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Oxygen"]
 
 SEND_DATA_PATH = "sendData.txt"
 
@@ -150,17 +151,10 @@ def is_task_done(task):
         data = getGameData()
 
     try:
-        if task == "Reset Reactor":
-            if "Reset Reactor" in data['tasks']:
-                return False
-            else: 
+        if task in SABOTAGE_TASKS:
+            if task in data["tasks"]:
                 return True
-            
-        if task == "Restore Oxygen":
-            if "Restore Oxygen" in data['tasks']:
-                return False
-            else: 
-                return True
+            return False
             
         index = data["tasks"].index(task)
         steps = data["task_steps"][index].split('/')
