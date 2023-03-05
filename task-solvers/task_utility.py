@@ -89,6 +89,13 @@ def is_task_done(task):
             return False
         else: 
             return True
+        
+    if task == "Restore Oxygen":
+        if "Restore Oxygen" in data['tasks']:
+            return False
+        else: 
+            return True
+        
     index = data["tasks"].index(task)
     steps = data["task_steps"][index].split('/')
     return steps[0] == steps[1]

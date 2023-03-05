@@ -1,8 +1,8 @@
--17.0779 -9.23472
+4.99022 -7.7351
 crewmate
-[Fix Wiring, Empty Garbage, Clean O2 Filter, Upload Data, Reset Reactor]
-[Electrical, Cafeteria, Oxygen, Electrical, Reactor]
-[0/3, 0/2, 0/6, 0/2]
+[Swipe Card, Align Engine Output, Vent Cleaning, Divert Power, Restore Oxygen]
+[Admin, Upper Engine, Admin, Electrical, Oxygen]
+[0/1, 0/2, 0/1, 0/2]
 Ship
 0
 0
