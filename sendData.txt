@@ -1,8 +1,8 @@
--9.70354 -10.5997
-impostor
-[Submit Scan, Fix Wiring, Align Engine Output, Calibrate Distributor, Prime Shields]
-[Hallway, Navigation, Upper Engine, Electrical, Shields]
-[0/3, 0/2, 0/1, 0/1]
+-6.89569 -10.0448
+crewmate
+[Fix Wiring, Align Engine Output, Calibrate Distributor, Prime Shields, Fix Communications]
+[Navigation, Lower Engine, Electrical, Shields, Communications]
+[0/3, 2/2, 1/1, 0/1]
 Ship
 0
 0
