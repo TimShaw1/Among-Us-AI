@@ -1,8 +1,8 @@
-4.99022 -7.7351
-crewmate
-[Swipe Card, Align Engine Output, Vent Cleaning, Divert Power, Restore Oxygen]
-[Admin, Upper Engine, Admin, Electrical, Oxygen]
-[0/1, 0/2, 0/1, 0/2]
+-9.70354 -10.5997
+impostor
+[Submit Scan, Fix Wiring, Align Engine Output, Calibrate Distributor, Prime Shields]
+[Hallway, Navigation, Upper Engine, Electrical, Shields]
+[0/3, 0/2, 0/1, 0/1]
 Ship
 0
 0
