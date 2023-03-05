@@ -150,6 +150,11 @@ def is_task_done(task):
         data = getGameData()
 
     try:
+        if task == "Reset Reactor":
+            if "Reset Reactor" in data['tasks']:
+                return False
+            else: 
+                return True
         index = data["tasks"].index(task)
         steps = data["task_steps"][index].split('/')
         return steps[0] == steps[1]
