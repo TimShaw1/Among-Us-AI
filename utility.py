@@ -160,6 +160,15 @@ def is_task_done(task):
         return steps[0] == steps[1]
     except (IndexError, ValueError):
         return True
+    
+def is_urgent_task():
+    data = getGameData()
+    while not data["tasks"]:
+        data = getGameData()
+
+    if "Reset Reactor" in data['tasks'] or "Restore Oxygen" in data['tasks']:
+        return True
+    return False
 
 # Returns the x and y coordinates of a task in a list
 # accepts the game data and the index of the task

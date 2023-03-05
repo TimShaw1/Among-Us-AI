@@ -92,3 +92,12 @@ def is_task_done(task):
     index = data["tasks"].index(task)
     steps = data["task_steps"][index].split('/')
     return steps[0] == steps[1]
+
+def is_urgent_task():
+    data = getGameData()
+    while not data["tasks"]:
+        data = getGameData()
+
+    if "Reset Reactor" in data['tasks'] or "Restore Oxygen" in data['tasks']:
+        return True
+    return False
