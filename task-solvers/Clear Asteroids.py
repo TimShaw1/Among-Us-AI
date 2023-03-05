@@ -24,6 +24,10 @@ while not is_task_done(task):
     screenshot = get_screenshot(dimensions)
     exit = False
 
+    if is_urgent_task():
+        click_close()
+        raise SystemExit(0)
+
     for x in range(screenshot.width):
         if not exit:
             for y in range(screenshot.height):

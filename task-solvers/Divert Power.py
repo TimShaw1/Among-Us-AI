@@ -20,6 +20,9 @@ if data["task_locations"][data["tasks"].index("Divert Power")] == "Electrical":
     s_dimensions[3] = round(dimensions[3] / 4.34)
 
     screenshot = get_screenshot()
+    if is_urgent_task():
+        click_close()
+        raise SystemExit(0)
 
     exit = False
     for x in range(0, screenshot.width, 10):

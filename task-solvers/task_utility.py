@@ -74,6 +74,13 @@ def click_use():
     pydirectinput.click()
     return
 
+def click_close():
+    wake()
+    dim = get_dimensions()
+    pydirectinput.moveTo(dim[0] + round(dim[2] / 4.16), dim[1] + round(dim[3] / 8.18))
+    pydirectinput.click()
+    return
+
 def get_dir():
     return os.getcwd()
 

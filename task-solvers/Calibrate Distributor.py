@@ -34,6 +34,9 @@ while not is_task_done(task="Calibrate Distributor"):
     if s_y[0] < 5:
         done = [False, False, False]
 
+    if is_urgent_task():
+        click_close()
+        raise SystemExit(0)
     # Yellow check
     if done[0] == False:
         if s_y[0] > 200 and s_y[1] > 200 and s_y[2] < 5:

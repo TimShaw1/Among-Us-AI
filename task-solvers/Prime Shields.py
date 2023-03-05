@@ -18,6 +18,9 @@ s_dimensions[2] = round(dimensions[2] / 4.29)
 s_dimensions[3] = round(dimensions[3] / 2.24)
 
 screenshot = get_screenshot(s_dimensions)
+if is_urgent_task():
+    click_close()
+    raise SystemExit(0)
 
 exit = False
 for x in range(0, screenshot.height - 10, 5):

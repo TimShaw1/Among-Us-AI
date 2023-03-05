@@ -1,8 +1,8 @@
--6.89569 -10.0448
+0.814103 1.26505
 crewmate
-[Fix Wiring, Align Engine Output, Calibrate Distributor, Prime Shields, Fix Communications]
-[Navigation, Lower Engine, Electrical, Shields, Communications]
-[0/3, 2/2, 1/1, 0/1]
+[Fix Wiring, Empty Chute, Unlock Manifolds, Divert Power, Clear Asteroids, Restore Oxygen]
+[Admin, Oxygen, Reactor, Electrical, Weapons, Oxygen]
+[0/3, 0/2, 0/1, 0/2, 0/20]
 Ship
 0
 0

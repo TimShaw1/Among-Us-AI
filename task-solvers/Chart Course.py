@@ -27,6 +27,9 @@ x_points = [round(dimensions[2] / 6.78) + s_dimensions[0],
 ship_x = round(dimensions[2] / 22.33) + s_dimensions[0]
 
 screenshot = get_screenshot(s_dimensions)
+if is_urgent_task():
+    click_close()
+    raise SystemExit(0)
 
 exit = False
 
@@ -47,6 +50,9 @@ y_offset = 15
 
 while not is_task_done("Chart Course"):
     screenshot = get_screenshot(s_dimensions)
+    if is_urgent_task():
+        click_close()
+        raise SystemExit(0)
 
     for i in range(len(x_points)):
         for y in range(screenshot.height):
