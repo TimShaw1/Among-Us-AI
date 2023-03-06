@@ -223,6 +223,7 @@ def get_nearest_task(tasks):
             if d < smallest_dist:
                 smallest_dist = d
                 nearest = subdict
+
     return (nearest, smallest_dist)
 
 # converts 2 points to an angle in radians
