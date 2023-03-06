@@ -157,8 +157,8 @@ def is_task_done(task):
     try:
         if task in SABOTAGE_TASKS:
             if task in data["tasks"]:
-                return True
-            return False
+                return False
+            return True
             
         index = data["tasks"].index(task)
         steps = data["task_steps"][index].split('/')
