@@ -291,9 +291,8 @@ def sort_shortest_path(G, nearest, move_list, tasks):
     if urgent is not None:
         dict = load_dict()
         item = tuple(dict[urgent[0]][urgent[1]])
-        print(move_list)
-        print(item)
-        move_list.remove(item)
+        if item in move_list:
+            move_list.remove(item)
         move_list.insert(0, item)
     return move_list
 
