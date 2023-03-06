@@ -201,6 +201,8 @@ def get_nearest_task(tasks):
     smallest_dist = 100
     nearest = ()
 
+    tasks = data['tasks']
+
     # Loop through task names
     for subdict in dict1.keys():
 
