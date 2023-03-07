@@ -47,7 +47,7 @@ def load_graph_list(map_name):
 # Returns a dict containing all the data
 def getGameData():
     global impostor
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed = None, None, None, None, None, None, None, None, None, None
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed = (None,)*10
     with open(SEND_DATA_PATH) as file:
         lines = file.readlines()
         if len(lines) > 0:
