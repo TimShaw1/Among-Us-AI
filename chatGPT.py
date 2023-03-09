@@ -30,7 +30,7 @@ prompts =   [
                 {"role": "system", "content": 
                  f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
                  The prompts you see are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
-                 Your tasks are in {task_locations}.
+                 Your tasks are in {task_locations}. Your crewmates' messages are identified by their color in the prompt.
                  You can choose not to respond if you have nothing to add by saying "None". Reply to prompts with very few words and don't be too formal.
                  Try to win by voting the impostor out. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.'''
                  }
@@ -43,6 +43,10 @@ while True:
         break
     
     prompts.append({"role": "user", "content": prompt})
-    response = ask_gpt(prompts)
+    try:
+        response = ask_gpt(prompts)
+    except openai.error.RateLimitError:
+        print("Rate limit reached")
+        break
     prompts.append({"role": "assistant", "content": response})
     print(response)
