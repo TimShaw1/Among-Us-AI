@@ -82,17 +82,17 @@ def getGameData():
             "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
             "speed" : speed, "color" : color}
 
-def get_chat_messages():
+def get_chat_messages() -> list:
     with open(CHAT_DATA_PATH) as file:
         lines = file.readlines()
-        return lines
+        return [x.rstrip() for x in lines]
 
 def translatePlayerColorID(id : int):
-    col_array = ["red", "blue", "green", "pink", 
-                 "orange", "yellow", "black", "white", 
-                 "purple", "brown", "cyan", "lime",
-                 "maroon", "rose", "banana", "gray",
-                 "tan", "coral"]
+    col_array = ["RED", "BLUE", "GREEN", "PINK",
+                "ORANGE", "YELLOW", "BLACK", "WHITE",
+                "PURPLE", "BROWN", "CYAN", "LIME",
+                "MAROON", "ROSE", "BANANA", "GRAY",
+                "TAN", "CORAL"]
     
     return col_array[id]
 
@@ -406,7 +406,7 @@ def check_report():
         print(pyautogui.position())
 
 def clear_chat():
-    open(SEND_DATA_PATH, 'w').close()
+    open(CHAT_DATA_PATH, "w").close()
     
 # focuses the among us window
 def focus():
