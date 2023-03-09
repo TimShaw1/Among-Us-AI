@@ -5061,3 +5061,4 @@ build/main/localpycs/pyimod04_pywin32.pyc
 build/main/localpycs/struct.pyc
 dist/main.exe
 openAI.py
+sendDataDir.txt

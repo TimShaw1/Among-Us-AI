@@ -47,7 +47,7 @@ def load_graph_list(map_name):
 # Returns a dict containing all the data
 def getGameData():
     global impostor
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed = None, None, None, None, None, None, None, None, None, None
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed = (None,)*10
     with open(SEND_DATA_PATH) as file:
         lines = file.readlines()
         if len(lines) > 0:
@@ -212,12 +212,18 @@ def get_nearest_task(tasks):
         # Check for irrelevant data
         if subdict not in tasks:
             continue
-        if is_task_done(subdict):
+        if is_task_done(subdict) and subdict not in SABOTAGE_TASKS:
             continue
         index = data["tasks"].index(subdict)
 
         # Loop through coordinates in dict at current location
         for location in dict1[subdict].keys():
+            if subdict in SABOTAGE_TASKS:
+                d = dist(dict1[subdict][location], pos)
+                if d < 1.5:
+                    smallest_dist = d
+                    nearest = subdict
+                    continue
             
             # Check for correct task but wrong location
             if location != data["task_locations"][index]:
