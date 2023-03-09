@@ -82,7 +82,6 @@ def getGameData():
             "speed" : speed, "color" : color}
 
 def translatePlayerColorID(id : int):
-    print(id)
     col_array = ["red", "blue", "green", "pink", 
                  "orange", "yellow", "black", "white", 
                  "purple", "brown", "cyan", "lime",
