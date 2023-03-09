@@ -65,7 +65,6 @@ def move_and_complete_tasks(graph, move_list, tasks):
         return_code = solve_task(task_name=tsk[0])
 
         if return_code == 1:
-            clear_chat()
             while in_meeting():
                 time.sleep(1/60)
             nearest = move_to_nearest_node(graph)
@@ -96,10 +95,22 @@ def move_and_complete_tasks(graph, move_list, tasks):
         move_list.pop(0)
         
 if __name__ == "__main__":
+    # Focus app
     focus()
+
+    # Clear previous chat data
+    clear_chat()
+
+    # Load map graph
     graph = load_graph_list("SHIP")
+
+    # Get tasks
     tasks = get_task_list()
+
+    # Initialize places to move to
     move_list = get_move_list(tasks)
+
+    # Begin gameplay loop
     move_and_complete_tasks(graph, move_list, tasks)
 
 

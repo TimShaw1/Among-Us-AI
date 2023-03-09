@@ -82,6 +82,11 @@ def getGameData():
             "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
             "speed" : speed, "color" : color}
 
+def get_chat_messages():
+    with open(CHAT_DATA_PATH) as file:
+        lines = file.readlines()
+        return lines
+
 def translatePlayerColorID(id : int):
     col_array = ["red", "blue", "green", "pink", 
                  "orange", "yellow", "black", "white", 
