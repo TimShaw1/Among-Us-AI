@@ -47,7 +47,7 @@ def load_graph_list(map_name):
 # Returns a dict containing all the data
 def getGameData():
     global impostor
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed = (None,)*10
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color = (None,)*11
     with open(SEND_DATA_PATH) as file:
         lines = file.readlines()
         if len(lines) > 0:
@@ -69,12 +69,27 @@ def getGameData():
                 inMeeting = bool(int(lines[7].rstrip()))
             if len(lines) > 8:
                 speed = float(lines[8].rstrip())
+            if len(lines) > 9:
+                color = translatePlayerColorID(int(lines[9].rstrip()))
 
     if status == "impostor" and tasks is not None and task_locations is not None:
         if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
             tasks.pop(0)
             task_locations.pop(0)
-    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, "speed" : speed}
+    return {"position" : (x,y), "status" : status, "tasks" : tasks, 
+            "task_locations" : task_locations, "task_steps" : task_steps, 
+            "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
+            "speed" : speed, "color" : color}
+
+def translatePlayerColorID(id : int):
+    print(id)
+    col_array = ["red", "blue", "green", "pink", 
+                 "orange", "yellow", "black", "white", 
+                 "purple", "brown", "cyan", "lime",
+                 "maroon", "rose", "banana", "gray",
+                 "tan", "coral"]
+    
+    return col_array[id]
 
 # Saves the given coordinate dictionary dict_to_save to a json file named dict_name
 def save_dict_file(dict_to_save, dict_name):
