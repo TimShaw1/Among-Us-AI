@@ -1,10 +1,15 @@
 import openai
+from utility import getGameData
 
 API_KEY = "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"
 
+data = getGameData()
+while not data['tasks']:
+    data = getGameData()
+
 openai.api_key = API_KEY
-color = 'red'
-role = 'crewmate'
+color = data['color']
+role = data['status']
 
 def ask_gpt(prompts : str) -> str: 
     response = openai.ChatCompletion.create(
