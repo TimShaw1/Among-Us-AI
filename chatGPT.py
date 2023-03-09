@@ -28,7 +28,7 @@ def ask_gpt(prompts : str) -> str:
 
 prompts =   [
                 {"role": "system", "content": 
-                 f'''You are playing the game Among Us and have been called sus. You are in a meeting with your crewmate. 
+                 f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
                  The prompts you see are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
                  Your tasks are in {task_locations}.
                  You can choose not to respond if you have nothing to add by saying "None". Reply to prompts with very few words and don't be too formal.
