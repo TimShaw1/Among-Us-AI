@@ -1,5 +1,5 @@
 import openai
-from utility import getGameData
+from utility import getGameData, in_meeting
 
 API_KEY = "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"
 
@@ -28,6 +28,8 @@ prompts =   [
                  Try to win by voting the impostor out. If your role is impostor, try to get other people voted off.'''
                  }
             ]
+
+# TODO: While in_meeting()
 while True:
     prompt = input("Ask me something: ")
     if prompt == "exit":
