@@ -22,6 +22,7 @@ SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore 
 with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
     SEND_DATA_PATH = line + "\\sendData.txt"
+    CHAT_DATA_PATH = line + "\\chatData.txt"
 
 MAP = "SHIP"
 
@@ -398,6 +399,9 @@ def check_report():
     #220 37 0
     while True:
         print(pyautogui.position())
+
+def clear_chat():
+    open(SEND_DATA_PATH, 'w').close()
     
 # focuses the among us window
 def focus():

@@ -65,6 +65,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
         return_code = solve_task(task_name=tsk[0])
 
         if return_code == 1:
+            clear_chat()
             while in_meeting():
                 time.sleep(1/60)
             nearest = move_to_nearest_node(graph)
