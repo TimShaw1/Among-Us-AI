@@ -150,20 +150,35 @@ def update_current(data, i):
 def load_dict():
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
-        with open("tasks-json\SHIP_TASK_TYPES.json") as file:
-            SHIP_TASK_TYPES = json.load(file)
+        if SHIP_TASK_TYPES == {}:
+            with open("tasks-json\SHIP_TASK_TYPES.json") as file:
+                SHIP_TASK_TYPES = json.load(file)
+                return SHIP_TASK_TYPES
+        else:
             return SHIP_TASK_TYPES
+        
     elif MAP == "AIRSHIP":
-        with open("tasks-json\AIRSHIP_TASK_TYPES.json") as file:
-            AIRSHIP_TASK_TYPES = json.load(file)
+        if AIRSHIP_TASK_TYPES == {}:
+            with open("tasks-json\AIRSHIP_TASK_TYPES.json") as file:
+                AIRSHIP_TASK_TYPES = json.load(file)
+                return AIRSHIP_TASK_TYPES
+        else:
             return AIRSHIP_TASK_TYPES
+        
     elif MAP == "PB":
-        with open("tasks-json\PB_TASK_TYPES.json") as file:
-            PB_TASK_TYPES = json.load(file)
+        if PB_TASK_TYPES == {}:
+            with open("tasks-json\PB_TASK_TYPES.json") as file:
+                PB_TASK_TYPES = json.load(file)
+                return PB_TASK_TYPES
+        else:
             return PB_TASK_TYPES
+        
     elif MAP == "HQ":
-        with open("tasks-json\HQ_TASK_TYPES.json") as file:
-            HQ_TASK_TYPES = json.load(file)
+        if HQ_TASK_TYPES == {}:
+            with open("tasks-json\HQ_TASK_TYPES.json") as file:
+                HQ_TASK_TYPES = json.load(file)
+                return HQ_TASK_TYPES
+        else:
             return HQ_TASK_TYPES
     return
 
