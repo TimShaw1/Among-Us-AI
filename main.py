@@ -52,25 +52,57 @@ def printConstantTaskPositions():
         pass
 
 def move_and_complete_tasks(graph, move_list, tasks):
+    inspect_sample_flag : bool = False
     G = generate_graph(graph)
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
     while len(move_list) > 0:
+        print(move_list)
         move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
         tsk = get_nearest_task(tasks[0])
 
         # Issue is due do tsk being too high here - get_nearest_task
         if tsk[1] > 1.5:
-            continue
-        return_code = solve_task(task_name=tsk[0])
+            print("ERROR")
 
-        if return_code == 1:
+        if inspect_sample_flag and tsk[0] == "Inspect Sample":
+            return_code = solve_task(task_name="Inspect Sample 2")
+        else:
+            return_code = solve_task(task_name=tsk[0])
+
+        if tsk[0] == "Restore Oxygen" and return_code == 0:
+            nearest = move_to_nearest_node(graph)
+            move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")))
+            return_code = solve_task(task_name="Restore Oxygen")
+            nearest = move_to_nearest_node(graph)
+
+            # Sort move list by distance
+            move_list = sort_shortest_path(G, nearest, move_list, tasks)
+
+            # Remove Restore Oxygen from move list
+            move_list.pop(0)
+            continue
+
+        if tsk[0] == "Reset Reactor" and return_code == 0:
+            nearest = move_to_nearest_node(graph)
+
+            # Sort move list by distance
+            move_list = sort_shortest_path(G, nearest, move_list, tasks)
+
+            # Remove Reset Reactor from move list
+            move_list.pop(0)
+            continue
+
+        if return_code == 1 or return_code == 2:
+            if return_code == 2:
+                inspect_sample_flag = True
             while in_meeting():
                 time.sleep(1/60)
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance
             move_list = sort_shortest_path(G, nearest, move_list, tasks)
+            print(move_list)
             continue
 
         if len(move_list) == 0:
@@ -79,7 +111,14 @@ def move_and_complete_tasks(graph, move_list, tasks):
         # Add next task step to move list, if any
         time.sleep(1/60)
         update_move_list(move_list, tasks, tsk[0])
-        index = tasks[0].index(tsk[0])
+        try:
+            index = tasks[0].index(tsk[0])
+        except ValueError:
+            nearest = move_to_nearest_node(graph)
+
+            # Sort move list by distance
+            move_list = sort_shortest_path(G, nearest, move_list, tasks)
+            continue
 
         nearest = move_to_nearest_node(graph)
 
@@ -92,6 +131,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
                 tasks[i].pop(index) 
             except IndexError:
                 continue
+
         move_list.pop(0)
         
 if __name__ == "__main__":
