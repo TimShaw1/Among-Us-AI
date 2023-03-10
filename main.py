@@ -57,7 +57,6 @@ def move_and_complete_tasks(graph, move_list, tasks):
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
     while len(move_list) > 0:
-        print(move_list)
         move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
         tsk = get_nearest_task(tasks[0])
 
@@ -102,7 +101,6 @@ def move_and_complete_tasks(graph, move_list, tasks):
 
             # Sort move list by distance
             move_list = sort_shortest_path(G, nearest, move_list, tasks)
-            print(move_list)
             continue
 
         if len(move_list) == 0:
