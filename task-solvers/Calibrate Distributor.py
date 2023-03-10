@@ -27,16 +27,20 @@ done = [False, False, False]
 
 while not is_task_done(task="Calibrate Distributor"):
     screenshot = get_screenshot(dimensions)
+    if is_urgent_task():
+        click_close()
+        raise SystemExit(0)
     s_y = screenshot.getpixel((0, yellow_offset))
     s_b = screenshot.getpixel((0, blue_offset))
     s_c = screenshot.getpixel((0, cyan_offset))
 
     if s_y[0] < 5:
         done = [False, False, False]
+    elif s_b[0] < 5:
+        done[1] = False
+    elif s_c[0] < 5:
+        done[2] = False
 
-    if is_urgent_task():
-        click_close()
-        raise SystemExit(0)
     # Yellow check
     if done[0] == False:
         if s_y[0] > 200 and s_y[1] > 200 and s_y[2] < 5:
