@@ -224,7 +224,8 @@ def is_urgent_task(tasks : list = None) -> str:
 
 def can_vote() -> bool:
     with open(CAN_VOTE_PATH) as f:
-        canVote = bool(f.readline().rstrip())
+        lines = f.readlines()
+        canVote = False if '0' in  lines else True
     return canVote
 
 def set_can_vote_false() -> None:
