@@ -108,8 +108,8 @@ def move_and_complete_tasks(graph, move_list, tasks):
 
         # Add next task step to move list, if any
         time.sleep(1/60)
-        update_move_list(move_list, tasks, tsk[0])
         try:
+            update_move_list(move_list, tasks, tsk[0])
             index = tasks[0].index(tsk[0])
         except ValueError:
             nearest = move_to_nearest_node(graph)
@@ -123,14 +123,14 @@ def move_and_complete_tasks(graph, move_list, tasks):
         # Sort move list by distance
         move_list = sort_shortest_path(G, nearest, move_list, tasks)
 
+        move_list.pop(0)
+
         # Remove completed task from tasks and move list
         for i in range(len(tasks)):
             try:
                 tasks[i].pop(index) 
             except IndexError:
                 continue
-
-        move_list.pop(0)
         
 if __name__ == "__main__":
     # Focus app
