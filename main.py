@@ -51,11 +51,21 @@ def printConstantTaskPositions():
 
 def move_and_complete_tasks(graph, move_list, tasks):
     inspect_sample_flag : bool = False
+    can_vote_flag : bool = False
     G = generate_graph(graph)
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
     while len(move_list) > 0:
-        move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
+        move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
+        if move_return_code == 1:
+            while in_meeting():
+                if can_vote() and not can_vote_flag:
+                    solve_task("vote")
+                    can_vote_flag = True
+                time.sleep(1/60)
+            set_can_vote_false()
+            can_vote_flag = False
+            continue
         tsk = get_nearest_task(tasks[0])
 
         # Issue is due do tsk being too high here - get_nearest_task
@@ -94,7 +104,12 @@ def move_and_complete_tasks(graph, move_list, tasks):
             if return_code == 2:
                 inspect_sample_flag = True
             while in_meeting():
+                if can_vote() and not can_vote_flag:
+                    solve_task("vote")
+                    can_vote_flag = True
                 time.sleep(1/60)
+            set_can_vote_false()
+            can_vote_flag = False
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance
@@ -145,6 +160,8 @@ if __name__ == "__main__":
 
     # Initialize places to move to
     move_list = get_move_list(tasks)
+
+    set_can_vote_false()
 
     # Begin gameplay loop
     move_and_complete_tasks(graph, move_list, tasks)

@@ -23,6 +23,7 @@ with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
     SEND_DATA_PATH = line + "\\sendData.txt"
     CHAT_DATA_PATH = line + "\\chatData.txt"
+    CAN_VOTE_PATH = line + "\\canVote.txt"
 
 MAP = "SHIP"
 
@@ -220,6 +221,15 @@ def is_urgent_task(tasks : list = None) -> str:
         if task[0] in tasks:
             return task
     return None
+
+def can_vote() -> bool:
+    with open(CAN_VOTE_PATH) as f:
+        canVote = bool(f.readline().rstrip())
+    return canVote
+
+def set_can_vote_false() -> None:
+    with open(CAN_VOTE_PATH, "w") as f:
+        f.write("0")
 
 # Returns the x and y coordinates of a task in a list
 # accepts the game data and the index of the task
@@ -436,7 +446,8 @@ def focus():
         print("Window not found")
 
 # handles player movement
-def move(dest_list):
+# Returns 0 on success, 1 if interrupted by a meeting
+def move(dest_list) -> int:
     global gamepad
 
     data = getGameData()
@@ -447,7 +458,7 @@ def move(dest_list):
 
     while len(dest_list) > 0:
         if in_meeting():
-            return
+            return 1
 
         increment = 0.1
         if data['speed'] is not None:
@@ -483,5 +494,5 @@ def move(dest_list):
 
     gamepad.reset()
     gamepad.update()
-    return
+    return 0
 

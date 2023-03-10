@@ -11,6 +11,9 @@ def generate_files():
 # Runs the correct task solver file in a subprocess
 # Note - the AI only goes to the upper location of sabotages
 def solve_task(task_name=None, task_index=None) -> int:
+    if task_name == "vote":
+        p = subprocess.Popen(["python", f"task-solvers\\vote.py"])
+
     if isImpostor():
         time.sleep(1.5)
         p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
