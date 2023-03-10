@@ -18,23 +18,32 @@ with open("sendDataDir.txt") as f:
 SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Oxygen"]
 
 def getGameData():
+    dataLen : int = 10
     x,y,status,tasks, task_locations, task_steps, map_id, dead = None, None, None, None, None, None, None, None
-    with open(SEND_DATA_PATH) as file:
-        lines = file.readlines()
-        if len(lines) > 0:
+    while True:
+        with open(SEND_DATA_PATH) as file:
+            lines = file.readlines()
+            if len(lines) < dataLen:
+                file.close()
+                continue
+
             x = float(lines[0].split()[0])
             y = float(lines[0].split()[1])
             status = lines[1].strip()
-            if len(lines) > 2:
-                tasks = lines[2].rstrip().strip('][').split(", ")
-            if len(lines) > 3:
-                task_locations = lines[3].rstrip().strip('][').split(", ")
-            if len(lines) > 4:
-                task_steps = lines[4].rstrip().strip('][').split(", ")
-            if len(lines) > 5:
-                map_id = lines[5].rstrip()
-            if len(lines) > 6:
-                dead = bool(int(lines[6].rstrip()))
+
+            tasks = lines[2].rstrip().strip('][').split(", ")
+
+            task_locations = lines[3].rstrip().strip('][').split(", ")
+
+            task_steps = lines[4].rstrip().strip('][').split(", ")
+
+            map_id = lines[5].rstrip()
+
+            dead = bool(int(lines[6].rstrip()))
+
+        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead]:
+            continue
+        break
 
     return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead}
 

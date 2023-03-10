@@ -80,6 +80,8 @@ def getGameData():
             speed = float(lines[8].rstrip())
 
             color = translatePlayerColorID(int(lines[9].rstrip()))
+        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color]:
+            continue
         break
 
     if status == "impostor" and tasks is not None and task_locations is not None:
