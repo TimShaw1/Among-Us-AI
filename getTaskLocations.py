@@ -20,8 +20,6 @@ def check_changes(new_data, old_data):
     return -1
 
 data = getGameData()
-while not data["task_steps"]:
-    data = getGameData()
 old_data = copy.deepcopy(data)
 
 load_dict()

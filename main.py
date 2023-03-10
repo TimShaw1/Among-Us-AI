@@ -27,8 +27,6 @@ def printConstantGameData():
 def printGameData():
     data = getGameData()
     load_dict()
-    while not data:
-        data = getGameData()
     for key in data.keys():
         print(data[key])
     for i in range(len(data["tasks"])):

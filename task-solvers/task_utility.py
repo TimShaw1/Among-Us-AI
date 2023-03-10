@@ -92,8 +92,6 @@ def get_screen_coords():
 
 def is_task_done(task):
     data = getGameData()
-    while not data["task_steps"]:
-        data = getGameData()
 
     if task in SABOTAGE_TASKS:
         if task in data["tasks"]:
@@ -106,8 +104,6 @@ def is_task_done(task):
 
 def is_urgent_task() -> bool:
     data = getGameData()
-    while not data["tasks"]:
-        data = getGameData()
 
     urgent_tasks = ["Reset Reactor", "Restore Oxygen"]
     for task in urgent_tasks:

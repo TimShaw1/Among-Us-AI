@@ -48,30 +48,39 @@ def load_graph_list(map_name):
 # Returns a dict containing all the data
 def getGameData():
     global impostor
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color = (None,)*11
-    with open(SEND_DATA_PATH) as file:
-        lines = file.readlines()
-        if len(lines) > 0:
+
+    # number of parameters (lines) in data
+    dataLen : int = 10
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
+    lines = []
+    while True:
+        with open(SEND_DATA_PATH) as file:
+            lines = file.readlines()
+            if len(lines) < dataLen:
+                file.close()
+                continue
+
             x = float(lines[0].split()[0])
             y = float(lines[0].split()[1])
             status = lines[1].strip()
             impostor = status
-            if len(lines) > 2:
-                tasks = lines[2].rstrip().strip('][').split(", ")
-            if len(lines) > 3:
-                task_locations = lines[3].rstrip().strip('][').split(", ")
-            if len(lines) > 4:
-                task_steps = lines[4].rstrip().strip('][').split(", ")
-            if len(lines) > 5:
-                map_id = lines[5].rstrip()
-            if len(lines) > 6:
-                dead = bool(int(lines[6].rstrip()))
-            if len(lines) > 7:
-                inMeeting = bool(int(lines[7].rstrip()))
-            if len(lines) > 8:
-                speed = float(lines[8].rstrip())
-            if len(lines) > 9:
-                color = translatePlayerColorID(int(lines[9].rstrip()))
+
+            tasks = lines[2].rstrip().strip('][').split(", ")
+
+            task_locations = lines[3].rstrip().strip('][').split(", ")
+
+            task_steps = lines[4].rstrip().strip('][').split(", ")
+
+            map_id = lines[5].rstrip()
+
+            dead = bool(int(lines[6].rstrip()))
+
+            inMeeting = bool(int(lines[7].rstrip()))
+
+            speed = float(lines[8].rstrip())
+
+            color = translatePlayerColorID(int(lines[9].rstrip()))
+        break
 
     if status == "impostor" and tasks is not None and task_locations is not None:
         if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
@@ -186,8 +195,6 @@ def load_dict():
 # If task is not found, returns True
 def is_task_done(task):
     data = getGameData()
-    while not data["task_steps"]:
-        data = getGameData()
 
     try:
         if task in SABOTAGE_TASKS:
@@ -204,8 +211,6 @@ def is_task_done(task):
 def is_urgent_task(tasks : list = None) -> str:
     if tasks is None:
         data = getGameData()
-        while not data["tasks"]:
-            data = getGameData()
         tasks = data['tasks']
 
     urgent_tasks = [("Reset Reactor", "Reactor"), ("Restore Oxygen", "Oxygen")]
@@ -230,8 +235,6 @@ def get_task_position(data, i):
 # Returns a tuple with (nearest task, dist to task) as parameters
 def get_nearest_task(tasks):
     data = getGameData()
-    while not data["position"][0]:
-        data = getGameData()
     pos = data["position"]
 
     dict1 = load_dict()
@@ -293,8 +296,6 @@ def get_smallest_dist(graph, pos):
 # moves the player to the nearest node on the graph
 def move_to_nearest_node(graph):
     data = getGameData()
-    while not data["position"][0]:
-        data = getGameData()
     pos = data["position"]
 
     smallest_dist = 100
@@ -347,8 +348,6 @@ def sort_shortest_path(G, nearest, move_list, tasks):
 # Gets task list from game data
 def get_task_list():
     data = getGameData()
-    while not data["task_steps"]:
-        data = getGameData()
 
     return [data["tasks"], data["task_locations"], data["task_steps"]]
 
@@ -439,8 +438,6 @@ def move(dest_list):
     global gamepad
 
     data = getGameData()
-    while not data["position"][0]:
-        data = getGameData()
 
     pos = data["position"]
     old_pos = pos
@@ -478,8 +475,6 @@ def move(dest_list):
                 time.sleep(0.3)
 
         data = getGameData()
-        while not data["position"][0]:
-            data = getGameData()
 
         pos = data["position"]
         time.sleep(1/60)

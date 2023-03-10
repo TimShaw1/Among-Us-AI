@@ -12,8 +12,6 @@ time.sleep(0.8)
 dimensions = get_dimensions()
 
 data = getGameData()
-while not data["task_locations"]:
-    data = getGameData()
 if data["task_locations"][data["tasks"].index("Divert Power")] == "Electrical":
     s_dimensions = copy.deepcopy(dimensions)
     s_dimensions[0] += round(dimensions[2] / 3.4)

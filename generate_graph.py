@@ -8,8 +8,6 @@ from math import dist
 graph = load_graph_list("SHIP")
 
 data = getGameData()
-while not data['position'][0]:
-    data = getGameData()
 pos = (round(data['position'][0], 4), round(data['position'][1], 4))
 old_pos = (round(data['position'][0], 4), round(data['position'][1], 4))
 
@@ -24,8 +22,6 @@ try:
                 print("got it already")
 
         data = getGameData()
-        while not data['position'][0]:
-            data = getGameData()
         pos = (round(data['position'][0], 4), round(data['position'][1], 4))
 
 except KeyboardInterrupt:

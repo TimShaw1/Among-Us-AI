@@ -5,8 +5,6 @@ import time
 API_KEY = "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"
 
 data = getGameData()
-while not data['tasks']:
-    data = getGameData()
 
 openai.api_key = API_KEY
 color : str = data['color']
