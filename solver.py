@@ -29,7 +29,7 @@ def solve_task(task_name=None, task_index=None) -> int:
         if task_name is not None and task_name != is_urgent_task()[0]:
             return 1
 
-    if task_name is not None and task_name != "()":
+    if task_name is not None and task_name != ():
         p = subprocess.Popen(["python", f"task-solvers\{task_name}.py"])
 
         # Wait for process to finish
