@@ -5,7 +5,7 @@ import pyautogui
 import re
 import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
-from task_utility import get_dimensions, get_screen_coords
+from task_utility import get_dimensions, get_screen_coords, wake
 
 API_KEY = "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"
 
@@ -27,39 +27,37 @@ def ask_gpt(prompts : str) -> str:
     return message.rstrip()
 
 prompts =   [
-                {"role": "user", "content": 
+                {"role": "system", "content": 
                  re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
-                 Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
-                 You can only reply as your color. You should only return text that your player, {color}, is saying. Do not return text in the form (COLOR that isn't {color}): (response)
-                 Reply to prompts with very few words and don't be too formal. 
-                 Reply with at most 1 to 2 sentences. Never return more than 100 words at a time.
+                 Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
+                 Reply to prompts with very few words and don't be too formal. Never return more than 100 words at a time.
                  Try to win by voting the impostor out. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
                  Only return messages from the {color} player.'''.replace('\n', ' '))
                  },
 
-                 {"role": "assistant", "content": "GRAY: anyone sus?"},
-                 {"role": "user", "content": "BLUE: Idk"},
-                 {"role": "assistant", "content": "GRAY: okay"}
+                 {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"}
             ]
+
+clear_chat()
+seen_chats = []
+time.sleep(5)
 
 dimensions = get_dimensions()
 
 x = dimensions[0] + round(dimensions[2] / 1.27)
 y = dimensions[1] + round(dimensions[3] / 7.77)
-pyautogui.click(x,y)
+wake()
+pyautogui.click(x,y, duration=0.2)
 time.sleep(0.5)
 
 x = dimensions[0] + round(dimensions[2] / 4.54)
 y = dimensions[1] + round(dimensions[3] / 1.19)
 
-pyautogui.typewrite("Anyone sus?\n")
-clear_chat()
-seen_chats = []
 pyautogui.click(x,y)
 time.sleep(0.1)
 time.sleep(5)
-# TODO: While in_meeting()
+
 while True:
     new_chats = False
     chat_history = get_chat_messages()
@@ -78,7 +76,15 @@ while True:
             pyautogui.click(x,y)
             time.sleep(0.1)
             response = ask_gpt(prompts)
-            print(response)
+            new_response = " "
+            for line in response.splitlines():
+                if f"{color}: " not in line:
+                    print("skipped")
+                    continue
+                new_response += line
+
+            response = new_response.replace(f'{color}: ', '')
+            print("res: " + response)
             pyautogui.typewrite(f"{response}\n")
             time.sleep(5)
     except openai.error.RateLimitError:
