@@ -4,7 +4,6 @@ from math import dist
 import networkx as nx
 from solver import *
 
-
 def printConstantGameData():
     try:
         load_dict()
@@ -49,6 +48,9 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
+def idle():
+    return
+
 def move_and_complete_tasks(graph, move_list, tasks):
     inspect_sample_flag : bool = False
     can_vote_flag : bool = False
@@ -58,11 +60,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
     while len(move_list) > 0:
         move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
         if move_return_code == 1:
-            while in_meeting():
-                if can_vote() and not can_vote_flag:
-                    solve_task("vote")
-                    can_vote_flag = True
-                time.sleep(1/60)
+            chat(can_vote_flag)
             set_can_vote_false()
             can_vote_flag = False
             time.sleep(5)
@@ -110,11 +108,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
         if return_code == 1 or return_code == 2:
             if return_code == 2:
                 inspect_sample_flag = True
-            while in_meeting():
-                if can_vote() and not can_vote_flag:
-                    solve_task("vote")
-                    can_vote_flag = True
-                time.sleep(1/60)
+            chat(can_vote_flag)
             set_can_vote_false()
             can_vote_flag = False
             time.sleep(5)
