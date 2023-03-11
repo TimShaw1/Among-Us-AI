@@ -22,7 +22,7 @@ y = dimensions[1] + round(dimensions[3] / 2.51)
 
 pyautogui.moveTo(x,y)
 
-x = dimensions[0] + round(dimensions[2] / 1.3)
+x2 = dimensions[0] + round(dimensions[2] / 1.3)
 # y is the same
 
 def easeInOutExpo(x):
@@ -34,4 +34,11 @@ def easeInOutExpo(x):
         else:
             return 2 - pow(2, -20 * x + 10) / 2
 
-pyautogui.dragTo(x,y, duration=3.1)
+duration = 3.1
+pyautogui.dragTo(x2,y, duration=duration)
+
+while not is_task_done("Swipe Card"):
+    time.sleep(0.5)
+    duration -= 0.4
+    pyautogui.moveTo(x,y)
+    pyautogui.dragTo(x2,y, duration=duration)
