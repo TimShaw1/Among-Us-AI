@@ -7,6 +7,7 @@ import networkx as nx
 from datetime import datetime
 import win32gui
 import pyautogui
+import matplotlib.pyplot as plt
 
 SHIP_TASK_TYPES = {}
 
@@ -342,8 +343,25 @@ def generate_graph(graph):
             if dist(point, point2) < 1:
                 if point != point2:
                     G.add_edge(point, point2, weight=round(dist(point, point2),4))
-
+    
     return G
+
+def show_graph(G : nx.Graph, graph : list):
+    options = {
+    "font_size": 36,
+    "node_size": 60,
+    "node_color": "white",
+    "edgecolors": "black",
+    "linewidths": 3,
+    "width": 3,
+    }
+    ax = plt.gca()
+    pos = {n: n for n,x in G.nodes.data()}
+    nx.draw(G, pos=pos, **options)
+    # Set margins for the axes so that nodes aren't clipped
+    ax.margins(0.10)
+    plt.axis("off")
+    plt.show()
 
 # Sorts the move list in ascending order in terms of 
 # distance from the player to the destination
@@ -420,13 +438,15 @@ def update_move_list(move_list, old_tasks, tsk):
 # Checks if we are in a meeting
 def in_meeting():
     data = getGameData()
-    while data["inMeeting"] is None:
-        data = getGameData()
 
     return data["inMeeting"]
 
 def isImpostor():
     return impostor == "impostor"
+
+def isDead():
+    data = getGameData()
+    return data['dead']
 
 def check_report():
     #220 37 0

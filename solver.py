@@ -1,4 +1,4 @@
-from utility import get_task_list, load_dict, in_meeting, isImpostor, is_urgent_task
+from utility import get_task_list, load_dict, in_meeting, isImpostor, is_urgent_task, isDead
 import subprocess
 import time
 
@@ -37,7 +37,7 @@ def solve_task(task_name=None, task_index=None) -> int:
 
         # Wait for process to finish
         while p.poll() is None:
-            if in_meeting():
+            if in_meeting() or isDead():
                 p.kill()
                 return 1 if task_name != "Inspect Sample" else 2
             time.sleep(1/30)
@@ -45,5 +45,5 @@ def solve_task(task_name=None, task_index=None) -> int:
         return 0
     
     print("Task not found")
-    return 0
+    return -1
 

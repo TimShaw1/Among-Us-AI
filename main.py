@@ -65,6 +65,8 @@ def move_and_complete_tasks(graph, move_list, tasks):
                 time.sleep(1/60)
             set_can_vote_false()
             can_vote_flag = False
+            time.sleep(5)
+            nearest = move_to_nearest_node(graph)
             continue
         tsk = get_nearest_task(tasks[0])
 
@@ -76,6 +78,9 @@ def move_and_complete_tasks(graph, move_list, tasks):
             return_code = solve_task(task_name="Inspect Sample 2")
         else:
             return_code = solve_task(task_name=tsk[0])
+
+        if return_code == -1:
+            break
 
         if tsk[0] == "Restore Oxygen" and return_code == 0:
             nearest = move_to_nearest_node(graph)
@@ -110,6 +115,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
                 time.sleep(1/60)
             set_can_vote_false()
             can_vote_flag = False
+            time.sleep(5)
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance
