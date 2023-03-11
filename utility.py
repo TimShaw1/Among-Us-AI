@@ -274,7 +274,7 @@ def get_nearest_task(tasks):
         for location in dict1[subdict].keys():
             if subdict in SABOTAGE_TASKS and index == -1:
                 d = dist(dict1[subdict][location], pos)
-                if d < 1.5:
+                if d < smallest_dist:
                     smallest_dist = d
                     nearest = subdict
                     continue
