@@ -73,6 +73,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
         # Issue is due do tsk being too high here - get_nearest_task
         if tsk[1] > 1.5:
             print(tsk[0])
+            print(move_list)
             print("ERROR")
 
         if inspect_sample_flag and tsk[0] == "Inspect Sample":
