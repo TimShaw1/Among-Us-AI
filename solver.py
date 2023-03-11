@@ -39,8 +39,6 @@ def solve_task(task_name=None, task_index=None) -> int:
         # Wait for process to finish
         while p.poll() is None:
             if in_meeting() or isDead() != old_dead:
-                print("Task Cancelled")
-                print(isDead(), old_dead)
                 p.kill()
                 return 1 if task_name != "Inspect Sample" else 2
             time.sleep(1/30)
