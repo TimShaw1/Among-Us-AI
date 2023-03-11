@@ -261,15 +261,18 @@ def get_nearest_task(tasks):
     for subdict in dict1.keys():
 
         # Check for irrelevant data
-        if subdict not in tasks:
+        if subdict not in tasks and subdict not in SABOTAGE_TASKS:
             continue
         if is_task_done(subdict) and subdict not in SABOTAGE_TASKS:
             continue
-        index = data["tasks"].index(subdict)
+        try:
+            index = data["tasks"].index(subdict)
+        except ValueError:
+            index = -1
 
         # Loop through coordinates in dict at current location
         for location in dict1[subdict].keys():
-            if subdict in SABOTAGE_TASKS:
+            if subdict in SABOTAGE_TASKS and index == -1:
                 d = dist(dict1[subdict][location], pos)
                 if d < 1.5:
                     smallest_dist = d
@@ -499,7 +502,6 @@ def move(dest_list) -> int:
             old_pos = pos
         else:
             if abs(old_time - datetime.now().second) > 1 and abs(old_time - datetime.now().second) < 5:
-                print("\nGetting unstuck...")
                 g_points = points_to_gamepad(pos, dest_list[0])
                 gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
                 gamepad.update()

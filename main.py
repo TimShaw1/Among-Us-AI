@@ -72,6 +72,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
 
         # Issue is due do tsk being too high here - get_nearest_task
         if tsk[1] > 1.5:
+            print(tsk[0])
             print("ERROR")
 
         if inspect_sample_flag and tsk[0] == "Inspect Sample":
@@ -120,6 +121,8 @@ def move_and_complete_tasks(graph, move_list, tasks):
 
             # Sort move list by distance
             move_list = sort_shortest_path(G, nearest, move_list, tasks)
+            if tsk[0] == "Reset Reactor" or tsk[0] == "Restore Oxygen":
+                move_list.pop(0)
             continue
 
         if len(move_list) == 0:
