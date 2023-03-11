@@ -15,4 +15,4 @@ x = dimensions[0] + round(dimensions[2] / 2.01)
 y = dimensions[1] + round(dimensions[3] / 1.64)
 pyautogui.click(x,y)
 
-time.sleep(8.1)
+time.sleep(9)
