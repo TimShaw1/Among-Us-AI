@@ -11,8 +11,8 @@ def generate_files():
 # Runs the correct task solver file in a subprocess
 # Note - the AI only goes to the upper location of sabotages
 def solve_task(task_name=None, task_index=None) -> int:
-    old_dead : bool = isDead()
-    if task_name == "vote":
+    dead : bool = isDead()
+    if task_name == "vote" and not dead:
         p = subprocess.Popen(["python", f"task-solvers\\vote.py"])
 
     if isImpostor():
@@ -38,7 +38,7 @@ def solve_task(task_name=None, task_index=None) -> int:
 
         # Wait for process to finish
         while p.poll() is None:
-            if in_meeting() or isDead() != old_dead:
+            if in_meeting() or isDead() != dead:
                 p.kill()
                 return 1 if task_name != "Inspect Sample" else 2
             time.sleep(1/30)

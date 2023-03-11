@@ -371,7 +371,7 @@ def show_graph(G : nx.Graph, graph : list):
 def sort_shortest_path(G, nearest, move_list, tasks):
     move_list.sort(key = lambda x:nx.shortest_path_length(G, nearest, x, weight="weight"))
     urgent = is_urgent_task()
-    if urgent is not None:
+    if urgent is not None and not isDead():
         dict = load_dict()
         item = tuple(dict[urgent[0]][urgent[1]])
         if item in move_list:
@@ -413,7 +413,7 @@ def update_move_list(move_list, old_tasks, tsk):
         return
     
     for task1 in urgent_tasks:
-        if task1 in tasks[0]:
+        if task1 in tasks[0] and not isDead():
             return
 
     # Get progress of current task
@@ -482,6 +482,8 @@ def move(dest_list) -> int:
 
     while len(dest_list) > 0:
         if in_meeting():
+            gamepad.reset()
+            gamepad.update()
             return 1
 
         increment = 0.1
