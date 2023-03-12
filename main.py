@@ -52,6 +52,7 @@ def printConstantTaskPositions():
 def idle(graph):
     G = generate_graph(graph)
     move_list = get_idle_list()
+    can_vote_flag : bool = False
     while len(move_list) > 0:
         if not isInGame():
             break
