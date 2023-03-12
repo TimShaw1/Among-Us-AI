@@ -13,6 +13,11 @@ def generate_files():
             f.close()
 
 def chat(can_vote_flag : bool):
+    if isDead():
+        while in_meeting():
+            time.sleep(1/60)
+            continue
+        return
     p = subprocess.Popen(["python", f"chatGPT.py"])
     while in_meeting():
         if can_vote() and not can_vote_flag:

@@ -25,6 +25,7 @@ with open("sendDataDir.txt") as f:
     SEND_DATA_PATH = line + "\\sendData.txt"
     CHAT_DATA_PATH = line + "\\chatData.txt"
     CAN_VOTE_PATH = line + "\\canVote.txt"
+    IN_GAME_PATH = line + "\\inGameData.txt"
 
 MAP = "SHIP"
 
@@ -263,8 +264,6 @@ def get_nearest_task(tasks):
         # Check for irrelevant data
         if subdict not in tasks and subdict not in SABOTAGE_TASKS:
             continue
-        if is_task_done(subdict) and subdict not in SABOTAGE_TASKS:
-            continue
         try:
             index = data["tasks"].index(subdict)
         except ValueError:
@@ -459,6 +458,13 @@ def isImpostor():
 def isDead():
     data = getGameData()
     return data['dead']
+
+def isInGame():
+    with open(IN_GAME_PATH) as f:
+        lines = f.readlines()
+        inGame = False if '0' in lines else True
+    return inGame
+
 
 def check_report():
     #220 37 0

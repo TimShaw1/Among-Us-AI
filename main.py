@@ -53,8 +53,23 @@ def idle(graph):
     G = generate_graph(graph)
     move_list = get_idle_list()
     while len(move_list) > 0:
+        if not isInGame():
+            break
         nearest = move_to_nearest_node(graph)
-        move_return_code = move(list(nx.shortest_path(G, nearest, choice(move_list), weight="weight")))
+        destination = choice(move_list)
+        urgent = is_urgent_task()
+        if urgent is not None:
+            dict = load_dict()
+            destination = tuple(dict[urgent[0]][urgent[1]])
+        move_return_code = move(list(nx.shortest_path(G, nearest, destination, weight="weight")))
+        if urgent is not None and move_return_code == 0:
+            urgent = is_urgent_task()
+            solve_task(urgent[0])
+            nearest = move_to_nearest_node(graph)
+            if urgent[0] == "Restore Oxygen":
+                move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")))
+                solve_task(task_name="Restore Oxygen")
+                nearest = move_to_nearest_node(graph)
         if move_return_code == 1:
             chat(can_vote_flag)
             set_can_vote_false()
@@ -71,6 +86,8 @@ def move_and_complete_tasks(graph, move_list, tasks):
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
     while len(move_list) > 0:
+        if not isInGame():
+            break
         move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
         if move_return_code == 1:
             chat(can_vote_flag)
@@ -83,7 +100,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
 
         # Issue is due do tsk being too high here - get_nearest_task
         if tsk[1] > 1.5:
-            print(tsk[0])
+            print(tsk)
             print(move_list)
             print("ERROR")
 
@@ -180,10 +197,15 @@ if __name__ == "__main__":
 
     set_can_vote_false()
 
-    # Begin gameplay loop
-    move_and_complete_tasks(graph, move_list, tasks)
+    while True:
+        if isInGame():
+            # Begin gameplay loop
+            move_and_complete_tasks(graph, move_list, tasks)
 
-    # Idly move around
-    idle(graph)
+            # Idly move around
+            idle(graph)
+        # Click Continue
+        # Click Play Again
+        time.sleep(5)
 
 
