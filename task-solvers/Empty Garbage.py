@@ -20,3 +20,4 @@ def easeOutNine(x):
 
 pyautogui.moveTo((x,y))
 pyautogui.dragTo(dest[0], dest[1], duration=2, tween=easeOutNine)
+time.sleep(2)
