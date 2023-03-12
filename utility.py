@@ -398,6 +398,15 @@ def get_move_list(tasks):
 
     return move_list
 
+def get_idle_list():
+    move_list = []
+    dict = load_dict()
+    for task in dict.keys():
+        for location in dict[task].keys():
+            move_list.append(tuple(dict[task][location]))
+    return move_list
+
+
 # Updates the move list
 def update_move_list(move_list, old_tasks, tsk):
 

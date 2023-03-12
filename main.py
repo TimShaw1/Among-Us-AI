@@ -3,6 +3,7 @@ from utility import *
 from math import dist
 import networkx as nx
 from solver import *
+from random import choice
 
 def printConstantGameData():
     try:
@@ -48,8 +49,20 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
-def idle():
-    return
+def idle(graph):
+    G = generate_graph(graph)
+    move_list = get_idle_list()
+    while len(move_list) > 0:
+        nearest = move_to_nearest_node(graph)
+        move_return_code = move(list(nx.shortest_path(G, nearest, choice(move_list), weight="weight")))
+        if move_return_code == 1:
+            chat(can_vote_flag)
+            set_can_vote_false()
+            can_vote_flag = False
+            time.sleep(5)
+            nearest = move_to_nearest_node(graph)
+            continue
+
 
 def move_and_complete_tasks(graph, move_list, tasks):
     inspect_sample_flag : bool = False
@@ -169,5 +182,8 @@ if __name__ == "__main__":
 
     # Begin gameplay loop
     move_and_complete_tasks(graph, move_list, tasks)
+
+    # Idly move around
+    idle(graph)
 
 
