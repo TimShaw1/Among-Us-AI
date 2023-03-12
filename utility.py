@@ -465,7 +465,6 @@ def isInGame():
         inGame = False if '0' in lines else True
     return inGame
 
-
 def check_report():
     #220 37 0
     while True:

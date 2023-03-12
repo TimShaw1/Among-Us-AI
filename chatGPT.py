@@ -1,5 +1,5 @@
 import openai
-from utility import getGameData, in_meeting, get_chat_messages, clear_chat
+from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID
 import time
 import pyautogui
 import re
@@ -17,6 +17,15 @@ role : str = data['status']
 tasks : str = ' '.join(data['tasks'])
 task_locations : str = ' '.join(data['task_locations'])
 
+def get_caller_color():
+    with open("sendDataDir.txt") as f:
+        line = f.readline().rstrip()
+        MEETING_PATH = line + "\\meetingData.txt"
+    f.close()
+    with open(MEETING_PATH) as f:
+        line = f.readline().rstrip()
+        return translatePlayerColorID(int(line))
+
 def ask_gpt(prompts : str) -> str: 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -28,7 +37,7 @@ def ask_gpt(prompts : str) -> str:
 
 prompts =   [
                 {"role": "system", "content": 
-                 re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
+                 re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. {get_caller_color()} called the meeting.
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
                  Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
