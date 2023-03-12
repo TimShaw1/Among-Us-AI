@@ -26,7 +26,11 @@ s2 = screenshot.rotate(335, Image.NEAREST, expand = 1).convert('L')
 
 # get text from image
 text = pytesseract.image_to_string(s2)
-nums = re.findall(r'\b\d+\b', text)[0]
+try:
+    nums = re.findall(r'\b\d+\b', text)[0]
+except IndexError:
+    print("This one was already done")
+    nums = []
 
 num_coords = [  [2, 1.25],
                 [2.41, 2.93], [2, 2.93], [1.71, 2.93],
