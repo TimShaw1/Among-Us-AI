@@ -25,6 +25,21 @@ def get_caller_color():
     with open(MEETING_PATH) as f:
         line = f.readline().rstrip()
         return translatePlayerColorID(int(line))
+    
+def get_dead_players():
+    with open("sendDataDir.txt") as f:
+        line = f.readline().rstrip()
+        MEETING_PATH = line + "\\meetingData.txt"
+    f.close()
+    with open(MEETING_PATH) as f:
+        f.readline().rstrip()
+        line = f.readline().rstrip()
+        return [translatePlayerColorID(int(x)) for x in line.strip('][').split(", ")[:-1]]
+    
+def get_last_task():
+    with open("last_task.txt") as f:
+        line = f.readline().rstrip()
+        return line
 
 def ask_gpt(prompts : str) -> str: 
     response = openai.ChatCompletion.create(
@@ -37,7 +52,8 @@ def ask_gpt(prompts : str) -> str:
 
 prompts =   [
                 {"role": "system", "content": 
-                 re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. {get_caller_color()} called the meeting.
+                 re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
+                 {get_caller_color()} called the meeting. {str(get_dead_players()).strip("][").replace("'", '')} are dead.
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
                  Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
@@ -45,8 +61,11 @@ prompts =   [
                  Only return messages from the {color} player.'''.replace('\n', ' '))
                  },
 
-                 {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"}
+                 {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"},
+                 {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"}
             ]
+
+print(get_last_task)
 
 clear_chat()
 seen_chats = []

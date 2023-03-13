@@ -255,6 +255,7 @@ def get_nearest_task(tasks):
     dict1 = load_dict()
     smallest_dist = 100
     nearest = ()
+    loc = ""
 
     tasks = data['tasks']
 
@@ -276,6 +277,7 @@ def get_nearest_task(tasks):
                 if d < smallest_dist and d < 1.5:
                     smallest_dist = d
                     nearest = subdict
+                    loc = location
                     continue
             
             # Check for correct task but wrong location
@@ -287,8 +289,9 @@ def get_nearest_task(tasks):
             if d < smallest_dist:
                 smallest_dist = d
                 nearest = subdict
+                loc = location
 
-    return (nearest, smallest_dist)
+    return (nearest, smallest_dist, loc)
 
 # converts 2 points to an angle in radians
 def get_angle_radians(point1, point2):

@@ -35,7 +35,7 @@ def chat(can_vote_flag : bool):
 
 # Runs the correct task solver file in a subprocess
 # Note - the AI only goes to the upper location of sabotages
-def solve_task(task_name=None, task_index=None) -> int:
+def solve_task(task_name=None, task_location=None) -> int:
     dead : bool = isDead()
     if task_name == "vote":
         if not dead:
@@ -62,6 +62,9 @@ def solve_task(task_name=None, task_index=None) -> int:
             return 1
 
     if task_name is not None and task_name != ():
+        with open("last_task.txt") as f:
+            f.write(f"{task_name} in {task_location}")
+        f.close()
         p = subprocess.Popen(["python", f"task-solvers\{task_name}.py"])
 
         # Wait for process to finish

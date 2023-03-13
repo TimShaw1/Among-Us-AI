@@ -106,9 +106,9 @@ def move_and_complete_tasks(graph, move_list, tasks):
             print("ERROR")
 
         if inspect_sample_flag and tsk[0] == "Inspect Sample":
-            return_code = solve_task(task_name="Inspect Sample 2")
+            return_code = solve_task(task_name="Inspect Sample 2", task_location="Medbay")
         else:
-            return_code = solve_task(task_name=tsk[0])
+            return_code = solve_task(task_name=tsk[0], task_location=tsk[2])
 
         if return_code == -1:
             break
@@ -116,7 +116,7 @@ def move_and_complete_tasks(graph, move_list, tasks):
         if tsk[0] == "Restore Oxygen" and return_code == 0:
             nearest = move_to_nearest_node(graph)
             move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")))
-            return_code = solve_task(task_name="Restore Oxygen")
+            return_code = solve_task(task_name="Restore Oxygen", task_location="Admin")
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance
