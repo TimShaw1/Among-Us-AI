@@ -527,7 +527,6 @@ def move(dest_list) -> int:
                     f.write(room)
                 f.close()
                 old_room = room
-                print(room)
 
             dest_list.pop(0)
             if (len(dest_list) <= 0):
