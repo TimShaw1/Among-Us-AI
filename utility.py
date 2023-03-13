@@ -53,8 +53,8 @@ def getGameData():
     global impostor
 
     # number of parameters (lines) in data
-    dataLen : int = 10
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
+    dataLen : int = 11
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
     lines = []
     while True:
         with open(SEND_DATA_PATH) as file:
@@ -83,7 +83,9 @@ def getGameData():
             speed = float(lines[8].rstrip())
 
             color = translatePlayerColorID(int(lines[9].rstrip()))
-        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color]:
+
+            room = lines[10].rstrip()
+        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room]:
             continue
         break
 
@@ -94,7 +96,7 @@ def getGameData():
     return {"position" : (x,y), "status" : status, "tasks" : tasks, 
             "task_locations" : task_locations, "task_steps" : task_steps, 
             "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
-            "speed" : speed, "color" : color}
+            "speed" : speed, "color" : color, "room" : room}
 
 def get_chat_messages() -> list:
     with open(CHAT_DATA_PATH) as file:
@@ -450,23 +452,31 @@ def update_move_list(move_list, old_tasks, tsk):
     return task
 
 # Checks if we are in a meeting
-def in_meeting():
+def in_meeting() -> bool:
     data = getGameData()
 
     return data["inMeeting"]
 
-def isImpostor():
+def isImpostor() -> bool:
     return impostor == "impostor"
 
-def isDead():
+def isDead() -> bool:
     data = getGameData()
     return data['dead']
 
-def isInGame():
+def isInGame() -> bool:
     with open(IN_GAME_PATH) as f:
         lines = f.readlines()
         inGame = False if '0' in lines else True
     return inGame
+
+def allTasksDone() -> bool:
+    data = getGameData()
+    tasks = data["tasks"]
+    for task in tasks:
+        if not is_task_done(task):
+            return False
+    return True
 
 def check_report():
     #220 37 0
@@ -497,6 +507,8 @@ def move(dest_list) -> int:
     old_pos = pos
     old_time = datetime.now().second
 
+    old_room = "None"
+
     while len(dest_list) > 0:
         if in_meeting():
             gamepad.reset()
@@ -507,6 +519,16 @@ def move(dest_list) -> int:
         if data['speed'] is not None:
             increment *= data['speed'] * 2
         if dist(pos, dest_list[0]) < increment:
+
+            # Write last room visited
+            room = getGameData()["room"]
+            if room != old_room and room != "None" and room != "Hallway":
+                with open("last_area.txt", "w") as f:
+                    f.write(room)
+                f.close()
+                old_room = room
+                print(room)
+
             dest_list.pop(0)
             if (len(dest_list) <= 0):
                 break

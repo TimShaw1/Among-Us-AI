@@ -1,5 +1,5 @@
 import openai
-from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID
+from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone
 import time
 import pyautogui
 import re
@@ -40,6 +40,11 @@ def get_last_task():
     with open("last_task.txt") as f:
         line = f.readline().rstrip()
         return line
+    
+def get_last_room():
+    with open("last_room.txt") as f:
+        line = f.readline().rstrip()
+        return line
 
 def ask_gpt(prompts : str) -> str: 
     response = openai.ChatCompletion.create(
@@ -50,10 +55,12 @@ def ask_gpt(prompts : str) -> str:
     message = response['choices'][0]['message']['content']
     return message.rstrip()
 
+tasks_prompt = "You finished all your tasks" if allTasksDone() else f"Your last completed task was {get_last_task()}"
+
 prompts =   [
                 {"role": "system", "content": 
                  re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
-                 {get_caller_color()} called the meeting. {str(get_dead_players()).strip("][").replace("'", '')} are dead.
+                 {get_caller_color()} called the meeting. {str(get_dead_players()).strip("][").replace("'", '')} are dead. {tasks_prompt}. The last room you were in was {get_last_room()}
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
                  Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
@@ -65,7 +72,7 @@ prompts =   [
                  {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"}
             ]
 
-print(get_last_task)
+print(get_last_room())
 
 clear_chat()
 seen_chats = []

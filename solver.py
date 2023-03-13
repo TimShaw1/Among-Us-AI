@@ -44,6 +44,9 @@ def solve_task(task_name=None, task_location=None) -> int:
             return 0
 
     if isImpostor():
+        with open("last_task.txt", "w") as f:
+            f.write(f"{task_name} in {task_location}")
+        f.close()
         time.sleep(1.5)
         p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
 
@@ -62,7 +65,7 @@ def solve_task(task_name=None, task_location=None) -> int:
             return 1
 
     if task_name is not None and task_name != ():
-        with open("last_task.txt") as f:
+        with open("last_task.txt", "w") as f:
             f.write(f"{task_name} in {task_location}")
         f.close()
         p = subprocess.Popen(["python", f"task-solvers\{task_name}.py"])

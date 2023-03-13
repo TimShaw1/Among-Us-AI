@@ -10,8 +10,6 @@ def printConstantGameData():
         load_dict()
         while True:
             data = getGameData()
-            if data["inMeeting"] is None:
-                continue
             for key in data.keys():
                 print(data[key])
             #for i in range(len(data["tasks"])):
@@ -197,6 +195,15 @@ if __name__ == "__main__":
     move_list = get_move_list(tasks)
 
     set_can_vote_false()
+
+    with open("last_task.txt", "w") as f:
+        f.write("nothing. No tasks completed yet")
+    f.close()
+
+    room = getGameData()["room"]
+    with open("last_area.txt", "w") as f:
+        f.write(room)
+    f.close()
 
     while True:
         if isInGame():
