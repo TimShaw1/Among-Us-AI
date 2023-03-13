@@ -42,7 +42,7 @@ def get_last_task():
         return line
     
 def get_last_room():
-    with open("last_room.txt") as f:
+    with open("last_area.txt") as f:
         line = f.readline().rstrip()
         return line
 
@@ -73,6 +73,7 @@ prompts =   [
             ]
 
 print(get_last_room())
+print(allTasksDone())
 
 clear_chat()
 seen_chats = []
