@@ -53,8 +53,8 @@ def getGameData():
     global impostor
 
     # number of parameters (lines) in data
-    dataLen : int = 11
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
+    dataLen : int = 12
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, nearbyPlayers = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
     lines = []
     while True:
         with open(SEND_DATA_PATH) as file:
@@ -85,7 +85,12 @@ def getGameData():
             color = translatePlayerColorID(int(lines[9].rstrip()))
 
             room = lines[10].rstrip()
-        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room]:
+
+            try:
+                nearbyPlayers = [translatePlayerColorID(int(x)) for x in lines[11].rstrip().strip('][').split(", ")]
+            except ValueError:
+                nearbyPlayers = []
+        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, nearbyPlayers]:
             continue
         break
 
@@ -96,7 +101,7 @@ def getGameData():
     return {"position" : (x,y), "status" : status, "tasks" : tasks, 
             "task_locations" : task_locations, "task_steps" : task_steps, 
             "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
-            "speed" : speed, "color" : color, "room" : room}
+            "speed" : speed, "color" : color, "room" : room, "neabyPlayers" : nearbyPlayers}
 
 def get_chat_messages() -> list:
     with open(CHAT_DATA_PATH) as file:
