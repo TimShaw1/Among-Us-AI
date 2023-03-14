@@ -1,1 +1,1 @@
-Swipe Card in Admin
+Fix Wiring in Navigation
