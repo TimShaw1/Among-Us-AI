@@ -7,7 +7,9 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from task_utility import get_dimensions, get_screen_coords, wake
 
-API_KEY = "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"
+with open("APIkey.txt") as f:
+    API_KEY = f.readline().rstrip()
+
 
 data = getGameData()
 
