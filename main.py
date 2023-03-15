@@ -187,7 +187,8 @@ if __name__ == "__main__":
     # Load map graph
     graph = load_graph_list("SHIP")
 
-    G = generate_graph(graph)
+    #G = generate_graph(graph)
+    G = load_G("SHIP")
 
     # Get tasks
     tasks = get_task_list()

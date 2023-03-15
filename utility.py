@@ -390,7 +390,18 @@ def generate_graph(graph):
                 if point != point2:
                     G.add_edge(point, point2, weight=round(dist(point, point2),4))
     
+    write_G(G, "SHIP")
     return G
+
+def write_G(G, map_name):
+    with open(f'graphs\{map_name}_G.pkl', 'wb') as f:
+        pickle.dump(G, f)
+    
+    print(f'Wrote to graphs\{map_name}_G.pkl')
+
+def load_G(map_name):
+    with open(f'graphs\{map_name}_G.pkl', 'rb') as f:
+        return pickle.load(f)
 
 def show_graph(G : nx.Graph, graph : list):
     options = {

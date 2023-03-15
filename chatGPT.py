@@ -1,7 +1,8 @@
 import openai
-from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone, get_nearby_players
+from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone, get_nearby_players, load_G
 import time
 import pyautogui
+import networkx as nx
 import re
 import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
@@ -18,7 +19,9 @@ color : str = data['color']
 role : str = data['status']
 tasks : str = ' '.join(data['tasks'])
 task_locations : str = ' '.join(data['task_locations'])
-# nearby_players = get_nearby_players(G)
+G = load_G("SHIP")
+print(G)
+nearby_players = get_nearby_players(G)
 
 def get_caller_color():
     with open("sendDataDir.txt") as f:
