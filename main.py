@@ -47,8 +47,7 @@ def printConstantTaskPositions():
     except KeyboardInterrupt:
         pass
 
-def idle(graph):
-    G = generate_graph(graph)
+def idle(G):
     move_list = get_idle_list()
     can_vote_flag : bool = False
     while len(move_list) > 0:
@@ -213,7 +212,7 @@ if __name__ == "__main__":
             move_and_complete_tasks(G, move_list, tasks)
 
             # Idly move around
-            idle(graph)
+            idle(G)
         # Click Continue
         # Click Play Again
         time.sleep(5)
