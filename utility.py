@@ -53,8 +53,8 @@ def getGameData():
     global impostor
 
     # number of parameters (lines) in data
-    dataLen : int = 12
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, nearbyPlayers = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
+    dataLen : int = 13
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, lights, nearbyPlayers = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
     lines = []
     while True:
         with open(SEND_DATA_PATH) as file:
@@ -86,8 +86,14 @@ def getGameData():
 
             room = lines[10].rstrip()
 
+            lights = False if '0' in lines[11].rstrip() else True
+
+            nearbyPlayers = {}
             try:
-                nearbyPlayers = [translatePlayerColorID(int(x)) for x in lines[11].rstrip().strip('][').split(", ")]
+                bigLongInput = lines[12].rstrip().strip('][').split(", ")
+                for item in bigLongInput:
+                    item = item.split("/")
+                    nearbyPlayers[translatePlayerColorID(int(item[0]))] = (float(item[1]), float(item[2]))
             except ValueError:
                 nearbyPlayers = []
         if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, nearbyPlayers]:
@@ -101,7 +107,7 @@ def getGameData():
     return {"position" : (x,y), "status" : status, "tasks" : tasks, 
             "task_locations" : task_locations, "task_steps" : task_steps, 
             "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
-            "speed" : speed, "color" : color, "room" : room, "neabyPlayers" : nearbyPlayers}
+            "speed" : speed, "color" : color, "room" : room, "lights" : lights, "nearbyPlayers" : nearbyPlayers}
 
 def get_chat_messages() -> list:
     with open(CHAT_DATA_PATH) as file:
@@ -300,6 +306,14 @@ def get_nearest_task(tasks):
 
     return (nearest, smallest_dist, loc)
 
+def get_nearby_players(G):
+    players = getGameData()["nearbyPlayers"]
+    near_players = []
+    for player in players.keys():
+        if get_real_dist(G,  players[player]) < 5.5:
+            near_players.append(player)
+    return near_players
+
 # converts 2 points to an angle in radians
 def get_angle_radians(point1, point2):
     # atan2(y,x)
@@ -333,6 +347,26 @@ def move_to_nearest_node(graph):
             nearest = item
     move([nearest])
     return nearest
+
+def get_nearest_node(G : nx.Graph, node_pos : tuple):
+    smallest_dist = 100
+    nearest = ()
+    for item in G.nodes.items():
+        distance = dist(item[0], node_pos)
+        if distance < smallest_dist:
+            smallest_dist = distance
+            nearest = item[0]
+    return nearest
+
+def get_real_dist(G : nx.Graph, node_pos : tuple) -> tuple:
+
+    node_pos = get_nearest_node(G, node_pos)
+
+    data = getGameData()
+    pos = get_nearest_node(G, data["position"])
+
+    distance = nx.shortest_path_length(G, pos, node_pos, weight="weight")
+    return distance
 
 # Creates a graph and adds nodes and edges between (if distance is great enough)
 def generate_graph(graph):
