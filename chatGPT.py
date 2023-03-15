@@ -11,18 +11,6 @@ from task_utility import get_dimensions, get_screen_coords, wake
 with open("APIkey.txt") as f:
     API_KEY = f.readline().rstrip()
 
-
-data = getGameData()
-
-openai.api_key = API_KEY
-color : str = data['color']
-role : str = data['status']
-tasks : str = ' '.join(data['tasks'])
-task_locations : str = ' '.join(data['task_locations'])
-G = load_G("SHIP")
-print(G)
-nearby_players = get_nearby_players(G)
-
 def get_caller_color():
     with open("sendDataDir.txt") as f:
         line = f.readline().rstrip()
@@ -61,24 +49,37 @@ def ask_gpt(prompts : str) -> str:
     message = response['choices'][0]['message']['content']
     return message.rstrip()
 
+data = getGameData()
+
+openai.api_key = API_KEY
+color : str = data['color']
+role : str = data['status']
+tasks : str = ' '.join(data['tasks'])
+task_locations : str = ' '.join(data['task_locations'])
+G = load_G("SHIP")
+nearby_players = get_nearby_players(G)
+
 tasks_prompt = "You finished all your tasks" if allTasksDone() else f"Your last completed task was {get_last_task()}"
+dead_str = str(get_dead_players()).strip("][").replace("'", '')
 
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
 prompts =   [
                 {"role": "system", "content": 
                  re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
-                 {get_caller_color()} called the meeting. {str(get_dead_players()).strip("][").replace("'", '')} are dead. {tasks_prompt}. The last room you were in was {get_last_room()}.
+                 {get_caller_color()} called the meeting. {"Nobody is" if len(dead_str) == 0 else dead_str + " are"} dead. {tasks_prompt}. The last room you were in was {get_last_room()}.
+                 Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}.
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
                  Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
                  Try to win by voting the impostor out. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
                  Only return messages from the {color} player.'''.replace('\n', ' '))
-                 },
+                },
 
                  {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"},
                  {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"}
             ]
 
+print(prompts)
 clear_chat()
 seen_chats = []
 time.sleep(5)
