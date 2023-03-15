@@ -77,11 +77,9 @@ def idle(graph):
             nearest = move_to_nearest_node(graph)
             continue
 
-
-def move_and_complete_tasks(graph, move_list, tasks):
+def move_and_complete_tasks(G, move_list, tasks):
     inspect_sample_flag : bool = False
     can_vote_flag : bool = False
-    G = generate_graph(graph)
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
     while len(move_list) > 0:
@@ -177,7 +175,8 @@ def move_and_complete_tasks(graph, move_list, tasks):
                 tasks[i].pop(index) 
             except IndexError:
                 continue
-        
+
+
 if __name__ == "__main__":
     # Focus app
     focus()
@@ -187,6 +186,8 @@ if __name__ == "__main__":
 
     # Load map graph
     graph = load_graph_list("SHIP")
+
+    G = generate_graph(graph)
 
     # Get tasks
     tasks = get_task_list()
@@ -208,12 +209,10 @@ if __name__ == "__main__":
     while True:
         if isInGame():
             # Begin gameplay loop
-            move_and_complete_tasks(graph, move_list, tasks)
+            move_and_complete_tasks(G, move_list, tasks)
 
             # Idly move around
             idle(graph)
         # Click Continue
         # Click Play Again
         time.sleep(5)
-
-

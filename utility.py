@@ -306,8 +306,7 @@ def get_nearest_task(tasks):
 
     return (nearest, smallest_dist, loc)
 
-def get_nearby_players():
-    global G
+def get_nearby_players(G):
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
@@ -369,11 +368,8 @@ def get_real_dist(G : nx.Graph, node_pos : tuple) -> tuple:
     distance = nx.shortest_path_length(G, pos, node_pos, weight="weight")
     return distance
 
-global G
 # Creates a graph and adds nodes and edges between (if distance is great enough)
 def generate_graph(graph):
-
-    global G
 
     dict = load_dict()
 

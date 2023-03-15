@@ -1,5 +1,5 @@
 import openai
-from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone
+from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone, get_nearby_players
 import time
 import pyautogui
 import re
@@ -18,6 +18,7 @@ color : str = data['color']
 role : str = data['status']
 tasks : str = ' '.join(data['tasks'])
 task_locations : str = ' '.join(data['task_locations'])
+# nearby_players = get_nearby_players(G)
 
 def get_caller_color():
     with open("sendDataDir.txt") as f:
@@ -59,10 +60,11 @@ def ask_gpt(prompts : str) -> str:
 
 tasks_prompt = "You finished all your tasks" if allTasksDone() else f"Your last completed task was {get_last_task()}"
 
+# Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
 prompts =   [
                 {"role": "system", "content": 
                  re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
-                 {get_caller_color()} called the meeting. {str(get_dead_players()).strip("][").replace("'", '')} are dead. {tasks_prompt}. The last room you were in was {get_last_room()}
+                 {get_caller_color()} called the meeting. {str(get_dead_players()).strip("][").replace("'", '')} are dead. {tasks_prompt}. The last room you were in was {get_last_room()}.
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
                  Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
@@ -73,9 +75,6 @@ prompts =   [
                  {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"},
                  {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"}
             ]
-
-print(get_last_room())
-print(allTasksDone())
 
 clear_chat()
 seen_chats = []
