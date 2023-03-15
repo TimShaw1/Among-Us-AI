@@ -79,7 +79,6 @@ prompts =   [
                  {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"}
             ]
 
-print(prompts)
 clear_chat()
 seen_chats = []
 time.sleep(5)
