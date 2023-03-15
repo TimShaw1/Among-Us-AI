@@ -1,4 +1,4 @@
-from utility import get_task_list, load_dict, in_meeting, isImpostor, is_urgent_task, isDead, can_vote
+from utility import get_task_list, load_dict, in_meeting, isImpostor, is_urgent_task, isDead, can_vote, clear_kill_data
 import subprocess
 import time
 import pyautogui
@@ -32,6 +32,7 @@ def chat(can_vote_flag : bool):
             p.kill()
         time.sleep(1/60)
     p.kill()
+    clear_kill_data()
 
 # Runs the correct task solver file in a subprocess
 # Note - the AI only goes to the upper location of sabotages

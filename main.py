@@ -183,6 +183,9 @@ if __name__ == "__main__":
     # Clear previous chat data
     clear_chat()
 
+    # Clear previous kill data
+    clear_kill_data()
+
     # Load map graph
     graph = load_graph_list("SHIP")
 

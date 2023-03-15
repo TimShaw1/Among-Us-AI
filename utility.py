@@ -26,6 +26,7 @@ with open("sendDataDir.txt") as f:
     CHAT_DATA_PATH = line + "\\chatData.txt"
     CAN_VOTE_PATH = line + "\\canVote.txt"
     IN_GAME_PATH = line + "\\inGameData.txt"
+    KILL_DATA_PATH = line + "\\killData.txt"
 
 MAP = "SHIP"
 
@@ -535,6 +536,9 @@ def check_report():
 
 def clear_chat():
     open(CHAT_DATA_PATH, "w").close()
+
+def clear_kill_data():
+    open(KILL_DATA_PATH, "w").close()
     
 # focuses the among us window
 def focus():
