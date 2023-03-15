@@ -99,6 +99,7 @@ pyautogui.click(x,y)
 time.sleep(0.1)
 time.sleep(5)
 
+# While in_meeting() and not decided_to_vote
 while True:
     new_chats = False
     chat_history = get_chat_messages()
