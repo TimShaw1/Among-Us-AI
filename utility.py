@@ -54,8 +54,8 @@ def getGameData():
     global impostor
 
     # number of parameters (lines) in data
-    dataLen : int = 13
-    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, lights, nearbyPlayers = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
+    dataLen : int = 15
+    x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, lights, nearbyPlayers, playersVent, playersDead = (None,)*(dataLen + 1) # x and y are 1 line, so add 1
     lines = []
     while True:
         with open(SEND_DATA_PATH) as file:
@@ -97,7 +97,12 @@ def getGameData():
                     nearbyPlayers[translatePlayerColorID(int(item[0]))] = (float(item[1]), float(item[2]))
             except ValueError:
                 nearbyPlayers = []
-        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, nearbyPlayers]:
+
+            playersVent = [False if '0' in x else True for x in lines[13].rstrip().strip('][').split(", ")]
+
+            playersDead = [False if '0' in x else True for x in lines[14].rstrip().strip('][').split(", ")]
+
+        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, nearbyPlayers, playersVent, playersDead]:
             continue
         break
 
@@ -108,14 +113,20 @@ def getGameData():
     return {"position" : (x,y), "status" : status, "tasks" : tasks, 
             "task_locations" : task_locations, "task_steps" : task_steps, 
             "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
-            "speed" : speed, "color" : color, "room" : room, "lights" : lights, "nearbyPlayers" : nearbyPlayers}
+            "speed" : speed, "color" : color, "room" : room, "lights" : lights, 
+            "nearbyPlayers" : nearbyPlayers, "playersVent" : playersVent, "playersDead": playersDead}
 
 def get_chat_messages() -> list:
     with open(CHAT_DATA_PATH) as file:
         lines = file.readlines()
         return [x.rstrip() for x in lines]
 
-def translatePlayerColorID(id : int):
+def get_kill_list() -> list[list[str]]:
+    with open(KILL_DATA_PATH) as f:
+        lines = f.readlines()
+        return [[translatePlayerColorID(int(x.rstrip().split(", ")[0])), translatePlayerColorID(int(x.rstrip().split(", ")[1]))] for x in lines]
+
+def translatePlayerColorID(id : int) -> str:
     col_array = ["RED", "BLUE", "GREEN", "PINK",
                 "ORANGE", "YELLOW", "BLACK", "WHITE",
                 "PURPLE", "BROWN", "CYAN", "LIME",
@@ -123,6 +134,15 @@ def translatePlayerColorID(id : int):
                 "TAN", "CORAL"]
     
     return col_array[id]
+
+def translatePlayerColorName(id : str) -> int:
+    col_array = ["RED", "BLUE", "GREEN", "PINK",
+                "ORANGE", "YELLOW", "BLACK", "WHITE",
+                "PURPLE", "BROWN", "CYAN", "LIME",
+                "MAROON", "ROSE", "BANANA", "GRAY",
+                "TAN", "CORAL"]
+    
+    return col_array.index(id)
 
 # Saves the given coordinate dictionary dict_to_save to a json file named dict_name
 def save_dict_file(dict_to_save, dict_name):
@@ -306,6 +326,10 @@ def get_nearest_task(tasks):
                 loc = location
 
     return (nearest, smallest_dist, loc)
+
+def is_player_int_vent(playerCol : str) -> bool:
+    data = getGameData()
+    return data["playersVent"][translatePlayerColorName(playerCol)]
 
 def get_nearby_players(G):
     players = getGameData()["nearbyPlayers"]

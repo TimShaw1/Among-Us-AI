@@ -200,6 +200,8 @@ if __name__ == "__main__":
 
     set_can_vote_false()
 
+    printConstantGameData()
+
     with open("last_task.txt", "w") as f:
         f.write("nothing. No tasks completed yet")
     f.close()
