@@ -8,6 +8,7 @@ from datetime import datetime
 import win32gui
 import pyautogui
 import matplotlib.pyplot as plt
+import random
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
@@ -315,7 +316,7 @@ def get_task_position(data, i):
         return HQ_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
 
 # Returns a tuple with (nearest task, dist to task) as parameters
-def get_nearest_task(tasks):
+def get_nearest_task(tasks = None):
     data = getGameData()
     pos = data["position"]
 
@@ -631,7 +632,7 @@ def move(dest_list) -> int:
             time.sleep(1/60)
 
         if impostor:
-            if can_kill():
+            if can_kill() and random.randint(1,2) % 2 == 0:
                 kill()
                 time.sleep(1/60)
 

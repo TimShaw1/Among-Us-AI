@@ -49,7 +49,13 @@ def solve_task(task_name=None, task_location=None) -> int:
             f.write(f"{task_name} in {task_location}")
         f.close()
         time.sleep(1.5)
-        p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
+        urgent = is_urgent_task()
+        if urgent is None:
+            p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
+        else:
+            if in_meeting():
+                return 1
+            return 0
 
         # Wait for process to finish
         while p.poll() is None:

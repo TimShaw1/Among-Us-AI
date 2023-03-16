@@ -70,7 +70,6 @@ if len(kill_prompt) > 0:
     kill_prompt = kill_prompt[:-2]
     kill_prompt = "You killed " + kill_prompt + " last round."
 
-print(kill_prompt)
 time.sleep(10)
 
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}

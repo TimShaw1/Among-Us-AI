@@ -60,6 +60,9 @@ def idle(G):
             dict = load_dict()
             destination = tuple(dict[urgent[0]][urgent[1]])
         move_return_code = move(list(nx.shortest_path(G, nearest, destination, weight="weight")))
+        if isImpostor():
+            solve_task(get_nearest_task()[0])
+            urgent = is_urgent_task()
         if urgent is not None and move_return_code == 0:
             urgent = is_urgent_task()
             solve_task(urgent[0])
@@ -212,7 +215,8 @@ if __name__ == "__main__":
     while True:
         if isInGame():
             # Begin gameplay loop
-            move_and_complete_tasks(G, move_list, tasks)
+            if not isImpostor():
+                move_and_complete_tasks(G, move_list, tasks)
 
             # Idly move around
             idle(G)
