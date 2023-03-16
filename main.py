@@ -84,10 +84,13 @@ def move_and_complete_tasks(G, move_list, tasks):
     can_vote_flag : bool = False
     nearest = move_to_nearest_node(graph)
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
+    dead = isDead()
     while len(move_list) > 0:
         if not isInGame():
             break
         move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
+        if dead != isDead():
+            break
         if move_return_code == 1:
             chat(can_vote_flag)
             set_can_vote_false()
@@ -99,9 +102,8 @@ def move_and_complete_tasks(G, move_list, tasks):
 
         # Issue is due do tsk being too high here - get_nearest_task
         if tsk[1] > 1.5:
-            print(tsk)
-            print(move_list)
-            print("ERROR")
+            print("Location error, restarting...")
+            return -1
 
         if inspect_sample_flag and tsk[0] == "Inspect Sample":
             return_code = solve_task(task_name="Inspect Sample 2", task_location="Medbay")
@@ -158,6 +160,7 @@ def move_and_complete_tasks(G, move_list, tasks):
             update_move_list(move_list, tasks, tsk[0])
             index = tasks[0].index(tsk[0])
         except ValueError:
+            move_list.pop(0) # edit here
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance
@@ -177,7 +180,42 @@ def move_and_complete_tasks(G, move_list, tasks):
                 tasks[i].pop(index) 
             except IndexError:
                 continue
+    return 0
 
+def main(G):
+        # Get tasks
+    tasks = get_task_list()
+
+    # Initialize places to move to
+    move_list = get_move_list(tasks)
+
+    set_can_vote_false()
+
+    with open("last_task.txt", "w") as f:
+        f.write("nothing. No tasks completed yet")
+    f.close()
+
+    room = getGameData()["room"]
+    with open("last_area.txt", "w") as f:
+        f.write(room)
+    f.close()
+
+    dead = isDead()
+
+    ret = 0
+    while True:
+        if isInGame():
+            # Begin gameplay loop
+            if not isImpostor():
+                ret = move_and_complete_tasks(G, move_list, tasks)
+            if dead != isDead() or ret == -1:
+                return -1
+            # Idly move around
+            idle(G)
+            if dead != isDead():
+                return -1
+        else:
+            return 0
 
 if __name__ == "__main__":
     # Focus app
@@ -195,31 +233,9 @@ if __name__ == "__main__":
     #G = generate_graph(graph)
     G = load_G("SHIP")
 
-    # Get tasks
-    tasks = get_task_list()
-
-    # Initialize places to move to
-    move_list = get_move_list(tasks)
-
-    set_can_vote_false()
-
-    with open("last_task.txt", "w") as f:
-        f.write("nothing. No tasks completed yet")
-    f.close()
-
-    room = getGameData()["room"]
-    with open("last_area.txt", "w") as f:
-        f.write(room)
-    f.close()
-
     while True:
-        if isInGame():
-            # Begin gameplay loop
-            if not isImpostor():
-                move_and_complete_tasks(G, move_list, tasks)
-
-            # Idly move around
-            idle(G)
-        # Click Continue
-        # Click Play Again
-        time.sleep(5)
+        ret = main(G)
+        if ret == -1:
+            print("restarting main...")
+            main(G)
+        time.sleep(1/60)
