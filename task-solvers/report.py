@@ -18,4 +18,5 @@ def can_report() -> bool:
 def report() -> None:
     if not can_report():
         return
+    wake()
     pyautogui.click(get_report_button_pos())

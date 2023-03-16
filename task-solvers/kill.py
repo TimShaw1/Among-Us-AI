@@ -18,4 +18,5 @@ def can_kill() -> bool:
 def kill() -> None:
     if not can_kill():
         return
+    wake()
     pyautogui.click(get_kill_button_pos())

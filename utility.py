@@ -8,6 +8,11 @@ from datetime import datetime
 import win32gui
 import pyautogui
 import matplotlib.pyplot as plt
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
+from kill import can_kill, kill
+from report import can_report, report
 
 SHIP_TASK_TYPES = {}
 
@@ -98,9 +103,23 @@ def getGameData():
             except ValueError:
                 nearbyPlayers = []
 
-            playersVent = [False if '0' in x else True for x in lines[13].rstrip().strip('][').split(", ")]
+            playersVent = {}
+            try:
+                bigLongInput = lines[13].rstrip().strip('][').split(", ")
+                for item in bigLongInput:
+                    item = item.split("/")
+                    playersVent[translatePlayerColorID(int(item[0]))] = False if '0' in item[1] else True
+            except ValueError:
+                playersVent = []
 
-            playersDead = [False if '0' in x else True for x in lines[14].rstrip().strip('][').split(", ")]
+            playersDead = {}
+            try:
+                bigLongInput = lines[14].rstrip().strip('][').split(", ")
+                for item in bigLongInput:
+                    item = item.split("/")
+                    playersDead[translatePlayerColorID(int(item[0]))] = False if '0' in item[1] else True
+            except ValueError:
+                playersDead = []
 
         if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, inMeeting, speed, color, room, nearbyPlayers, playersVent, playersDead]:
             continue
@@ -258,6 +277,20 @@ def is_urgent_task(tasks : list = None) -> str:
             return task
     return None
 
+def is_player_dead(color : str) -> bool:
+    data = getGameData()
+    try:
+        return data["playersDead"][color]
+    except KeyError:
+        return True
+    
+def is_player_vented(color : str) -> bool:
+    data = getGameData()
+    try:
+        return data["playersVent"][color]
+    except KeyError:
+        return False
+
 def can_vote() -> bool:
     with open(CAN_VOTE_PATH) as f:
         lines = f.readlines()
@@ -335,7 +368,7 @@ def get_nearby_players(G):
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
-        if get_real_dist(G,  players[player]) < 5.5:
+        if get_real_dist(G,  players[player]) < 5.5 and not is_player_vented(player):
             near_players.append(player)
     return near_players
 
@@ -592,6 +625,15 @@ def move(dest_list) -> int:
             gamepad.reset()
             gamepad.update()
             return 1
+        
+        if can_report():
+            report()
+            time.sleep(1/60)
+
+        if impostor:
+            if can_kill():
+                kill()
+                time.sleep(1/60)
 
         increment = 0.1
         if data['speed'] is not None:
