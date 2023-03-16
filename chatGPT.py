@@ -91,7 +91,6 @@ prompts =   [
 
 clear_chat()
 seen_chats = []
-time.sleep(6)
 
 dimensions = get_dimensions()
 
