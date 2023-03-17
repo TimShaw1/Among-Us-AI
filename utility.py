@@ -291,6 +291,16 @@ def is_player_vented(color : str) -> bool:
         return data["playersVent"][color]
     except KeyError:
         return False
+    
+def are_cams_used() -> bool:
+    data = getGameData()
+    nearbyPlayers = data["nearbyPlayers"]
+    for player in nearbyPlayers.keys():
+        # TODO: Position is hard coded to skeld for now
+        if dist(nearbyPlayers[player], (-12.7455, -3.397)) < 0.5:
+            return True
+    return False
+
 
 def can_vote() -> bool:
     with open(CAN_VOTE_PATH) as f:
