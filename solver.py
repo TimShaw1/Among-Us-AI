@@ -43,6 +43,8 @@ def solve_task(task_name=None, task_location=None) -> int:
             p = subprocess.Popen(["python", f"task-solvers\\vote.py"])
         else:
             return 0
+        p.wait()
+        return 0
 
     if isImpostor():
         with open("last_task.txt", "w") as f:
