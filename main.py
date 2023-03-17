@@ -68,6 +68,7 @@ def idle(G):
             solve_task(urgent[0])
             nearest = move_to_nearest_node(graph)
             if urgent[0] == "Restore Oxygen":
+                # TODO: Position is hard coded to skeld for now
                 move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")))
                 solve_task(task_name="Restore Oxygen")
                 nearest = move_to_nearest_node(graph)
@@ -115,6 +116,8 @@ def move_and_complete_tasks(G, move_list, tasks):
 
         if tsk[0] == "Restore Oxygen" and return_code == 0:
             nearest = move_to_nearest_node(graph)
+
+            # TODO: Position is hard coded to skeld for now
             move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")))
             return_code = solve_task(task_name="Restore Oxygen", task_location="Admin")
             nearest = move_to_nearest_node(graph)
