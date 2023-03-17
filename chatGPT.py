@@ -1,5 +1,5 @@
 import openai
-from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone, get_nearby_players, load_G, get_kill_list
+from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone, get_nearby_players, load_G, get_kill_list, get_num_alive_players
 import time
 import pyautogui
 import networkx as nx
@@ -58,6 +58,7 @@ tasks : str = ' '.join(data['tasks'])
 task_locations : str = ' '.join(data['task_locations'])
 G = load_G("SHIP")
 nearby_players = get_nearby_players(G)
+print(get_num_alive_players())
 
 tasks_prompt : str = "You finished all your tasks" if allTasksDone() else f"Your last completed task was {get_last_task()}"
 dead_str : str = str(get_dead_players()).strip("][").replace("'", '')
@@ -80,7 +81,8 @@ prompts =   [
                  re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
                  {get_caller_color()} called the meeting. {"Nobody is" if len(dead_str) == 0 else dead_str + " are"} dead. {tasks_prompt}. The last room you were in was {get_last_room()}.
                  Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + str(nearby_players).strip("][")}. {kill_prompt} {found_prompt}
-                 The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
+                 The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}. 
+                 There are {get_num_alive_players()} players left alive.
                  Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
                  Try to win by voting the impostor out. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
