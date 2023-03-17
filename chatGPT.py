@@ -49,6 +49,21 @@ def ask_gpt(prompts : str) -> str:
     message = response['choices'][0]['message']['content']
     return message.rstrip()
 
+def vote(color : str = None):
+    dimensions = get_dimensions()
+    x = dimensions[0] + round(dimensions[2] / 1.27)
+    y = dimensions[1] + round(dimensions[3] / 7.77)
+    wake()
+    pyautogui.click(x,y, duration=0.3)
+    time.sleep(0.5)
+
+    wake()
+
+    time.sleep(0.3)
+    pyautogui.click(dimensions[0] + round(dimensions[2] / 6.74), dimensions[1] + round(dimensions[3] / 1.15), duration=0.2)
+    time.sleep(0.3)
+    pyautogui.click(dimensions[0] + round(dimensions[2] / 3.87), dimensions[1] + round(dimensions[3] / 1.17), duration=0.2)
+
 data = getGameData()
 
 openai.api_key = API_KEY
@@ -152,3 +167,5 @@ while in_meeting() and not decided_to_vote:
     except openai.error.RateLimitError:
         print("Rate limit reached")
         break
+
+vote()

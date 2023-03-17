@@ -19,17 +19,8 @@ def chat(can_vote_flag : bool):
             continue
         return
     p = subprocess.Popen(["python", f"chatGPT.py"])
+    p.wait()
     while in_meeting():
-        if can_vote() and not can_vote_flag:
-            dimensions = get_dimensions()
-            x = dimensions[0] + round(dimensions[2] / 1.27)
-            y = dimensions[1] + round(dimensions[3] / 7.77)
-            wake()
-            pyautogui.click(x,y, duration=0.3)
-            time.sleep(0.5)
-            solve_task("vote")
-            can_vote_flag = True
-            p.kill()
         time.sleep(1/60)
     p.kill()
     clear_kill_data()
@@ -39,6 +30,7 @@ def chat(can_vote_flag : bool):
 def solve_task(task_name=None, task_location=None) -> int:
     dead : bool = isDead()
     if task_name == "vote":
+        print("Should never be here")
         if not dead:
             p = subprocess.Popen(["python", f"task-solvers\\vote.py"])
         else:
