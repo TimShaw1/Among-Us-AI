@@ -8,23 +8,24 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from task_utility import get_dimensions, get_screen_coords, wake
 
+meeting_start_time = time.time()
+
 with open("APIkey.txt") as f:
     API_KEY = f.readline().rstrip()
+f.close()
+
+with open("sendDataDir.txt") as f:
+    line = f.readline().rstrip()
+    MEETING_PATH = line + "\\meetingData.txt"
+    VOTE_TIME_PATH = line + "\\timerData.txt"
+f.close()
 
 def get_caller_color():
-    with open("sendDataDir.txt") as f:
-        line = f.readline().rstrip()
-        MEETING_PATH = line + "\\meetingData.txt"
-    f.close()
     with open(MEETING_PATH) as f:
         line = f.readline().rstrip()
         return translatePlayerColorID(int(line))
     
 def get_dead_players():
-    with open("sendDataDir.txt") as f:
-        line = f.readline().rstrip()
-        MEETING_PATH = line + "\\meetingData.txt"
-    f.close()
     with open(MEETING_PATH) as f:
         f.readline().rstrip()
         line = f.readline().rstrip()
@@ -39,6 +40,11 @@ def get_last_room():
     with open("last_area.txt") as f:
         line = f.readline().rstrip()
         return line
+    
+def get_meeting_time():
+    with open(VOTE_TIME_PATH) as f:
+        time = int(f.readline())
+    return time
 
 def ask_gpt(prompts : str) -> str: 
     response = openai.ChatCompletion.create(
@@ -73,7 +79,6 @@ tasks : str = ' '.join(data['tasks'])
 task_locations : str = ' '.join(data['task_locations'])
 G = load_G("SHIP")
 nearby_players = get_nearby_players(G)
-print(get_num_alive_players())
 
 tasks_prompt : str = "You finished all your tasks" if allTasksDone() else f"Your last completed task was {get_last_task()}"
 dead_str : str = str(get_dead_players()).strip("][").replace("'", '')
@@ -86,7 +91,7 @@ if len(kill_prompt) > 0:
     kill_prompt = kill_prompt[:-2]
     kill_prompt = "You killed " + kill_prompt + " last round."
 
-found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) == 0 else ''
+found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) != 0 else ''
 
 time.sleep(10)
 
@@ -98,7 +103,7 @@ prompts =   [
                  Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + str(nearby_players).strip("][")}. {kill_prompt} {found_prompt}
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}. 
                  There are {get_num_alive_players()} players left alive.
-                 Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
+                 Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
                  Try to win by voting the impostor out. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
                  Only return messages from the {color} player.'''.replace('\n', ' '))
@@ -130,6 +135,8 @@ time.sleep(5)
 decided_to_vote : bool = False
 
 while in_meeting() and not decided_to_vote:
+    if time.time() - meeting_start_time > get_meeting_time() - 10:
+        break
     new_chats = False
     chat_history = get_chat_messages()
     
@@ -162,8 +169,8 @@ while in_meeting() and not decided_to_vote:
 
             response = new_response.replace(f'{color}: ', '')
             print("res: " + response)
-            pyautogui.typewrite(f"{response.lower()}\n", interval=0.05)
-            time.sleep(5)
+            pyautogui.typewrite(f"{response.lower()}\n", interval=0.025)
+            time.sleep(4)
     except openai.error.RateLimitError:
         print("Rate limit reached")
         break
