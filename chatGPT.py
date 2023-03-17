@@ -90,7 +90,8 @@ prompts =   [
                 },
 
                  {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"},
-                 {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"}
+                 {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"},
+                 {"role": "system", "content": "If you decide to vote, respond by saying 'VOTE: {COLOR to vote}' or 'VOTE: skip' to skip"}
             ]
 
 clear_chat()
@@ -111,8 +112,9 @@ pyautogui.click(x,y)
 time.sleep(0.1)
 time.sleep(5)
 
-# While in_meeting() and not decided_to_vote
-while True:
+decided_to_vote : bool = False
+
+while in_meeting() and not decided_to_vote:
     new_chats = False
     chat_history = get_chat_messages()
     
@@ -132,6 +134,12 @@ while True:
             response = ask_gpt(prompts)
             new_response = " "
             for line in response.splitlines():
+                if "VOTE: " in line:
+                    if "skip" in line.lower():
+                        decided_to_vote = True
+                        break
+                    decided_to_vote = True
+                    break
                 if f"{color}: " not in line:
                     print("skipped")
                     continue
@@ -139,7 +147,7 @@ while True:
 
             response = new_response.replace(f'{color}: ', '')
             print("res: " + response)
-            pyautogui.typewrite(f"{response.lower()}\n")
+            pyautogui.typewrite(f"{response.lower()}\n", interval=0.05)
             time.sleep(5)
     except openai.error.RateLimitError:
         print("Rate limit reached")
