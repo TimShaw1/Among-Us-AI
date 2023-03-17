@@ -79,7 +79,7 @@ def solve_task(task_name=None, task_location=None) -> int:
 
         # Wait for process to finish
         while p.poll() is None:
-            if in_meeting() or isDead() != dead:
+            if in_meeting() or (isDead() != dead):
                 p.kill()
                 return 1 if task_name != "Inspect Sample" else 2
             time.sleep(1/30)

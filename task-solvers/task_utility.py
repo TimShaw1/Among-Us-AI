@@ -102,14 +102,17 @@ def get_screen_coords():
 def is_task_done(task):
     data = getGameData()
 
-    if task in SABOTAGE_TASKS:
-        if task in data["tasks"]:
-            return False
+    try:
+        if task in SABOTAGE_TASKS:
+            if task in data["tasks"]:
+                return False
+            return True
+
+        index = data["tasks"].index(task)
+        steps = data["task_steps"][index].split('/')
+        return steps[0] == steps[1]
+    except (IndexError, ValueError):
         return True
-            
-    index = data["tasks"].index(task)
-    steps = data["task_steps"][index].split('/')
-    return steps[0] == steps[1]
 
 def is_urgent_task() -> bool:
     data = getGameData()

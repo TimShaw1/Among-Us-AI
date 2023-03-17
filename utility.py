@@ -126,7 +126,7 @@ def getGameData():
             continue
         break
 
-    if status == "impostor" and tasks is not None and task_locations is not None:
+    if dead or status == "impostor":
         if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
             tasks.pop(0)
             task_locations.pop(0)
@@ -260,7 +260,7 @@ def is_task_done(task):
             if task in data["tasks"]:
                 return False
             return True
-            
+
         index = data["tasks"].index(task)
         steps = data["task_steps"][index].split('/')
         return steps[0] == steps[1]
