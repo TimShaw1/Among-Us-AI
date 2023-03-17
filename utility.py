@@ -383,6 +383,22 @@ def get_nearby_players(G):
             near_players.append(player)
     return near_players
 
+def get_num_alive_players():
+    players : dict = getGameData()["playersDead"]
+    num_alive : int = 1 # me
+    for player in players.keys():
+        if not players[player]:
+            num_alive += 1
+    return num_alive
+
+def get_num_dead_players():
+    players : dict = getGameData()["playersDead"]
+    num_dead : int = 1 # me
+    for player in players.keys():
+        if players[player]:
+            num_dead += 1
+    return num_dead
+
 # converts 2 points to an angle in radians
 def get_angle_radians(point1, point2):
     # atan2(y,x)
