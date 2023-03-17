@@ -93,6 +93,8 @@ if len(kill_prompt) > 0:
 
 found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) != 0 else ''
 
+print(nearby_players)
+
 time.sleep(10)
 
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
@@ -105,7 +107,7 @@ prompts =   [
                  There are {get_num_alive_players()} players left alive.
                  Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
-                 Try to win by voting the impostor out. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
+                 Try to win by voting the impostor out. If your crewmates are agreeing on someone, go along with it unless you are sus of someone else. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
                  Only return messages from the {color} player.'''.replace('\n', ' '))
                 },
 
@@ -135,7 +137,7 @@ time.sleep(5)
 decided_to_vote : bool = False
 
 while in_meeting() and not decided_to_vote:
-    if time.time() - meeting_start_time > get_meeting_time() - 10:
+    if time.time() - meeting_start_time > get_meeting_time() - 8:
         break
     new_chats = False
     chat_history = get_chat_messages()
@@ -157,6 +159,7 @@ while in_meeting() and not decided_to_vote:
             new_response = " "
             for line in response.splitlines():
                 if "VOTE: " in line:
+                    print("Decided to vote")
                     if "skip" in line.lower():
                         decided_to_vote = True
                         break
