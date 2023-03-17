@@ -70,6 +70,8 @@ if len(kill_prompt) > 0:
     kill_prompt = kill_prompt[:-2]
     kill_prompt = "You killed " + kill_prompt + " last round."
 
+found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) == 0 else ''
+
 time.sleep(10)
 
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
@@ -77,7 +79,7 @@ prompts =   [
                 {"role": "system", "content": 
                  re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
                  {get_caller_color()} called the meeting. {"Nobody is" if len(dead_str) == 0 else dead_str + " are"} dead. {tasks_prompt}. The last room you were in was {get_last_room()}.
-                 Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + str(nearby_players).strip("][")}. {kill_prompt}
+                 Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + str(nearby_players).strip("][")}. {kill_prompt} {found_prompt}
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}.
                  Your name is Duper. People can refer to you by your name or your color. Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
