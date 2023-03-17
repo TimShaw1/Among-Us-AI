@@ -45,6 +45,10 @@ def getGameData():
             continue
         break
 
+    if dead or status == "impostor":
+        if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
+            tasks.pop(0)
+            task_locations.pop(0)
     return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead}
 
 def get_screenshot(dimensions=None, window_title="Among Us"):
