@@ -144,10 +144,12 @@ def move_and_complete_tasks(G, move_list, tasks):
         if return_code == 1 or return_code == 2:
             if return_code == 2:
                 inspect_sample_flag = True
-            chat(can_vote_flag)
-            set_can_vote_false()
-            can_vote_flag = False
-            time.sleep(5)
+
+            if in_meeting():
+                chat(can_vote_flag)
+                set_can_vote_false()
+                can_vote_flag = False
+                time.sleep(5)
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance
