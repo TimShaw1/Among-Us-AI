@@ -379,7 +379,8 @@ def get_nearby_players(G):
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
-        if get_real_dist(G,  players[player]) < 5.5 and not is_player_vented(player):
+        print(player, get_real_dist(G,  players[player]))
+        if get_real_dist(G,  players[player]) < 4 and not is_player_vented(player):
             near_players.append(player)
     return near_players
 
