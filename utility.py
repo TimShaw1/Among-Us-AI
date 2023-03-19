@@ -137,7 +137,7 @@ def getGameData():
             "nearbyPlayers" : nearbyPlayers, "playersVent" : playersVent, "playersDead": playersDead}
 
 def get_chat_messages() -> list:
-    with open(CHAT_DATA_PATH) as file:
+    with open(CHAT_DATA_PATH, encoding="utf8") as file:
         lines = file.readlines()
         return [x.rstrip() for x in lines]
 
@@ -268,6 +268,8 @@ def is_task_done(task):
         return True
     
 def is_urgent_task(tasks : list = None) -> str:
+    if isDead():
+        return None
     if tasks is None:
         data = getGameData()
         tasks = data['tasks']
