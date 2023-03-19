@@ -213,6 +213,9 @@ while in_meeting() and not decided_to_vote:
         print("Rate limit reached")
         break
 
+while time.time() - meeting_start_time < get_meeting_time() - 8:
+    time.sleep(1/15)
+
 prompts.append({"role": "user", "content": "You have 10 seconds left to vote. How do you vote?"})
 res = ask_gpt(prompts)
 col_array = ["RED", "BLUE", "GREEN", "PINK",
@@ -222,7 +225,8 @@ col_array = ["RED", "BLUE", "GREEN", "PINK",
                 "TAN", "CORAL"]
 c = "skip"
 for color1 in col_array:
-    if color1 in res and color1 != color:
+    if color1 in res.upper() and color1 != color:
         c = color1
 print("Vote: " + res)
+print(c)
 vote(c.upper())
