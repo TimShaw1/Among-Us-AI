@@ -45,12 +45,14 @@ def get_meeting_time():
     return time
 
 def ask_gpt(prompts : str) -> str: 
+    print("sent prompt")
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=prompts
     )
 
     message = response['choices'][0]['message']['content']
+    print("returned message")
     return message.rstrip()
 
 # min difference is 46
@@ -181,8 +183,8 @@ while in_meeting() and not decided_to_vote:
                 prompts.append({"role": "assistant", "content": chat})
             else:
                 prompts.append({"role": "user", "content": chat})
+                new_chats = True
             seen_chats.append(chat)
-            new_chats = True
 
     try:
         if new_chats:
