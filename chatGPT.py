@@ -8,8 +8,6 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from task_utility import get_dimensions, get_screen_coords, wake
 
-meeting_start_time = time.time()
-
 with open("APIkey.txt") as f:
     API_KEY = f.readline().rstrip()
 f.close()
@@ -128,6 +126,7 @@ if len(kill_prompt) > 0:
 
 found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) != 0 else ''
 
+meeting_start_time = time.time()
 time.sleep(10)
 
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
@@ -166,9 +165,7 @@ y = dimensions[1] + round(dimensions[3] / 1.19)
 
 pyautogui.click(x,y)
 time.sleep(0.1)
-time.sleep(5)
-
-time.sleep(10)
+time.sleep(3)
 
 decided_to_vote : bool = False
 
