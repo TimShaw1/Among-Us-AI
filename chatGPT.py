@@ -139,7 +139,7 @@ prompts =   [
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}. 
                  There are {get_num_alive_players()} players left alive.
                  Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
-                 Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 words at a time.
+                 Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 characters at a time.
                  Try to win by voting the impostor out. If your crewmates are agreeing on someone, go along with it unless you are sus of someone else. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
                  Only return messages from the {color} player.'''.replace('\n', ' '))
                 },
