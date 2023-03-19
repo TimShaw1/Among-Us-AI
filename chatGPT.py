@@ -55,20 +55,55 @@ def ask_gpt(prompts : str) -> str:
     message = response['choices'][0]['message']['content']
     return message.rstrip()
 
-def vote(color : str = None):
-    dimensions = get_dimensions()
-    x = dimensions[0] + round(dimensions[2] / 1.27)
-    y = dimensions[1] + round(dimensions[3] / 7.77)
-    wake()
-    pyautogui.click(x,y, duration=0.3)
-    time.sleep(0.5)
+# min difference is 46
+cols_dict = {"RED" : (208, 68, 74), "BLUE" : (62, 91, 234), "GREEN" : (55, 156, 95), "PINK" : (241, 123, 217), 
+             "ORANGE" : (241, 156, 70), "YELLOW" : (241, 246, 130), "BLACK" : (97, 111, 122), "WHITE" : (223, 240, 251),
+             "PURPLE" : (134, 91, 214), "BROWN" : (138, 110, 83), "CYAN" : (95, 245, 245), "LIME" : (108, 244, 107),
+             "MAROON" : (121, 75, 95), "ROSE" : (241, 213, 236), "BANANA" : (239, 244, 199), "GRAY" : (142, 162, 181),
+             "TAN" : (162, 163, 156), "CORAL" : (226, 136, 144), "SKIP" : ()}
 
+def col_diff(col1 : tuple, col2 : tuple) -> int:
+    return abs(col1[0] - col2[0]) + abs(col1[1] - col2[1]) + abs(col1[2] - col2[2])
+
+def find_col_pos(dimensions, col : str):
+    x = dimensions[0] + round(dimensions[2] / 7.38)
+    y = dimensions[1] + round(dimensions[3] / 4.30)
+
+    x_offset = round(dimensions[2] / 3.68)
+    y_offset = round(dimensions[3] / 7.88)
+
+    for i in range(3):
+        for j in range(5):
+            pixel = pyautogui.pixel(x + x_offset * i, y + y_offset * j)
+            if col != "SKIP" and col_diff(cols_dict[col], pixel) < 30:
+                return (x + x_offset * i, y + y_offset * j)
+    return None
+
+def skip(dimensions):
     wake()
 
+    # skip
     time.sleep(0.3)
     pyautogui.click(dimensions[0] + round(dimensions[2] / 6.74), dimensions[1] + round(dimensions[3] / 1.15), duration=0.2)
     time.sleep(0.3)
     pyautogui.click(dimensions[0] + round(dimensions[2] / 3.87), dimensions[1] + round(dimensions[3] / 1.17), duration=0.2)
+
+def vote(color : str = "SKIP"):
+    dimensions = get_dimensions()
+    x = dimensions[0] + round(dimensions[2] / 1.27)
+    y = dimensions[1] + round(dimensions[3] / 7.77)
+    wake()
+
+    # close chat
+    pyautogui.click(x,y, duration=0.3)
+    time.sleep(0.5)
+
+    pos = find_col_pos(dimensions, color)
+    if pos is None:
+        skip(dimensions)
+    else:
+        pyautogui.click(pos, duration=0.2)
+        pyautogui.click(pos[0] + round(dimensions[2] / 8.07), pos[1], duration=0.2)
 
 data = getGameData()
 
@@ -92,8 +127,6 @@ if len(kill_prompt) > 0:
     kill_prompt = "You killed " + kill_prompt + " last round."
 
 found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) != 0 else ''
-
-print(nearby_players)
 
 time.sleep(10)
 
@@ -133,6 +166,8 @@ y = dimensions[1] + round(dimensions[3] / 1.19)
 pyautogui.click(x,y)
 time.sleep(0.1)
 time.sleep(5)
+
+time.sleep(10)
 
 decided_to_vote : bool = False
 
@@ -178,4 +213,16 @@ while in_meeting() and not decided_to_vote:
         print("Rate limit reached")
         break
 
-vote()
+prompts.append({"role": "user", "content": "You have 10 seconds left to vote. How do you vote?"})
+res = ask_gpt(prompts)
+col_array = ["RED", "BLUE", "GREEN", "PINK",
+                "ORANGE", "YELLOW", "BLACK", "WHITE",
+                "PURPLE", "BROWN", "CYAN", "LIME",
+                "MAROON", "ROSE", "BANANA", "GRAY",
+                "TAN", "CORAL"]
+c = "skip"
+for color1 in col_array:
+    if color1 in res and color1 != color:
+        c = color1
+print("Vote: " + res)
+vote(c.upper())
