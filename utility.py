@@ -558,7 +558,11 @@ def get_smallest_dist(graph, pos):
     return smallest_dist
 
 def move_to_nearest_node(graph):
-    """Moves the player to the nearest node on the graph"""
+    """
+    Moves the player to the nearest node on the graph.
+    
+    Returns the nearest node.
+    """
     data = getGameData()
     pos = data["position"]
 
