@@ -3,6 +3,8 @@ import copy
 import pyautogui
 import time
 
+# DEPRECIATED
+
 def get_report_button_pos() -> tuple:
     dimensions = get_dimensions()
 
