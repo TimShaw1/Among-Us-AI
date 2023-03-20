@@ -170,7 +170,7 @@ def getImposterData() -> dict:
                 for item in bigLongInput:
                     item = item.split("/")
                     fellow_imposters[translatePlayerColorID(int(item[0]))] = False if '0' in item[1] else True
-            except ValueError:
+            except ValueError and IndexError:
                 fellow_imposters = {}
 
             killCD = float(lines[1])
@@ -377,6 +377,10 @@ def are_cams_used() -> bool:
             return True
     return False
 
+def are_lights_on() -> bool:
+    data = getGameData()
+    return data["lights"]
+
 def inside_rect(rect : tuple, pos) -> bool:
     return rect[0] <= pos[0] <= rect[2] and rect[1] <= pos[1] <= rect[3]
 
@@ -532,6 +536,10 @@ def get_num_dead_players() -> int:
         if players[player]:
             num_dead += 1
     return num_dead
+
+def get_room() -> str:
+    data = getGameData()
+    return data["room"]
 
 def get_angle_radians(point1, point2) -> float:
     """converts 2 points to an angle in radians"""
@@ -746,7 +754,8 @@ def in_meeting() -> bool:
     return data["inMeeting"]
 
 def isImpostor() -> bool:
-    return impostor == "impostor"
+    data = getGameData()
+    return data["status"] == "impostor"
 
 def isDead() -> bool:
     data = getGameData()
