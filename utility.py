@@ -33,6 +33,7 @@ with open("sendDataDir.txt") as f:
     CAN_VOTE_PATH = line + "\\canVote.txt"
     IN_GAME_PATH = line + "\\inGameData.txt"
     KILL_DATA_PATH = line + "\\killData.txt"
+    IMPOSTER_DATA_PATH = line + "\\imposterData.txt"
 
 MAP = "SHIP"
 
@@ -136,6 +137,26 @@ def getGameData():
             "speed" : speed, "color" : color, "room" : room, "lights" : lights, 
             "nearbyPlayers" : nearbyPlayers, "playersVent" : playersVent, "playersDead": playersDead}
 
+def getImposterData():
+    dataLen = 2
+    fellow_imposters, killCD = None, None
+
+    while True:
+        with open(IMPOSTER_DATA_PATH) as f:
+            lines = f.readlines()
+            if len(lines) < dataLen:
+                f.close()
+                continue
+            fellow_imposters = lines[0].rstrip().strip('][').split(", ")
+            if not fellow_imposters[0].replace(' ','').isalpha():
+                fellow_imposters = []
+            killCD = float(lines[1])
+        if None in [fellow_imposters, killCD]:
+            continue
+        break
+    return {"fellow_imposters": fellow_imposters, "killCD" : killCD}
+
+
 def get_chat_messages() -> list:
     with open(CHAT_DATA_PATH, encoding="utf8") as file:
         lines = file.readlines()
@@ -145,6 +166,10 @@ def get_kill_list() -> list[list[str]]:
     with open(KILL_DATA_PATH) as f:
         lines = f.readlines()
         return [[translatePlayerColorID(int(x.rstrip().split(", ")[0])), translatePlayerColorID(int(x.rstrip().split(", ")[1]))] for x in lines]
+    
+def get_killCD() -> float:
+    impData = getImposterData()
+    return impData["killCD"]
 
 def translatePlayerColorID(id : int) -> str:
     col_array = ["RED", "BLUE", "GREEN", "PINK",

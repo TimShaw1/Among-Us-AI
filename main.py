@@ -241,6 +241,8 @@ if __name__ == "__main__":
     #G = generate_graph(graph)
     G = load_G("SHIP")
 
+    printConstantGameData()
+
     while True:
         ret = main(G)
         if ret == -1:
