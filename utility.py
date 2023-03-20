@@ -25,6 +25,7 @@ HQ_TASK_TYPES = {}
 UNUSED_TASKS = ["Reset Seismic Stabilizers", "Get Biggol Sword", "Stop Charles"]
 SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore Oxygen"]
 
+# Load paths - sendDataDir is among us directory
 with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
     SEND_DATA_PATH = line + "\\sendData.txt"
@@ -43,21 +44,31 @@ gamepad = vg.VX360Gamepad()
 global impostor 
 impostor = False
 
-# save the current map's graph
 def write_graph_list(list, map_name):
+    """save the current map's graph"""
+
     with open(f'graphs\{map_name}_graph.pkl', 'wb') as f:
         pickle.dump(list, f)
     
     print(f'Wrote to graphs\{map_name}_graph.pkl')
 
-# load the given map's graph 
 def load_graph_list(map_name):
+    """Load the given map's graph """
+
     with open(f'graphs\{map_name}_graph.pkl', 'rb') as f:
         return pickle.load(f)
 
-# reads sendData.txt and parses data.
-# Returns a dict containing all the data
 def getGameData():
+    """ 
+    Reads sendData.txt and parses data.
+        
+    Returns a dict containing all the data.
+        {"position" : (x,y), "status" : status, "tasks" : tasks, 
+        "task_locations" : task_locations, "task_steps" : task_steps, 
+        "map_id" : map_id, "dead": dead, "inMeeting" : inMeeting, 
+        "speed" : speed, "color" : color, "room" : room, "lights" : lights, 
+        "nearbyPlayers" : nearbyPlayers, "playersVent" : playersVent, "playersDead": playersDead}
+    """
     global impostor
 
     # number of parameters (lines) in data
@@ -137,7 +148,12 @@ def getGameData():
             "speed" : speed, "color" : color, "room" : room, "lights" : lights, 
             "nearbyPlayers" : nearbyPlayers, "playersVent" : playersVent, "playersDead": playersDead}
 
-def getImposterData():
+def getImposterData() -> dict:
+    """
+    Returns a dict of imposter data read from imposterData.txt
+        {"fellow_imposters": fellow_imposters, "killCD" : killCD}
+    """
+
     dataLen = 2
     fellow_imposters, killCD = None, None
 
@@ -178,7 +194,7 @@ def get_killCD() -> float:
     impData = getImposterData()
     return impData["killCD"]
 
-def get_fellow_imposters():
+def get_fellow_imposters() -> list:
     data = getImposterData()
     if len(data["fellow_imposters"].keys()) == 0:
         return None
@@ -202,14 +218,16 @@ def translatePlayerColorName(id : str) -> int:
     
     return col_array.index(id)
 
-# Saves the given coordinate dictionary dict_to_save to a json file named dict_name
 def save_dict_file(dict_to_save, dict_name):
+    """Saves the given coordinate dictionary dict_to_save to a json file named dict_name"""
+
     print(f"saving {dict_name}...")
     with open(f'tasks-json\{dict_name}.json', 'w') as f:
         json.dump(dict_to_save, f)
 
-# Saves the current coordinate dictionary using save_dict_file
 def save_current():
+    """Saves the current coordinate dictionary using save_dict_file"""
+
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
         save_dict_file(SHIP_TASK_TYPES, "SHIP_TASK_TYPES")
@@ -220,8 +238,9 @@ def save_current():
     elif MAP == "HQ":
         save_dict_file(HQ_TASK_TYPES, "HQ_TASK_TYPES")
 
-# Updates the dictionary of graph coordinates for the given map (specified in dict_name)
 def update_tasks(dict_to_use, dict_name, data, i):
+    """Updates the dictionary of graph coordinates for the given map (specified in dict_name)"""
+
     if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
     
@@ -236,8 +255,8 @@ def update_tasks(dict_to_use, dict_name, data, i):
     else:
         print("already have it")
 
-# Helper function to call update_tasks
 def update_current(data, i):
+    """Calls update_tasks()"""
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
@@ -251,9 +270,12 @@ def update_current(data, i):
         update_tasks(HQ_TASK_TYPES, "HQ_TASK_TYPES", data, i)
     return
 
-# Loads the current map's coordinate dictionary and 
-# returns a dict object containing the task coordinate data.
-def load_dict():
+def load_dict() -> dict:
+    """
+    Loads the current map's coordinate dictionary and 
+    
+    Returns a dict object containing the task coordinate data."""
+
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
         if SHIP_TASK_TYPES == {}:
@@ -288,9 +310,13 @@ def load_dict():
             return HQ_TASK_TYPES
     return
 
-# Determines if a task is complete and returns True/False.
-# If task is not found, returns True
-def is_task_done(task):
+def is_task_done(task) -> bool:
+    """
+    Determines if a task is complete and returns True/False.
+
+    If task is not found, returns True
+    """
+
     data = getGameData()
 
     try:
@@ -306,6 +332,8 @@ def is_task_done(task):
         return True
     
 def is_urgent_task(tasks : list = None) -> str:
+    """Returns the name of the current urgent task, if any"""
+
     if isDead():
         return None
     if tasks is None:
@@ -354,6 +382,7 @@ def inside_rect(rect : tuple, pos) -> bool:
 
 # TODO: rects are hardcoded to skeld for now
 ship_cams_rects = [(-1.634, -9.307, 2.216, -4.932), (7.767, -8.85, 15.281, -1.142), (-14.123, -1.301, -6.423, 1.403), (-19.202, -8.078, -14.525, -3.576)]
+
 def on_cams() -> bool:
     # might be bad lmao
     if not are_cams_used():
@@ -381,9 +410,12 @@ def set_can_vote_false() -> None:
     with open(CAN_VOTE_PATH, "w") as f:
         f.write("0")
 
-# Returns the x and y coordinates of a task in a list
-# accepts the game data and the index of the task
 def get_task_position(data, i):
+    """
+    Returns the x and y coordinates of a task in a list
+    
+    Accepts the game data and the index of the task
+    """
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if MAP == "SHIP":
         return SHIP_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
@@ -394,8 +426,11 @@ def get_task_position(data, i):
     elif MAP == "HQ":
         return HQ_TASK_TYPES[data["tasks"][i]][data["task_locations"][i]]
 
-# Returns a tuple with (nearest task, dist to task) as parameters
 def get_nearest_task(tasks = None):
+    """
+    Returns a tuple with (nearest task, dist to task, location) as parameters
+    """
+    
     data = getGameData()
     pos = data["position"]
 
@@ -444,7 +479,7 @@ def is_player_in_vent(playerCol : str) -> bool:
     data = getGameData()
     return data["playersVent"][translatePlayerColorName(playerCol)]
 
-def get_nearby_players(G):
+def get_nearby_players(G) -> list:
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
@@ -452,9 +487,13 @@ def get_nearby_players(G):
             near_players.append(player)
     return near_players
 
-# for use in the NN
-# gets players at extended range
-def get_imposter_nearby_players(G):
+def get_imposter_nearby_players(G) -> list:
+    """
+    For use in the NN
+
+    Gets players at extended range
+    """
+
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
@@ -462,8 +501,7 @@ def get_imposter_nearby_players(G):
             near_players.append(player)
     return near_players
 
-# returns a list of nearby imposters
-def get_nearby_imposter_players(G):
+def get_nearby_imposter_players(G) -> list:
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
@@ -495,18 +533,23 @@ def get_num_dead_players() -> int:
             num_dead += 1
     return num_dead
 
-# converts 2 points to an angle in radians
-def get_angle_radians(point1, point2):
+def get_angle_radians(point1, point2) -> float:
+    """converts 2 points to an angle in radians"""
+
     # atan2(y,x)
     return atan2(point2[1] - point1[1], point2[0] - point1[0])
 
-# Return the x and y percentages the gamepad should be held at
-def points_to_gamepad(point1, point2):
+def points_to_gamepad(point1, point2) -> tuple[float]:
+    """
+    Return the x and y percentages the gamepad should be held at
+    """
+
     angle = get_angle_radians(point1, point2)
     return (round(cos(angle), 5), round(sin(angle), 5))
 
-# returns the smallest dist from pos to the nearest node on the graph
 def get_smallest_dist(graph, pos):
+    """Returns the smallest dist from pos to the nearest node on the graph"""
+
     smallest_dist = 100
     for item in graph:
         distance = dist(item, pos)
