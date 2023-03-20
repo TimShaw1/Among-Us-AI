@@ -15,6 +15,7 @@ def printConstantGameData():
             #for i in range(len(data["tasks"])):
                 #print(f"{data['tasks'][i]}: ", end='')
                 #print(get_task_position(data, i))
+            print(on_cams())
             print()
             time.sleep(2)
 
