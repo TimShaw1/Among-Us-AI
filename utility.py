@@ -146,9 +146,16 @@ def getImposterData():
             if len(lines) < dataLen:
                 f.close()
                 continue
-            fellow_imposters = lines[0].rstrip().strip('][').split(", ")
-            if not fellow_imposters[0].replace(' ','').isalpha():
-                fellow_imposters = []
+
+            fellow_imposters = {}
+            try:
+                bigLongInput = lines[0].rstrip().strip('][').split(", ")
+                for item in bigLongInput:
+                    item = item.split("/")
+                    fellow_imposters[translatePlayerColorID(int(item[0]))] = False if '0' in item[1] else True
+            except ValueError:
+                fellow_imposters = {}
+
             killCD = float(lines[1])
         if None in [fellow_imposters, killCD]:
             continue
@@ -169,6 +176,12 @@ def get_kill_list() -> list[list[str]]:
 def get_killCD() -> float:
     impData = getImposterData()
     return impData["killCD"]
+
+def get_fellow_imposters():
+    data = getImposterData()
+    if len(data["fellow_imposters"].keys()) == 0:
+        return None
+    return data["fellow_imposters"].keys()
 
 def translatePlayerColorID(id : int) -> str:
     col_array = ["RED", "BLUE", "GREEN", "PINK",
@@ -318,6 +331,14 @@ def is_player_vented(color : str) -> bool:
     except KeyError:
         return False
     
+def is_player_imposter(player : str) -> bool:
+    data = getGameData()
+    if player == data["color"]:
+        return isImpostor()
+    if get_fellow_imposters() is not None:
+        return player in get_fellow_imposters()
+    return False
+    
 def are_cams_used() -> bool:
     data = getGameData()
     nearbyPlayers = data["nearbyPlayers"]
@@ -417,7 +438,7 @@ def get_nearest_task(tasks = None):
 
     return (nearest, smallest_dist, loc)
 
-def is_player_int_vent(playerCol : str) -> bool:
+def is_player_in_vent(playerCol : str) -> bool:
     data = getGameData()
     return data["playersVent"][translatePlayerColorName(playerCol)]
 
@@ -429,7 +450,26 @@ def get_nearby_players(G):
             near_players.append(player)
     return near_players
 
-def get_num_alive_players():
+# for use in the NN
+# gets players at extended range
+def get_imposter_nearby_players(G):
+    players = getGameData()["nearbyPlayers"]
+    near_players = []
+    for player in players.keys():
+        if get_real_dist(G,  players[player]) < 5 and not is_player_vented(player):
+            near_players.append(player)
+    return near_players
+
+# returns a list of nearby imposters
+def get_nearby_imposter_players(G):
+    players = getGameData()["nearbyPlayers"]
+    near_players = []
+    for player in players.keys():
+        if get_real_dist(G,  players[player]) < 3 and not is_player_vented(player) and is_player_imposter(player):
+            near_players.append(player)
+    return near_players
+
+def get_num_alive_players() -> int:
     players : dict = getGameData()["playersDead"]
     num_alive : int = 1 # me
     for player in players.keys():
@@ -437,7 +477,15 @@ def get_num_alive_players():
             num_alive += 1
     return num_alive
 
-def get_num_dead_players():
+def get_num_alive_imposters() -> int:
+    players : dict = getImposterData()["fellow_imposters"]
+    num_alive : int = 1 # me
+    for player in players.keys():
+        if not players[player]:
+            num_alive += 1
+    return num_alive
+
+def get_num_dead_players() -> int:
     players : dict = getGameData()["playersDead"]
     num_dead : int = 1 # me
     for player in players.keys():

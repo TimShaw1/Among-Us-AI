@@ -5,7 +5,7 @@ import networkx as nx
 from solver import *
 from random import choice
 
-def printConstantGameData():
+def printConstantGameData(G):
     try:
         load_dict()
         while True:
@@ -241,7 +241,7 @@ if __name__ == "__main__":
     #G = generate_graph(graph)
     G = load_G("SHIP")
 
-    printConstantGameData()
+    printConstantGameData(G)
 
     while True:
         ret = main(G)
