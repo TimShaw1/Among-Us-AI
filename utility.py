@@ -514,8 +514,8 @@ def get_smallest_dist(graph, pos):
             smallest_dist = distance
     return smallest_dist
 
-# moves the player to the nearest node on the graph
 def move_to_nearest_node(graph):
+    """Moves the player to the nearest node on the graph"""
     data = getGameData()
     pos = data["position"]
 
@@ -530,6 +530,7 @@ def move_to_nearest_node(graph):
     return nearest
 
 def get_nearest_node(G : nx.Graph, node_pos : tuple):
+    """Returns the nearest node on the graph to a given x,y position"""
     smallest_dist = 100
     nearest = ()
     for item in G.nodes.items():
@@ -540,6 +541,7 @@ def get_nearest_node(G : nx.Graph, node_pos : tuple):
     return nearest
 
 def get_real_dist(G : nx.Graph, node_pos : tuple) -> tuple:
+    """Returns the weighted distance from one node to another on the graph"""
 
     node_pos = get_nearest_node(G, node_pos)
 
@@ -549,8 +551,8 @@ def get_real_dist(G : nx.Graph, node_pos : tuple) -> tuple:
     distance = nx.shortest_path_length(G, pos, node_pos, weight="weight")
     return distance
 
-# Creates a graph and adds nodes and edges between (if distance is great enough)
-def generate_graph(graph):
+def generate_graph(graph) -> nx.Graph:
+    """Creates a networkx graph and adds nodes and edges between (if distance is low enough)"""
 
     dict = load_dict()
 
@@ -602,9 +604,13 @@ def show_graph(G : nx.Graph, graph : list):
     plt.axis("off")
     plt.show()
 
-# Sorts the move list in ascending order in terms of 
-# distance from the player to the destination
-def sort_shortest_path(G, nearest, move_list, tasks):
+def sort_shortest_path(G, nearest, move_list, tasks) -> list[tuple]:
+    """
+    Sorts the move list in ascending order in terms of distance from the player to the destination.
+    
+    Returns a list of (x,y) positions to move to.
+    """
+
     move_list.sort(key = lambda x:nx.shortest_path_length(G, nearest, x, weight="weight"))
     urgent = is_urgent_task()
     if urgent is not None and not isDead():
@@ -615,14 +621,18 @@ def sort_shortest_path(G, nearest, move_list, tasks):
         move_list.insert(0, item)
     return move_list
 
-# Gets task list from game data
-def get_task_list():
+def get_task_list() -> list:
+    """
+    Gets task list from game data
+    
+    Returns a list of [tasks, task locations, task steps]
+    """
     data = getGameData()
 
     return [data["tasks"], data["task_locations"], data["task_steps"]]
 
-# Generates a list of destination coordinates
 def get_move_list(tasks):
+    """Generates a list of destination coordinates"""
     move_list = []
     dict = load_dict()
     for i in range(len(tasks[0])):
@@ -643,8 +653,8 @@ def get_idle_list():
     return move_list
 
 
-# Updates the move list
 def update_move_list(move_list, old_tasks, tsk):
+    """Updates the move list by removing completed task steps and re-adding the next task step"""
 
     if isImpostor():
         return
@@ -683,7 +693,6 @@ def update_move_list(move_list, old_tasks, tsk):
     
     return task
 
-# Checks if we are in a meeting
 def in_meeting() -> bool:
     data = getGameData()
 
@@ -710,19 +719,15 @@ def allTasksDone() -> bool:
             return False
     return True
 
-def check_report():
-    #220 37 0
-    while True:
-        print(pyautogui.position())
-
 def clear_chat():
     open(CHAT_DATA_PATH, "w").close()
 
 def clear_kill_data():
     open(KILL_DATA_PATH, "w").close()
     
-# focuses the among us window
 def focus():
+    """Focuses the among us window"""
+
     window_title="Among Us"
     hwnd = win32gui.FindWindow(None, window_title)
     if hwnd:
@@ -731,9 +736,11 @@ def focus():
     else:
         print("Window not found")
 
-# handles player movement
-# Returns 0 on success, 1 if interrupted by a meeting
 def move(dest_list) -> int:
+    """ Handles player movement
+        
+        Returns 0 on success, 1 if interrupted by a meeting"""
+
     global gamepad
 
     data = getGameData()

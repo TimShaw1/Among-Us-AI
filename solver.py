@@ -25,9 +25,16 @@ def chat(can_vote_flag : bool):
     p.kill()
     clear_kill_data()
 
-# Runs the correct task solver file in a subprocess
-# Note - the AI only goes to the upper location of sabotages
 def solve_task(task_name=None, task_location=None) -> int:
+    """ 
+    Runs the correct task solver file in a subprocess
+
+    Note - the AI only goes to the upper location of sabotages
+
+    Returns 0 if success, 1 if meeting was called or died, 
+    
+    and 2 if a meeting was called and the task was inspect sample (so it doesn't wait later)
+    """
     dead : bool = isDead()
     if task_name == "vote":
         print("Should never be here")
@@ -39,12 +46,14 @@ def solve_task(task_name=None, task_location=None) -> int:
         return 0
 
     if isImpostor():
+        # Record last task done
         with open("last_task.txt", "w") as f:
             f.write(f"{task_name} in {task_location}")
         f.close()
         time.sleep(1.5)
         urgent = is_urgent_task()
         if urgent is None:
+            # Open solver file
             p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
         else:
             if in_meeting():
@@ -66,9 +75,12 @@ def solve_task(task_name=None, task_location=None) -> int:
             return 1
 
     if task_name is not None and task_name != ():
+        # Record last task done
         with open("last_task.txt", "w") as f:
             f.write(f"{task_name} in {task_location}")
         f.close()
+
+        # Open solver file
         p = subprocess.Popen(["python", f"task-solvers\{task_name}.py"])
 
         # Wait for process to finish
