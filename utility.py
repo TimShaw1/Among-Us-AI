@@ -306,7 +306,7 @@ def are_cams_used() -> bool:
 def inside_rect(rect : tuple, pos) -> bool:
     return rect[0] <= pos[0] <= rect[2] and rect[1] <= pos[1] <= rect[3]
 
-cams_rects = [(-1.634, -9.307, 2.216, -4.932), (7.767, -8.85, 15.281, -1.142), (-14.123, -1.301, -6.423, 1.403), (-19.202, -8.078, -14.525, -3.576)]
+ship_cams_rects = [(-1.634, -9.307, 2.216, -4.932), (7.767, -8.85, 15.281, -1.142), (-14.123, -1.301, -6.423, 1.403), (-19.202, -8.078, -14.525, -3.576)]
 def on_cams() -> bool:
     # might be bad lmao
     if not are_cams_used():
@@ -314,7 +314,7 @@ def on_cams() -> bool:
     data = getGameData()
     pos = data["position"]
     onCams = False
-    for rect in cams_rects:
+    for rect in ship_cams_rects:
         if inside_rect(rect, pos):
             onCams = True
     return onCams
