@@ -12,8 +12,7 @@ import random
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
-from kill import can_kill, kill
-from report import can_report, report
+from report import can_report
 
 SHIP_TASK_TYPES = {}
 
@@ -350,6 +349,10 @@ def can_vote() -> bool:
         lines = f.readlines()
         canVote = False if '0' in  lines else True
     return canVote
+
+def can_kill() -> bool:
+    impData = getImposterData()
+    return impData["killCD"] == 0.0
 
 def set_can_vote_false() -> None:
     with open(CAN_VOTE_PATH, "w") as f:
