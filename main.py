@@ -236,9 +236,11 @@ if __name__ == "__main__":
     clear_kill_data()
 
     # Load map graph
+    # TODO: hardcoded to skeld for now
     graph = load_graph_list("SHIP")
 
     #G = generate_graph(graph)
+    # TODO: hardcoded to skeld for now
     G = load_G("SHIP")
 
     printConstantGameData(G)
