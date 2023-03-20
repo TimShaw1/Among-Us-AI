@@ -672,12 +672,20 @@ def move(dest_list) -> int:
             return 1
         
         if can_report():
-            report()
+            gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_Y)
+            gamepad.update()
+            time.sleep(1/30)
+            gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_Y)
+            gamepad.update()
             time.sleep(1/60)
 
         if impostor:
             if can_kill() and random.randint(1,2) % 2 == 0:
-                kill()
+                gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
+                gamepad.update()
+                time.sleep(1/30)
+                gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
+                gamepad.update()
                 time.sleep(1/60)
 
         increment = 0.1
