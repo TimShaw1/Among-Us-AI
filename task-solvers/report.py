@@ -3,8 +3,6 @@ import copy
 import pyautogui
 import time
 
-# DEPRECIATED
-
 def get_report_button_pos() -> tuple:
     dimensions = get_dimensions()
 
@@ -17,6 +15,7 @@ def can_report() -> bool:
     col = pyautogui.pixel(x, y)
     return col[0] > 200 and col[2] < 5
 
+# DEPRECIATED
 def report() -> None:
     if not can_report():
         return
