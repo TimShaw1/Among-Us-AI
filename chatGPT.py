@@ -93,6 +93,7 @@ def vote(color : str = "SKIP"):
     x = dimensions[0] + round(dimensions[2] / 1.27)
     y = dimensions[1] + round(dimensions[3] / 7.77)
     wake()
+    time.sleep(0.1)
 
     # close chat
     pyautogui.click(x,y, duration=0.3)
@@ -159,13 +160,13 @@ dimensions = get_dimensions()
 x = dimensions[0] + round(dimensions[2] / 1.27)
 y = dimensions[1] + round(dimensions[3] / 7.77)
 wake()
-pyautogui.click(x,y, duration=0.2)
+pyautogui.click(x,y, duration=0.3)
 time.sleep(0.5)
 
 x = dimensions[0] + round(dimensions[2] / 4.54)
 y = dimensions[1] + round(dimensions[3] / 1.19)
 
-pyautogui.click(x,y)
+pyautogui.click(x,y, duration=0.3)
 time.sleep(0.1)
 time.sleep(3)
 
