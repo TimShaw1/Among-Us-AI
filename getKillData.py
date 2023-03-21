@@ -34,10 +34,6 @@ def save_kill_training_data():
         f.write(f"{int(example_num) + 1}")
     f.close()
 
-    with open(f"kill-training-data\\example{example_num}.json", "w") as f:
-        json.dump(dict_to_send, f)
-    f.close()
-
     if example_num % 100 == 0:
         output_str = ""
     elif example_num % 10 == 0:
@@ -45,6 +41,9 @@ def save_kill_training_data():
     else:
         output_str = "00"
 
+    with open(f"kill-training-data\\example{output_str}{example_num}.json", "w") as f:
+        json.dump(dict_to_send, f)
+    f.close()
 
     print(f"Saved kill example to kill-training-data\\example{output_str}{example_num}.json")
 
