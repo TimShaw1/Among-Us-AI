@@ -34,9 +34,9 @@ def save_kill_training_data():
         f.write(f"{int(example_num) + 1}")
     f.close()
 
-    if example_num % 100 == 0:
+    if int(example_num) % 100 == 0:
         output_str = ""
-    elif example_num % 10 == 0:
+    elif int(example_num) % 10 == 0:
         output_str = "0"
     else:
         output_str = "00"
