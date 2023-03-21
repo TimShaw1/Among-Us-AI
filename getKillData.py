@@ -38,7 +38,15 @@ def save_kill_training_data():
         json.dump(dict_to_send, f)
     f.close()
 
-    print(f"Saved kill example to kill-training-data\\example{example_num}.json")
+    if example_num % 100 == 0:
+        output_str = ""
+    elif example_num % 10 == 0:
+        output_str = "0"
+    else:
+        output_str = "00"
+
+
+    print(f"Saved kill example to kill-training-data\\example{output_str}{example_num}.json")
 
 def main_loop():
     old_kill_timer = getImposterData()["killCD"]
