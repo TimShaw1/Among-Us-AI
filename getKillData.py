@@ -3,7 +3,7 @@ from utility import *
 
 def save_kill_training_data():
     """
-    Data must be of the form 
+    Data is of the form 
         {"nearby_players" : int, "nearby_imposters" : int, 
         
         "lights" : bool, "cams" : bool, 
@@ -12,7 +12,7 @@ def save_kill_training_data():
         
         "num_imposters_alive" : int, "is_urgent" : bool}
 
-    Saves the training example to kill-training-data\\example0.json
+    Saves the training example to kill-training-data\\example000.json
     """
 
     data = getGameData()
