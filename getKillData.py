@@ -1,7 +1,7 @@
 import time
 from utility import *
 
-def save_kill_training_data():
+def save_kill_training_data(didKill : bool):
     """
     Data is of the form 
         {"nearby_players" : int, "nearby_imposters" : int, 
@@ -10,7 +10,9 @@ def save_kill_training_data():
 
         "current_area" : str, "num_players_alive" : int, 
         
-        "num_imposters_alive" : int, "is_urgent" : bool}
+        "num_imposters_alive" : int, "is_urgent" : bool
+        
+        "didKill" : bool}
 
     Saves the training example to kill-training-data\\example000.json
     """
@@ -23,7 +25,7 @@ def save_kill_training_data():
     dict_to_send = {"nearby_players" : get_imposter_nearby_players(G), "nearby_imposters" : get_nearby_imposter_players(G), 
             "lights" : data["lights"], "cams" : are_cams_used(), "current_area" : data["room"], 
             "num_players_alive" : get_num_alive_players(), "num_imposters_alive" : get_num_alive_imposters(), 
-            "is_urgent" : is_urgent_task() != None}
+            "is_urgent" : is_urgent_task() != None, "didKill" : didKill}
     
     example_num : int
     with open("kill-training-data\\Counter.txt", "r") as f:
@@ -49,12 +51,22 @@ def save_kill_training_data():
 
 def main_loop():
     old_kill_timer = getImposterData()["killCD"]
+    old_num_dead_players = get_num_dead_players()
     while isInGame():
+        while not can_kill():
+            continue
+        while can_kill():
+            continue
         new_killCD = getImposterData()["killCD"]
-        if new_killCD > old_kill_timer:
-            save_kill_training_data()
+        if new_killCD > old_kill_timer: # killed
+            save_kill_training_data(True)
             time.sleep(2)
             old_kill_timer = getImposterData()["killCD"]
+        else:
+            save_kill_training_data(False)
+            time.sleep(1)
+
+
         time.sleep(1/60)
 
 while True:

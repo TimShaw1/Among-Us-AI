@@ -13,6 +13,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from report import can_report
+from kill import can_kill
 
 SHIP_TASK_TYPES = {}
 
@@ -406,7 +407,7 @@ def can_vote() -> bool:
         canVote = False if '0' in  lines else True
     return canVote
 
-def can_kill() -> bool:
+def can_kill_utility() -> bool:
     impData = getImposterData()
     return impData["killCD"] == 0.0
 
