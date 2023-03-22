@@ -793,7 +793,8 @@ def focus():
     else:
         print("Window not found")
 
-def move(dest_list) -> int:
+# TODO: hardcoded to skeld for now
+def move(dest_list, G = load_G("SHIP")) -> int:
     """ Handles player movement
         
         Returns 0 on success, 1 if interrupted by a meeting"""
@@ -814,14 +815,6 @@ def move(dest_list) -> int:
             gamepad.update()
             return 1
         
-        if can_report():
-            gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_Y)
-            gamepad.update()
-            time.sleep(1/30)
-            gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_Y)
-            gamepad.update()
-            time.sleep(1/60)
-
         if impostor:
             if can_kill() and random.randint(1,2) % 2 == 0:
                 gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
@@ -830,6 +823,14 @@ def move(dest_list) -> int:
                 gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
                 gamepad.update()
                 time.sleep(1/60)
+        
+        if can_report():
+            if len(get_nearby_players(G)) != 0:
+                press_report()
+                time.sleep(1/60)
+            elif not impostor:
+                look_around()
+                press_report()
 
         increment = 0.1
         if data['speed'] is not None:
@@ -874,4 +875,61 @@ def move(dest_list) -> int:
     gamepad.reset()
     gamepad.update()
     return 0
+
+def press_report():
+    global gamepad
+    gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_Y)
+    gamepad.update()
+    time.sleep(1/30)
+    gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_Y)
+    gamepad.update()
+    time.sleep(1/60)
+
+def look_around():
+    global gamepad
+
+    data = getGameData()
+    pos = data["position"]
+
+    wait_time = 1 / data["speed"]
+
+    g_points = points_to_gamepad(pos, (pos[0] + 1, pos[1]))
+    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
+    gamepad.update()
+    time.sleep(wait_time)
+
+    data = getGameData()
+    pos = data["position"]
+
+    g_points = points_to_gamepad(pos, (pos[0] - 2, pos[1]))
+    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
+    gamepad.update()
+    time.sleep(wait_time)
+
+    data = getGameData()
+    pos = data["position"]
+
+    g_points = points_to_gamepad(pos, (pos[0] + 1, pos[1] + 1))
+    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
+    gamepad.update()
+    time.sleep(wait_time)
+
+    data = getGameData()
+    pos = data["position"]
+
+    g_points = points_to_gamepad(pos, (pos[0], pos[1] - 2))
+    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
+    gamepad.update()
+    time.sleep(wait_time)
+
+    data = getGameData()
+    pos = data["position"]
+
+    g_points = points_to_gamepad(pos, (pos[0], pos[1] + 1))
+    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
+    gamepad.update()
+    time.sleep(wait_time)
+
+    gamepad.reset()
+    gamepad.update()
 
