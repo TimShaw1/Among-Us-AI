@@ -60,7 +60,7 @@ def idle(G):
         if urgent is not None:
             dict = load_dict()
             destination = tuple(dict[urgent[0]][urgent[1]])
-        move_return_code = move(list(nx.shortest_path(G, nearest, destination, weight="weight")))
+        move_return_code = move(list(nx.shortest_path(G, nearest, destination, weight="weight")), G)
         if isImpostor():
             solve_task(get_nearest_task()[0])
             urgent = is_urgent_task()
@@ -71,7 +71,7 @@ def idle(G):
             if urgent[0] == "Restore Oxygen":
                 if (is_urgent_task() is not None):
                     # TODO: Position is hard coded to skeld for now
-                    move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")))
+                    move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")), G)
                     solve_task(task_name="Restore Oxygen", task_location="Admin")
                 nearest = move_to_nearest_node(graph)
         if move_return_code == 1:
@@ -91,7 +91,7 @@ def move_and_complete_tasks(G, move_list, tasks):
     while len(move_list) > 0:
         if not isInGame():
             break
-        move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")))
+        move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")), G)
         if dead != isDead():
             break
         if move_return_code == 1:
@@ -121,7 +121,7 @@ def move_and_complete_tasks(G, move_list, tasks):
 
             if (is_urgent_task() is not None):
                 # TODO: Position is hard coded to skeld for now
-                move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")))
+                move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")), G)
                 return_code = solve_task(task_name="Restore Oxygen", task_location="Admin")
             nearest = move_to_nearest_node(graph)
 
@@ -243,7 +243,7 @@ if __name__ == "__main__":
     # TODO: hardcoded to skeld for now
     G = load_G("SHIP")
 
-    printConstantGameData(G)
+    look_around()
 
     while True:
         ret = main(G)
