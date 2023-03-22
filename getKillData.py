@@ -28,11 +28,11 @@ def save_kill_training_data(didKill : bool):
             "is_urgent" : is_urgent_task() != None, "didKill" : didKill}
     
     example_num : int
-    with open("kill-training-data\\Counter.txt", "r") as f:
+    with open(f"kill-training-data\\{didKill}\\Counter.txt", "r") as f:
         example_num = f.readline()
     f.close()
 
-    with open("kill-training-data\\Counter.txt", "w") as f:
+    with open(f"kill-training-data\\{didKill}\\Counter.txt", "w") as f:
         f.write(f"{int(example_num) + 1}")
     f.close()
 
@@ -43,11 +43,11 @@ def save_kill_training_data(didKill : bool):
     else:
         output_str = "00"
 
-    with open(f"kill-training-data\\example{output_str}{example_num}.json", "w") as f:
+    with open(f"kill-training-data\\{didKill}\\example{output_str}{example_num}.json", "w") as f:
         json.dump(dict_to_send, f)
     f.close()
 
-    print(f"Saved kill example to kill-training-data\\example{output_str}{example_num}.json")
+    print(f"Saved kill example to kill-training-data\\{didKill}\\example{output_str}{example_num}.json")
 
 def main_loop():
     old_kill_timer = getImposterData()["killCD"]
