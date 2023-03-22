@@ -825,7 +825,11 @@ def move(dest_list, G = load_G("SHIP")) -> int:
                 time.sleep(1/60)
         
         if can_report():
-            if len(get_nearby_players(G)) != 0:
+            if impostor:
+                nearby_players = get_imposter_nearby_players(G)
+            else:
+                nearby_players = get_nearby_players(G)
+            if len(nearby_players) != 0:
                 press_report()
                 time.sleep(1/60)
             elif not impostor:
