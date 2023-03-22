@@ -51,7 +51,6 @@ def save_kill_training_data(didKill : bool):
 
 def main_loop():
     old_kill_timer = getImposterData()["killCD"]
-    old_num_dead_players = get_num_dead_players()
     while isInGame():
         while not can_kill():
             time.sleep(1/60)
