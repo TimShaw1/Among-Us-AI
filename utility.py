@@ -496,13 +496,13 @@ def get_imposter_nearby_players(G) -> list:
     """
     For use in the NN
 
-    Gets players at extended range
+    Gets players at extended range. Does not return imposter players.
     """
 
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
-        if get_real_dist(G,  players[player]) < 5 and not is_player_vented(player):
+        if get_real_dist(G,  players[player]) < 5 and not is_player_vented(player) and not is_player_imposter(player):
             near_players.append(player)
     return near_players
 
