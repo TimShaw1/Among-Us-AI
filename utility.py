@@ -892,8 +892,10 @@ def look_around():
     pos = data["position"]
 
     wait_time = 1 / data["speed"]
+    x_choice = random.choice([-1,0,1])
+    y_choice = random.choice([-1,0,1])
 
-    g_points = points_to_gamepad(pos, (pos[0] + 1, pos[1]))
+    g_points = points_to_gamepad(pos, (pos[0] + x_choice, pos[1] + y_choice))
     gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
     gamepad.update()
     time.sleep(wait_time)
@@ -901,35 +903,10 @@ def look_around():
     data = getGameData()
     pos = data["position"]
 
-    g_points = points_to_gamepad(pos, (pos[0] - 2, pos[1]))
-    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
-    gamepad.update()
-    time.sleep(wait_time)
-
-    data = getGameData()
-    pos = data["position"]
-
-    g_points = points_to_gamepad(pos, (pos[0] + 1, pos[1] + 1))
-    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
-    gamepad.update()
-    time.sleep(wait_time)
-
-    data = getGameData()
-    pos = data["position"]
-
-    g_points = points_to_gamepad(pos, (pos[0], pos[1] - 2))
-    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
-    gamepad.update()
-    time.sleep(wait_time)
-
-    data = getGameData()
-    pos = data["position"]
-
-    g_points = points_to_gamepad(pos, (pos[0], pos[1] + 1))
+    g_points = points_to_gamepad(pos, (pos[0] - x_choice, pos[1] - y_choice))
     gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
     gamepad.update()
     time.sleep(wait_time)
 
     gamepad.reset()
     gamepad.update()
-
