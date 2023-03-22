@@ -8,7 +8,7 @@ def save_kill_training_data(didKill : bool):
         
         "lights" : bool, "cams" : bool, 
 
-        "current_area" : str, "num_players_alive" : int, 
+        "num_players_alive" : int, 
         
         "num_imposters_alive" : int, "is_urgent" : bool
         
@@ -23,7 +23,7 @@ def save_kill_training_data(didKill : bool):
     G = load_G("SHIP")
 
     dict_to_send = {"nearby_players" : len(get_imposter_nearby_players(G)), "nearby_imposters" : len(get_nearby_imposter_players(G)), 
-            "lights" : data["lights"], "cams" : are_cams_used(), "current_area" : data["room"], 
+            "lights" : data["lights"], "cams" : are_cams_used(),  
             "num_players_alive" : get_num_alive_players(), "num_imposters_alive" : get_num_alive_imposters(), 
             "is_urgent" : is_urgent_task() != None, "didKill" : didKill}
     
