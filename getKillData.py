@@ -22,7 +22,7 @@ def save_kill_training_data(didKill : bool):
     # TODO: load_G is hardcoded to skeld
     G = load_G("SHIP")
 
-    dict_to_send = {"nearby_players" : get_imposter_nearby_players(G), "nearby_imposters" : get_nearby_imposter_players(G), 
+    dict_to_send = {"nearby_players" : len(get_imposter_nearby_players(G)), "nearby_imposters" : len(get_nearby_imposter_players(G)), 
             "lights" : data["lights"], "cams" : are_cams_used(), "current_area" : data["room"], 
             "num_players_alive" : get_num_alive_players(), "num_imposters_alive" : get_num_alive_imposters(), 
             "is_urgent" : is_urgent_task() != None, "didKill" : didKill}
@@ -54,20 +54,23 @@ def main_loop():
     old_num_dead_players = get_num_dead_players()
     while isInGame():
         while not can_kill():
+            time.sleep(1/60)
             continue
         while can_kill():
+            time.sleep(1/60)
             continue
+        time.sleep(1/30)
         new_killCD = getImposterData()["killCD"]
         if new_killCD > old_kill_timer: # killed
             save_kill_training_data(True)
-            time.sleep(2)
+            time.sleep(5)
             old_kill_timer = getImposterData()["killCD"]
+            continue
         else:
             save_kill_training_data(False)
             time.sleep(1)
+            continue
 
-
-        time.sleep(1/60)
 
 while True:
     if not isInGame():
