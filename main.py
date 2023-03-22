@@ -243,8 +243,6 @@ if __name__ == "__main__":
     # TODO: hardcoded to skeld for now
     G = load_G("SHIP")
 
-    look_around()
-
     while True:
         ret = main(G)
         if ret == -1:
