@@ -1,5 +1,7 @@
 import time
 from utility import *
+import win32gui, win32com.client
+shell = win32com.client.Dispatch("WScript.Shell")
 
 def save_kill_training_data(didKill : bool):
     """
@@ -27,6 +29,14 @@ def save_kill_training_data(didKill : bool):
             "num_players_alive" : get_num_alive_players(), "num_imposters_alive" : get_num_alive_imposters(), 
             "is_urgent" : is_urgent_task() != None, "didKill" : didKill}
     
+    if (didKill):
+        good = input("Was this a good kill? (y/n) ")
+        if "n" in good:
+            didKill = False
+        shell.SendKeys(' ') #Undocks my focus from Python IDLE
+        focus()
+        shell.SendKeys('%')
+    
     example_num : int
     with open(f"kill-training-data\\{int(didKill)}\\Counter.txt", "r") as f:
         example_num = f.readline()
@@ -36,22 +46,18 @@ def save_kill_training_data(didKill : bool):
         f.write(f"{int(example_num) + 1}")
     f.close()
 
-    if int(example_num) % 100 == 0:
-        output_str = ""
-    elif int(example_num) % 10 == 0:
-        output_str = "0"
-    else:
-        output_str = "00"
-
-    with open(f"kill-training-data\\{int(didKill)}\\example{output_str}{example_num}.json", "w") as f:
+    with open(f"kill-training-data\\{int(didKill)}\\example{example_num}.json", "w") as f:
         json.dump(dict_to_send, f)
     f.close()
 
-    print(f"Saved kill example to kill-training-data\\{int(didKill)}\\example{output_str}{example_num}.json")
+    print(f"Saved kill example to kill-training-data\\{int(didKill)}\\example{example_num}.json")
 
 def main_loop():
     old_kill_timer = getImposterData()["killCD"]
     while isInGame():
+        while in_meeting():
+            time.sleep(10)
+            old_kill_timer = getImposterData()["killCD"]
         while not can_kill():
             time.sleep(1/60)
             continue
