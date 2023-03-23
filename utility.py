@@ -829,7 +829,7 @@ def move(dest_list, G = load_G("SHIP")) -> int:
                 nearby_players = get_imposter_nearby_players(G)
             else:
                 nearby_players = get_nearby_players(G)
-            if len(nearby_players) != 0:
+            if len(nearby_players) != 0 or on_cams():
                 press_report()
                 time.sleep(1/60)
             elif not impostor:
