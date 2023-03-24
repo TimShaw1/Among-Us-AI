@@ -861,6 +861,10 @@ def move(dest_list, G = load_G("SHIP")) -> int:
             return 1
         
         nearby_players = get_nearby_players(G)
+        if isImpostor():
+            for player in get_nearby_imposter_players():
+                if player in nearby_players:
+                    nearby_players.remove(player)
         if impostor:
             if can_kill() and is_KillTimer_0() and should_I_kill():
                 gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
