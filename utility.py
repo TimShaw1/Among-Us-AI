@@ -407,7 +407,7 @@ def can_vote() -> bool:
         canVote = False if '0' in  lines else True
     return canVote
 
-def can_kill_utility() -> bool:
+def is_KillTimer_0() -> bool:
     impData = getImposterData()
     return impData["killCD"] == 0.0
 
@@ -488,7 +488,15 @@ def get_nearby_players(G) -> list:
     players = getGameData()["nearbyPlayers"]
     near_players = []
     for player in players.keys():
-        if get_real_dist(G,  players[player]) < 3.5 and not is_player_vented(player):
+        if get_real_dist(G,  players[player]) < 3 and not is_player_vented(player):
+            near_players.append(player)
+    return near_players
+
+def get_really_nearby_players(G) -> list:
+    players = getGameData()["nearbyPlayers"]
+    near_players = []
+    for player in players.keys():
+        if get_real_dist(G,  players[player]) < 2 and not is_player_vented(player):
             near_players.append(player)
     return near_players
 
@@ -768,6 +776,43 @@ def isInGame() -> bool:
         inGame = False if '0' in lines else True
     return inGame
 
+def should_I_kill():
+    """Determines if we should kill"""
+    data = getGameData()
+
+    # TODO: load_G is hardcoded to skeld
+    G = load_G("SHIP")
+    
+    num_nearby_players = len(get_imposter_nearby_players(G))
+    num_nearby_imposters = len(get_nearby_imposter_players(G))
+    lights = data["lights"]
+    cams = on_cams()
+    num_players_alive = get_num_alive_players()
+    num_imposters_alive = get_num_alive_imposters()
+    urgent = is_urgent_task() != None
+
+    # If the kill is game-winning, do it
+    if num_players_alive - 1 == num_imposters_alive:
+        return True
+
+    # If on cameras dont
+    if cams:
+        return False
+    
+    # If lights are on, always kill when appropriate
+    if lights:
+        probability = True
+    else:
+        probability = random.choice([False, True])
+
+    # Nobody nearby, kill
+    if num_nearby_players == 1:
+        return True
+        
+    # Double kill
+    if num_nearby_players == num_nearby_imposters and probability:
+        return True
+
 def allTasksDone() -> bool:
     data = getGameData()
     tasks = data["tasks"]
@@ -815,8 +860,9 @@ def move(dest_list, G = load_G("SHIP")) -> int:
             gamepad.update()
             return 1
         
+        nearby_players = get_nearby_players(G)
         if impostor:
-            if can_kill() and random.randint(1,2) % 2 == 0:
+            if can_kill() and is_KillTimer_0() and should_I_kill():
                 gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
                 gamepad.update()
                 time.sleep(1/30)
@@ -825,14 +871,10 @@ def move(dest_list, G = load_G("SHIP")) -> int:
                 time.sleep(1/60)
         
         if can_report():
-            if impostor:
-                nearby_players = get_imposter_nearby_players(G)
-            else:
-                nearby_players = get_nearby_players(G)
-            if len(nearby_players) != 0 or on_cams():
+            if len(nearby_players) > 1 or on_cams():
                 press_report()
                 time.sleep(1/60)
-            elif not impostor:
+            elif not isImpostor():
                 look_around()
                 press_report()
 

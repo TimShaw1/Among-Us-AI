@@ -143,13 +143,14 @@ prompts =   [
                  Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 characters at a time.
                  Try to win by voting the impostor out. If your crewmates are agreeing on someone, go along with it unless you are sus of someone else. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
-                 Only return messages from the {color} player.'''.replace('\n', ' '))
+                 Only return messages from the {color} player. If you are imposter, do not vote out your fellow imposters'''.replace('\n', ' '))
                 },
 
                  {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"},
                  {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"},
                  {"role": "system", "content": "If you decide to vote, respond by saying 'VOTE: {COLOR to vote}' or 'VOTE: skip' to skip"},
-                 {"role": "system", "content": f"If people say {color} is sus or should be voted off, you need to defend youself."}
+                 {"role": "system", "content": f"If people say {color} is sus or should be voted off, you need to defend youself."},
+                 {"role": "system", "content": f"If you are the imposter, try gaslighting people"}
             ]
 
 clear_chat()
