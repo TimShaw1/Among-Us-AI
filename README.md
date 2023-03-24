@@ -11,7 +11,7 @@ The Among Us AI is a bot that I designed in python to play the popular social de
 
 ## Setup Requirements
 0. Have python installed
-1. Clone the repository and install requirements.txt
+1. Clone the repository and `pip install -r requirements.txt`
 2. Copy `version.dll` and place it in your Among Us directory
 3. Copy the path of your among us install folder and paste it in `sendDataDir.txt`
   - Right click the folder name "Among Us" from the top bar and select "Copy address as text"
