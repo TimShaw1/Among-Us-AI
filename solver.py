@@ -2,6 +2,7 @@ from utility import get_task_list, load_dict, in_meeting, isImpostor, is_urgent_
 import subprocess
 import time
 import pyautogui
+import random
 import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from task_utility import get_dimensions, get_screen_coords, wake
@@ -54,7 +55,10 @@ def solve_task(task_name=None, task_location=None) -> int:
         urgent = is_urgent_task()
         if urgent is None:
             # Open solver file
-            p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
+            if random.randint(1,3) % 3 == 0:
+                p = subprocess.Popen(["python", f"task-solvers\Sabotage.py"])
+            else:
+                return 0
         else:
             if in_meeting():
                 return 1
