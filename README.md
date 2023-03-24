@@ -14,11 +14,11 @@ The Among Us AI is a bot that I designed in python to play the popular social de
 1. Clone the repository and `pip install -r requirements.txt`
 2. Copy `version.dll` and place it in your Among Us directory
 3. Copy the path of your among us install folder and paste it in `sendDataDir.txt`
-  - Right click the folder name "Among Us" from the top bar and select "Copy address as text"
+    - Right click the folder name "Among Us" from the top bar and select "Copy address as text"
 4. Get an API key from your OpenAI account and paste it in a new file called `APIkey.txt`
-  - https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key
-  - you'll need to set up a payment method as their API is not free!
-  - place the file in the same folder as `main.py`
+    - https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key
+    - you'll need to set up a payment method as their API is not free!
+    - place the file in the same folder as `main.py`
 5. Hop into a game and run `main.py`!
 
 ## Recommendations
