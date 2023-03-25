@@ -132,6 +132,8 @@ found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color()
 meeting_start_time = time.time()
 time.sleep(10)
 
+location_prompt = f"Your tasks are in {task_locations}" if None not in task_locations else ""
+
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
 prompts =   [
                 {"role": "system", "content": 
@@ -140,7 +142,7 @@ prompts =   [
                  Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + str(nearby_players).strip("][")}. {kill_prompt} {found_prompt}
                  The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}. 
                  There are {get_num_alive_players()} players left alive.
-                 Your tasks are in {task_locations}. Your crewmates' and your messages are identified by their color in the prompt. 
+                 {location_prompt}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 100 characters at a time.
                  Try to win by voting the impostor out. If your crewmates are agreeing on someone, go along with it unless you are sus of someone else. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
                  Only return messages from the {color} player. If you are imposter, do not vote out your fellow imposters'''.replace('\n', ' '))
