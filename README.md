@@ -32,6 +32,7 @@ The Among Us AI is a bot that I designed in python to play the popular social de
 - [ ] Full voice chat support using OpenAI whisper
 - [ ] Movement History
 - [ ] Improved Imposter logic
+- [ ] Venting
 
 ## Known Issues
 - Optimizing route sometimes fails, so it walks further than normal
