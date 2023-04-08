@@ -6,6 +6,7 @@ import matplotlib as plt
 from math import dist
 
 graph : list = load_graph_list("SHIP")
+graph = []
 
 data = getGameData()
 pos = (round(data['position'][0], 4), round(data['position'][1], 4))
@@ -17,7 +18,7 @@ try:
             if pos not in graph:
                 graph.append(pos)
                 old_pos = pos
-                print("appended")
+                print(f"Added {pos} to graph")
             else:
                 print("got it already")
 
@@ -27,7 +28,5 @@ try:
 except KeyboardInterrupt:
     pass
 
-#print(graph)
-print(len(graph))
 write_graph_list(graph, "SHIP")
  
