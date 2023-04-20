@@ -132,7 +132,10 @@ found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color()
 meeting_start_time = time.time()
 time.sleep(10)
 
-location_prompt = f"Your tasks are in {task_locations}" if None not in task_locations else ""
+try:
+    location_prompt = f"Your tasks are in {task_locations}" if None not in task_locations else ""
+except TypeError:
+    location_prompt = ""
 
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
 prompts =   [
