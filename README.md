@@ -20,6 +20,7 @@ The Among Us AI is a bot that I designed in python to play the popular social de
     - you'll need to set up a payment method as their API is not free!
     - place the file in the same folder as `main.py`
 5. Hop into a game and run `main.py`!
+6. Press Ctrl+C to stop the bot (if all else fails press ctrl+alt+del)
 
 ## Recommendations
 - Install Among Us and this project on an SSD. The AI uses the disk to transfer data, so fast random read/write is important.
