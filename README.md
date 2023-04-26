@@ -1,5 +1,6 @@
 # Behold: The Among Us AI!
 The Among Us AI is a bot that I designed in python to play the popular social deduction game Among Us. 
+
 Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9uw
 
 ## Features
