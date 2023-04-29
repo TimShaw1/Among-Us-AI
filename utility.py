@@ -487,8 +487,9 @@ def is_player_in_vent(playerCol : str) -> bool:
 def get_nearby_players(G) -> list:
     players = getGameData()["nearbyPlayers"]
     near_players = []
+    lights_offset = 0 if not are_lights_on() else 1
     for player in players.keys():
-        if get_real_dist(G,  players[player]) < 3 and not is_player_vented(player):
+        if get_real_dist(G,  players[player]) < 3 - lights_offset and not is_player_vented(player):
             near_players.append(player)
     return near_players
 
