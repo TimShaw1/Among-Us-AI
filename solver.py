@@ -4,6 +4,7 @@ import time
 import pyautogui
 import random
 import sys, os
+import keyboard
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from task_utility import get_dimensions, get_screen_coords, wake
 
@@ -20,6 +21,11 @@ def chat(can_vote_flag : bool):
             continue
         return
     p = subprocess.Popen(["python", f"chatGPT.py"])
+    while p.poll() is None:
+        if keyboard.is_pressed('`'):
+            p.kill()
+            clear_kill_data()
+            return
     p.wait()
     while in_meeting():
         time.sleep(1/60)
@@ -66,7 +72,7 @@ def solve_task(task_name=None, task_location=None) -> int:
 
         # Wait for process to finish
         while p.poll() is None:
-            if in_meeting():
+            if in_meeting() or keyboard.is_pressed('`'):
                 p.kill()
                 return 1
             time.sleep(1/30)
@@ -89,7 +95,7 @@ def solve_task(task_name=None, task_location=None) -> int:
 
         # Wait for process to finish
         while p.poll() is None:
-            if in_meeting() or (isDead() != dead):
+            if in_meeting() or (isDead() != dead) or keyboard.is_pressed('`'):
                 p.kill()
                 return 1 if task_name != "Inspect Sample" else 2
             time.sleep(1/30)
