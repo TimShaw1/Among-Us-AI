@@ -117,7 +117,7 @@ def move_and_complete_tasks(G, move_list, tasks):
         if return_code == -1:
             break
 
-        if tsk[0] == "Restore Oxygen" and return_code == 0:
+        if tsk[0] == "Restore Oxygen" and return_code == 0 and not isDead():
             nearest = move_to_nearest_node(graph)
 
             if (is_urgent_task() is not None):
@@ -133,7 +133,7 @@ def move_and_complete_tasks(G, move_list, tasks):
             move_list.pop(0)
             continue
 
-        if tsk[0] == "Reset Reactor" and return_code == 0:
+        if tsk[0] == "Reset Reactor" and return_code == 0 and not isDead():
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance

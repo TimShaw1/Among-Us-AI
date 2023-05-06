@@ -54,9 +54,10 @@ def solve_task(task_name=None, task_location=None) -> int:
 
     if isImpostor():
         # Record last task done
-        with open("last_task.txt", "w") as f:
-            f.write(f"{task_name} in {task_location}")
-        f.close()
+        if not isDead():
+            with open("last_task.txt", "w") as f:
+                f.write(f"{task_name} in {task_location}")
+            f.close()
         time.sleep(1.5)
         urgent = is_urgent_task()
         if urgent is None:
