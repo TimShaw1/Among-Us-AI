@@ -4,6 +4,7 @@ from math import dist
 import networkx as nx
 from solver import *
 from random import choice
+import keyboard
 
 def printConstantGameData(G):
     try:
@@ -52,7 +53,7 @@ def idle(G):
     move_list = get_idle_list()
     can_vote_flag : bool = False
     while len(move_list) > 0:
-        if not isInGame():
+        if not isInGame() or keyboard.is_pressed('`'):
             break
         nearest = move_to_nearest_node(graph)
         destination = choice(move_list)
@@ -89,7 +90,7 @@ def move_and_complete_tasks(G, move_list, tasks):
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
     dead = isDead()
     while len(move_list) > 0:
-        if not isInGame():
+        if not isInGame() or keyboard.is_pressed('`'):
             break
         move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")), G)
         if dead != isDead():
@@ -116,7 +117,7 @@ def move_and_complete_tasks(G, move_list, tasks):
         if return_code == -1:
             break
 
-        if tsk[0] == "Restore Oxygen" and return_code == 0:
+        if tsk[0] == "Restore Oxygen" and return_code == 0 and not isDead():
             nearest = move_to_nearest_node(graph)
 
             if (is_urgent_task() is not None):
@@ -132,7 +133,7 @@ def move_and_complete_tasks(G, move_list, tasks):
             move_list.pop(0)
             continue
 
-        if tsk[0] == "Reset Reactor" and return_code == 0:
+        if tsk[0] == "Reset Reactor" and return_code == 0 and not isDead():
             nearest = move_to_nearest_node(graph)
 
             # Sort move list by distance
@@ -212,7 +213,7 @@ def main(G):
 
     ret = 0
     while True:
-        if isInGame():
+        if isInGame() and not keyboard.is_pressed('`'):
             # Begin gameplay loop
             if not isImpostor():
                 ret = move_and_complete_tasks(G, move_list, tasks)
@@ -245,6 +246,8 @@ if __name__ == "__main__":
 
     while True:
         ret = main(G)
+        if keyboard.is_pressed('`'):
+            break
         if ret == -1:
             print("restarting main...")
             main(G)

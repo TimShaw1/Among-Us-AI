@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import random
 import sys
 import os
+import keyboard
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from report import can_report
 from kill import can_kill
@@ -856,7 +857,7 @@ def move(dest_list, G = load_G("SHIP")) -> int:
     old_room = "None"
 
     while len(dest_list) > 0:
-        if in_meeting():
+        if in_meeting() or keyboard.is_pressed('`'):
             gamepad.reset()
             gamepad.update()
             return 1

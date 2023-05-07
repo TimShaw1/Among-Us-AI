@@ -22,7 +22,7 @@ Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9
     - you'll need to set up a payment method as their API is not free!
     - place the file in the same folder as `main.py`
 5. Hop into a game and run `main.py`!
-6. Press Ctrl+C to stop the bot (if all else fails press ctrl+alt+del)
+6. Press ` to stop the bot (you may need to press Ctrl+C in the command line to stop the script)
 
 ## Recommendations
 - Install Among Us and this project on an SSD. The AI uses the disk to transfer data, so fast random read/write is important.
