@@ -12,7 +12,7 @@ Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9
 - and lots of gaslighting
 
 ## Setup Requirements
-0. Have python installed
+0. Have python installed (I used python 3.9.2)
 1. Clone the repository and run the command `pip install -r requirements.txt`
 2. Copy `version.dll` and place it in your Among Us directory
 3. Copy the path of your among us install folder and paste it in `sendDataDir.txt`
