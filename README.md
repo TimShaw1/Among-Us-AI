@@ -28,7 +28,7 @@ Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9
 - Install Among Us and this project on an SSD. The AI uses the disk to transfer data, so fast random read/write is important.
 - 8GB DDR4 RAM (again for fast data transfer)
 - Use Windows! The bot is untested on MacOS and Linux.
-- The bot uses your mouse and keyboard. To forcibly stop it, press ctrl-alt-delete.
+- The bot uses your mouse and keyboard. To stop it, press `. To forcibly stop it, press ctrl-alt-delete.
 
 ## Upcoming Features
 - [ ] Support all maps (currently only Skeld is supported)
