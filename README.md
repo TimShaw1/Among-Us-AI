@@ -12,8 +12,10 @@ Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9
 - and lots of gaslighting
 
 ## Setup Requirements
-0. Have python installed
-1. Clone the repository and `pip install -r requirements.txt`
+Video runthrough: https://youtu.be/lrtt0w4TDWg
+
+0. Have python installed (I used python 3.9.2)
+1. Clone the repository and run the command `pip install -r requirements.txt`
 2. Copy `version.dll` and place it in your Among Us directory
 3. Copy the path of your among us install folder and paste it in `sendDataDir.txt`
     - Right click the folder name "Among Us" from the top bar and select "Copy address as text"
@@ -28,7 +30,7 @@ Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9
 - Install Among Us and this project on an SSD. The AI uses the disk to transfer data, so fast random read/write is important.
 - 8GB DDR4 RAM (again for fast data transfer)
 - Use Windows! The bot is untested on MacOS and Linux.
-- The bot uses your mouse and keyboard. To forcibly stop it, press ctrl-alt-delete.
+- The bot uses your mouse and keyboard. To stop it, press `. To forcibly stop it, press ctrl-alt-delete.
 
 ## Upcoming Features
 - [ ] Support all maps (currently only Skeld is supported)
