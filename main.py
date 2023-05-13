@@ -67,7 +67,8 @@ def idle(G):
             urgent = is_urgent_task()
         if urgent is not None and move_return_code == 0:
             urgent = is_urgent_task()
-            solve_task(urgent[0])
+            if urgent is not None:
+                solve_task(urgent[0])
             nearest = move_to_nearest_node(graph)
             if urgent[0] == "Restore Oxygen":
                 if (is_urgent_task() is not None):
