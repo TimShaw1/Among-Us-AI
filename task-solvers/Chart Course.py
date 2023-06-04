@@ -45,7 +45,6 @@ for x in range(ship_x, ship_x+40):
     else:
         break
 
-exit = False
 y_offset = 15
 
 while not is_task_done("Chart Course"):
@@ -60,7 +59,11 @@ while not is_task_done("Chart Course"):
             if pixel[0] < 38 and pixel[0] > 32 and pixel[1] < 113 and pixel[1] > 108 and pixel[2] < 163 and pixel[2] > 158:
                 if i == 3:
                     y_offset = 30
-                pyautogui.dragTo(x_points[i] + 15, s_dimensions[1] + y + y_offset, duration=0.2, tween=pyautogui.easeOutQuad)
+                if exit:
+                    pyautogui.dragTo(x_points[i] + 15, s_dimensions[1] + y + y_offset, duration=0.2, tween=pyautogui.easeOutQuad)
+                else:
+                    pyautogui.moveTo(x_points[i] + 15, s_dimensions[1] + y + y_offset, duration=0.2, tween=pyautogui.easeOutQuad)
+                    exit = True
                 break
 
 # Color is 36 111 161

@@ -3,6 +3,7 @@ import cv2
 from task_utility import *
 import time
 import pyautogui
+import json
 
 click_use()
 time.sleep(0.8)
@@ -38,6 +39,10 @@ while not is_task_done("Start Reactor"):
                 else:
                     time.sleep(1)
                     click_list.append(pos)
+
+                    # Save history
+                    with open('task-solvers\\reactor_list\\reactor_list.json', 'w') as f:
+                        json.dump(click_list, f)
                     for cpos in click_list:
                         pyautogui.click(cpos[0] + button_x_offset, cpos[1])
                         seen_pos.append(cpos)
@@ -45,6 +50,10 @@ while not is_task_done("Start Reactor"):
                     exit = True
                     break
     exit = False
+
+# Clear simon says history
+with open('task-solvers\\reactor_list\\reactor_list.json', 'w') as f:
+    json.dump([], f)
 
 # 1 2 3
 # 4 5 6

@@ -8,9 +8,14 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from task_utility import get_dimensions, get_screen_coords, wake
 
-with open("APIkey.txt") as f:
-    API_KEY = f.readline().rstrip()
-f.close()
+API_KEY = ""
+try:
+    with open("APIkey.txt") as f:
+        API_KEY = f.readline().rstrip()
+    f.close()
+except:
+    print("No API key detected. Automatic chatting disabled.")
+    raise SystemExit(0)
 
 with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
