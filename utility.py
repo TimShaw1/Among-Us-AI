@@ -840,6 +840,16 @@ def focus():
     else:
         print("Window not found")
 
+def open_chat():
+    global gamepad
+    time.sleep(1/30)
+
+    gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER)
+    gamepad.update()
+    time.sleep(1/30)
+    gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_RIGHT_SHOULDER)
+    gamepad.update()
+
 # TODO: hardcoded to skeld for now
 def move(dest_list, G = load_G("SHIP")) -> int:
     """ Handles player movement
