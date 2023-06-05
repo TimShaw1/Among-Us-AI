@@ -1,5 +1,5 @@
 import openai
-from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone, get_nearby_players, load_G, get_kill_list, get_num_alive_players, open_chat
+from utility import getGameData, in_meeting, get_chat_messages, clear_chat, translatePlayerColorID, allTasksDone, get_nearby_players, load_G, get_kill_list, get_num_alive_players
 import time
 import pyautogui
 import networkx as nx
@@ -136,7 +136,6 @@ found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color()
 
 # Set up meeting
 meeting_start_time = time.time()
-time.sleep(7)
 
 try:
     location_prompt = f"Your tasks are in {task_locations}" if None not in task_locations else ""
@@ -168,8 +167,6 @@ clear_chat()
 seen_chats = []
 
 dimensions = get_dimensions()
-
-open_chat()
 
 wake()
 x = dimensions[0] + round(dimensions[2] / 4.54)
