@@ -1,6 +1,5 @@
-from utility import get_task_list, load_dict, in_meeting, isImpostor, is_urgent_task, isDead, can_vote, clear_kill_data, open_chat
+from utility import get_task_list, load_dict, in_meeting, isImpostor, is_urgent_task, isDead, can_vote, clear_kill_data
 import subprocess
-import vgamepad as vg
 import time
 import pyautogui
 import random
@@ -21,8 +20,6 @@ def chat(can_vote_flag : bool):
             time.sleep(1/60)
             continue
         return
-    time.sleep(5)
-    open_chat()
     p = subprocess.Popen(["python", f"chatGPT.py"])
     while p.poll() is None:
         if keyboard.is_pressed('`'):

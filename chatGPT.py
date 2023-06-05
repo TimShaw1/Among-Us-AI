@@ -134,8 +134,8 @@ if len(kill_prompt) > 0:
 
 found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) != 0 else ''
 
-# Set up meeting
 meeting_start_time = time.time()
+time.sleep(6)
 
 try:
     location_prompt = f"Your tasks are in {task_locations}" if None not in task_locations else ""
@@ -168,7 +168,12 @@ seen_chats = []
 
 dimensions = get_dimensions()
 
+x = dimensions[0] + round(dimensions[2] / 1.27)
+y = dimensions[1] + round(dimensions[3] / 7.77)
 wake()
+pyautogui.click(x,y, duration=0.3)
+time.sleep(0.5)
+
 x = dimensions[0] + round(dimensions[2] / 4.54)
 y = dimensions[1] + round(dimensions[3] / 1.19)
 
