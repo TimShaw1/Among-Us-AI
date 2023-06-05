@@ -17,9 +17,15 @@ x_offset = round(dimensions[2] / 16)
 y_offset = round(dimensions[3] / 9)
 
 button_x_offset = round(dimensions[2] / 3.11)
+save_dict = {}
 
-click_list = []
-seen_pos = []
+with open('task-solvers\\reactor_list\\reactor_list.json', 'r') as f:
+    save_dict = json.load(f)
+print(save_dict)
+click_list = save_dict["click_list"]
+seen_pos = save_dict["seen_pos"]
+if len(save_dict["click_list"]) > 0:
+    time.sleep(0.2)
 
 exit = False
 while not is_task_done("Start Reactor"):
@@ -28,7 +34,7 @@ while not is_task_done("Start Reactor"):
         if exit:
             break
         for j in range(3):
-            pos = (x_start + x_offset * i, y_start + y_offset * j)
+            pos = [x_start + x_offset * i, y_start + y_offset * j]
             pixel = pyautogui.pixel(pos[0], pos[1])
             if (abs(pixel[0] - 68)) < 2 and (abs(pixel[1] - 168)) < 2 and (abs(pixel[2] - 255)) < 2:
                 if pos in seen_pos:
@@ -40,20 +46,22 @@ while not is_task_done("Start Reactor"):
                     time.sleep(1)
                     click_list.append(pos)
 
-                    # Save history
-                    with open('task-solvers\\reactor_list\\reactor_list.json', 'w') as f:
-                        json.dump(click_list, f)
                     for cpos in click_list:
                         pyautogui.click(cpos[0] + button_x_offset, cpos[1])
                         seen_pos.append(cpos)
                         time.sleep(1/60)
+                    # Save history
+                    save_dict["click_list"] = click_list
+                    save_dict["seen_pos"] = seen_pos
+                    with open('task-solvers\\reactor_list\\reactor_list.json', 'w') as f:
+                        json.dump(save_dict, f)
                     exit = True
                     break
     exit = False
 
 # Clear simon says history
 with open('task-solvers\\reactor_list\\reactor_list.json', 'w') as f:
-    json.dump([], f)
+    json.dump({"click_list" : [], "seen_pos" : []}, f)
 
 # 1 2 3
 # 4 5 6
