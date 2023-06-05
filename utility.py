@@ -564,7 +564,12 @@ def points_to_gamepad(point1, point2) -> tuple[float]:
     """
 
     angle = get_angle_radians(point1, point2)
-    return (round(cos(angle), 5), round(sin(angle), 5))
+    x = round(cos(angle) + random.randint(0,5) / 1000, 5)
+    y = round(sin(angle) + random.randint(0,5) / 1000, 5)
+
+    x = 1 if x > 1 else x
+    y = 1 if y > 1 else y
+    return (x, y)
 
 def get_smallest_dist(graph, pos):
     """Returns the smallest dist from pos to the nearest node on the graph"""
@@ -884,7 +889,7 @@ def move(dest_list, G = load_G("SHIP")) -> int:
                 look_around()
                 press_report()
 
-        increment = 0.1
+        increment = 0.15
         if data['speed'] is not None:
             increment *= data['speed'] * 2
         if dist(pos, dest_list[0]) < increment:
