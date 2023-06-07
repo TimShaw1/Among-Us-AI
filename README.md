@@ -41,7 +41,7 @@ Video runthrough: https://youtu.be/lrtt0w4TDWg
 
 ## Known Issues
 - Optimizing route sometimes fails, so it walks further than normal
-- Tasks that save your progress fail if partway done
+- ~Tasks that save your progress fail if partway done~
 - If a meeting is called as reactor/oxygen is happening, the AI will go there after the meeting
 - Upload Data waits longer than it should. (Intentional: this prevents issues when the task lags)
 - ChatGPT weirdness
