@@ -852,6 +852,8 @@ def move(dest_list, G = load_G("SHIP")) -> int:
         Returns 0 on success, 1 if interrupted by a meeting"""
 
     global gamepad
+
+    # If player is a ghost, move directly to task
     if isDead():
         dest_list = [dest_list[0], dest_list[-1]]
 
