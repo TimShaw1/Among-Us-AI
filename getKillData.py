@@ -3,6 +3,8 @@ from utility import *
 import win32gui, win32com.client
 shell = win32com.client.Dispatch("WScript.Shell")
 
+# DEPRECIATED
+
 def save_kill_training_data(didKill : bool):
     """
     Data is of the form 
@@ -53,6 +55,7 @@ def save_kill_training_data(didKill : bool):
     print(f"Saved kill example to kill-training-data\\{int(didKill)}\\example{example_num}.json")
 
 def main_loop():
+    """Unused file - could be used to collect training data for an imposter NN"""
     old_kill_timer = getImposterData()["killCD"]
     while isInGame():
         while in_meeting():

@@ -50,6 +50,7 @@ def printConstantTaskPositions():
         pass
 
 def idle(G):
+    """Player just runs to random task locations"""
     move_list = get_idle_list()
     can_vote_flag : bool = False
     while len(move_list) > 0:
@@ -85,22 +86,40 @@ def idle(G):
             continue
 
 def move_and_complete_tasks(G, move_list, tasks):
+    # Initialize flags
     inspect_sample_flag : bool = False
     can_vote_flag : bool = False
+
+    # Find graph node closest to player (helps represent the game as a graph)
     nearest = move_to_nearest_node(graph)
+
+    # Get list of destination coordinates
     move_list = sort_shortest_path(G, nearest, move_list, tasks)
+
     dead = isDead()
+
+    # While we still have tasks to do
     while len(move_list) > 0:
+        # exit case
         if not isInGame() or keyboard.is_pressed('`'):
             break
+
+        # move to next task
         move_return_code = move(list(nx.shortest_path(G, nearest, move_list[0], weight="weight")), G)
+
+        # if we died while moving, exit
         if dead != isDead():
             break
+
+        # If we are in a meeting,
         if move_return_code == 1:
+            # chat
             chat(can_vote_flag)
             set_can_vote_false()
             can_vote_flag = False
             time.sleep(5)
+
+            # Move to nearest graph node and continue
             nearest = move_to_nearest_node(graph)
             continue
         tsk = get_nearest_task(tasks[0])
@@ -110,18 +129,22 @@ def move_and_complete_tasks(G, move_list, tasks):
             print("Location error, restarting...")
             return -1
 
+        # Inspect sample cases
+        # If we did the first part, do the second
         if inspect_sample_flag and tsk[0] == "Inspect Sample":
             return_code = solve_task(task_name="Inspect Sample 2", task_location="Medbay")
         else:
             return_code = solve_task(task_name=tsk[0], task_location=tsk[2])
 
+        # If task not found, exit
         if return_code == -1:
             break
 
+        # Restore Oxygen case
         if tsk[0] == "Restore Oxygen" and return_code == 0 and not isDead():
             nearest = move_to_nearest_node(graph)
 
-            if (is_urgent_task() is not None):
+            if is_urgent_task() is not None:
                 # TODO: Position is hard coded to skeld for now
                 move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")), G)
                 return_code = solve_task(task_name="Restore Oxygen", task_location="Admin")
@@ -134,6 +157,7 @@ def move_and_complete_tasks(G, move_list, tasks):
             move_list.pop(0)
             continue
 
+        # Reset Reactor case
         if tsk[0] == "Reset Reactor" and return_code == 0 and not isDead():
             nearest = move_to_nearest_node(graph)
 
@@ -144,6 +168,7 @@ def move_and_complete_tasks(G, move_list, tasks):
             move_list.pop(0)
             continue
 
+        # If meeting was called (also include inspect sample case)
         if return_code == 1 or return_code == 2:
             if return_code == 2:
                 inspect_sample_flag = True
@@ -161,6 +186,7 @@ def move_and_complete_tasks(G, move_list, tasks):
                 move_list.pop(0)
             continue
 
+        # If we're done all out tasks
         if len(move_list) == 0:
             break
 
@@ -182,6 +208,7 @@ def move_and_complete_tasks(G, move_list, tasks):
         # Sort move list by distance
         move_list = sort_shortest_path(G, nearest, move_list, tasks)
 
+        # remove task we just did
         move_list.pop(0)
 
         # Remove completed task from tasks and move list
@@ -192,8 +219,8 @@ def move_and_complete_tasks(G, move_list, tasks):
                 continue
     return 0
 
-def main(G):
-        # Get tasks
+def main(G) -> int:
+    # Get tasks
     tasks = get_task_list()
 
     # Initialize places to move to

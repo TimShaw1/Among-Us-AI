@@ -38,9 +38,16 @@ def solve_task(task_name=None, task_location=None) -> int:
 
     Note - the AI only goes to the upper location of sabotages
 
-    Returns 0 if success, 1 if meeting was called or died, 
-    
-    and 2 if a meeting was called and the task was inspect sample (so it doesn't wait later)
+    Returns
+    --------
+    int
+        0 if success
+
+        1 if meeting was called or died
+
+        2 if a meeting was called and the task was inspect sample (so it doesn't wait later)
+        
+        -1 if task not found
     """
     dead : bool = isDead()
     if task_name == "vote":

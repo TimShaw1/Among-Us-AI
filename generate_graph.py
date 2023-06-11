@@ -5,6 +5,7 @@ import networkx as nx
 import matplotlib as plt
 from math import dist
 
+#TODO: hardcoded to skeld for now
 graph : list = load_graph_list("SHIP")
 graph = []
 

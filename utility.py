@@ -241,15 +241,29 @@ def save_current():
         save_dict_file(HQ_TASK_TYPES, "HQ_TASK_TYPES")
 
 def update_tasks(dict_to_use, dict_name, data, i):
-    """Updates the dictionary of graph coordinates for the given map (specified in dict_name)"""
+    """Updates the dictionary of graph coordinates for the given map (specified in dict_name)
+
+        Parameters
+        --------
+        dict_to_use : dict
+            The dict of tasks for the given map
+        dict_name : str
+            The name of the dict
+        data : dict
+            The dict of gameData from getTaskLocations
+        i : int
+            The index of the task we're updating
+    """
 
     if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
     
+    # initialize task in dict
     if data["tasks"][i] not in dict_to_use:
         dict_to_use[data["tasks"][i]] = {}
 
     if data["task_locations"][i] not in dict_to_use[data["tasks"][i]].keys():
+        # update location of task
         dict_to_use[data["tasks"][i]][data["task_locations"][i]] = data["position"]
         print(f"task: {data['tasks'][i]} location:{[data['task_locations'][i]]} position: {data['position']}")
         print(dict_to_use[data["tasks"][i]][data["task_locations"][i]])
@@ -258,7 +272,15 @@ def update_tasks(dict_to_use, dict_name, data, i):
         print("already have it")
 
 def update_current(data, i):
-    """Calls update_tasks()"""
+    """Calls update_tasks() - updates the dictionary of graph coordinates for the given map
+    
+        Parameters
+        --------
+        data : dict
+            The dict of gameData from getTaskLocations
+        i : int
+            The index of the task we're updating
+    """
     global SHIP_TASK_TYPES, AIRSHIP_TASK_TYPES, PB_TASK_TYPES, HQ_TASK_TYPES, MAP
     if data["map_id"] and data["map_id"].upper() != MAP:
         raise ValueError(f"Wrong map name. \nThis map is: {data['map_id'].upper()}")
@@ -571,7 +593,7 @@ def points_to_gamepad(point1, point2) -> tuple[float]:
     y = 1 if y > 1 else y
     return (x, y)
 
-def get_smallest_dist(graph, pos):
+def get_smallest_dist(graph : list, pos : tuple):
     """Returns the smallest dist from pos to the nearest node on the graph"""
 
     smallest_dist = 100
@@ -654,7 +676,7 @@ def write_G(G, map_name):
     
     print(f'Wrote to graphs\{map_name}_G.pkl')
 
-def load_G(map_name):
+def load_G(map_name) -> nx.Graph:
     with open(f'graphs\{map_name}_G.pkl', 'rb') as f:
         return pickle.load(f)
 
@@ -679,7 +701,10 @@ def sort_shortest_path(G, nearest, move_list, tasks) -> list[tuple]:
     """
     Sorts the move list in ascending order in terms of distance from the player to the destination.
     
-    Returns a list of (x,y) positions to move to.
+    Returns
+    --------
+    list[tuple]
+        a list of (x,y) destinations to move to.
     """
 
     move_list.sort(key = lambda x:nx.shortest_path_length(G, nearest, x, weight="weight"))
@@ -702,7 +727,7 @@ def get_task_list() -> list:
 
     return [data["tasks"], data["task_locations"], data["task_steps"]]
 
-def get_move_list(tasks):
+def get_move_list(tasks) -> list:
     """Generates a list of destination coordinates"""
     move_list = []
     dict = load_dict()
@@ -846,10 +871,21 @@ def focus():
         print("Window not found")
 
 # TODO: hardcoded to skeld for now
-def move(dest_list, G = load_G("SHIP")) -> int:
-    """ Handles player movement
+def move(dest_list : list, G = load_G("SHIP")) -> int:
+    """ Handles player movement, reporting, and kills
+
+        Parameters
+        ----------
+        dest_list : list
+            A list of nodes generated from nx.shortest_path() to walk
+
+        G : nx.Graph
+            The graph of the current map loaded by load_G()
         
-        Returns 0 on success, 1 if interrupted by a meeting"""
+        Returns
+        ----------
+        int
+            Returns 0 on success, 1 if interrupted by a meeting"""
 
     global gamepad
 
@@ -865,17 +901,23 @@ def move(dest_list, G = load_G("SHIP")) -> int:
 
     old_room = "None"
 
+    # Main loop
     while len(dest_list) > 0:
+
+        # Exit case
         if in_meeting() or keyboard.is_pressed('`'):
             gamepad.reset()
             gamepad.update()
             return 1
         
+        # Get relevant nearby players
         nearby_players = get_nearby_players(G)
         if isImpostor():
             for player in get_nearby_imposter_players(G):
                 if player in nearby_players:
                     nearby_players.remove(player)
+
+        # Kill logic
         if impostor:
             if can_kill() and is_KillTimer_0() and should_I_kill():
                 gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
@@ -885,6 +927,7 @@ def move(dest_list, G = load_G("SHIP")) -> int:
                 gamepad.update()
                 time.sleep(1/60)
         
+        # Report/self report check
         if can_report():
             if len(nearby_players) > 1 or on_cams():
                 press_report()
@@ -893,9 +936,11 @@ def move(dest_list, G = load_G("SHIP")) -> int:
                 look_around()
                 press_report()
 
+        # Determines how close player should be before removing node from path
         increment = 0.15
         if data['speed'] is not None:
             increment *= data['speed'] * 2
+
         if dist(pos, dest_list[0]) < increment:
 
             # Write last room visited
@@ -906,10 +951,14 @@ def move(dest_list, G = load_G("SHIP")) -> int:
                 f.close()
                 old_room = room
 
+            # Remove current node from path
             dest_list.pop(0)
+
+            # break if done
             if (len(dest_list) <= 0):
                 break
         else:
+            # Walk to next node
             g_points = points_to_gamepad(pos, dest_list[0])
             gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=g_points[1])
             gamepad.update()
@@ -919,7 +968,9 @@ def move(dest_list, G = load_G("SHIP")) -> int:
             old_time = datetime.now().second
             old_pos = pos
         else:
+            # if stuck...
             if abs(old_time - datetime.now().second) > 1 and abs(old_time - datetime.now().second) < 5:
+                # move toward x and y component seperately
                 g_points = points_to_gamepad(pos, dest_list[0])
                 gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
                 gamepad.update()
