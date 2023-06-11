@@ -7,6 +7,7 @@ from random import choice
 import keyboard
 
 def printConstantGameData(G):
+    """Debugging function to print data from getGameData every 2 seconds"""
     try:
         load_dict()
         while True:
@@ -25,6 +26,7 @@ def printConstantGameData(G):
 
 
 def printGameData():
+    """Debugging function to print data from getGameData"""
     data = getGameData()
     load_dict()
     for key in data.keys():
@@ -35,6 +37,7 @@ def printGameData():
     print()
 
 def printConstantTaskPositions():
+    """Debugging function to print task positions"""
     try:
         while True:
             data = getGameData()
