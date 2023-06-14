@@ -17,6 +17,8 @@ except:
     print("No API key detected. Automatic chatting disabled.")
     raise SystemExit(0)
 
+openai.api_key = API_KEY
+
 with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
     MEETING_PATH = line + "\\meetingData.txt"
@@ -52,7 +54,7 @@ def get_meeting_time():
 def ask_gpt(prompts : str) -> str: 
     print("sent prompt")
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0613",
         messages=prompts
     )
 
@@ -113,7 +115,6 @@ def vote(color : str = "SKIP"):
 
 data = getGameData()
 
-openai.api_key = API_KEY
 color : str = data['color']
 role : str = data['status']
 tasks : str = ' '.join(data['tasks'])
