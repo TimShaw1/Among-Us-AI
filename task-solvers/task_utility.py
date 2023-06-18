@@ -115,6 +115,8 @@ def is_task_done(task):
         index = data["tasks"].index(task)
         steps = data["task_steps"][index].split('/')
         return steps[0] == steps[1]
+    
+    # Index error on new ver
     except (IndexError, ValueError):
         return True
 
