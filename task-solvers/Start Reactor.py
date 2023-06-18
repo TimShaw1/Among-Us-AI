@@ -21,7 +21,6 @@ save_dict = {}
 
 with open('task-solvers\\reactor_list\\reactor_list.json', 'r') as f:
     save_dict = json.load(f)
-print(save_dict)
 click_list = save_dict["click_list"]
 seen_pos = save_dict["seen_pos"]
 if len(save_dict["click_list"]) > 0:
