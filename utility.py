@@ -32,7 +32,7 @@ with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
     SEND_DATA_PATH = line + "\\sendData.txt"
     CHAT_DATA_PATH = line + "\\chatData.txt"
-    CAN_VOTE_PATH = line + "\\canVote.txt"
+    CAN_VOTE_PATH = line + "\\canVote.txt"      # depreciated
     IN_GAME_PATH = line + "\\inGameData.txt"
     KILL_DATA_PATH = line + "\\killData.txt"
     IMPOSTER_DATA_PATH = line + "\\imposterData.txt"
@@ -424,6 +424,7 @@ def on_cams() -> bool:
     return onCams
 
 
+# depreciated
 def can_vote() -> bool:
     with open(CAN_VOTE_PATH) as f:
         lines = f.readlines()
@@ -434,6 +435,7 @@ def is_KillTimer_0() -> bool:
     impData = getImposterData()
     return impData["killCD"] == 0.0
 
+# depreciated
 def set_can_vote_false() -> None:
     with open(CAN_VOTE_PATH, "w") as f:
         f.write("0")
