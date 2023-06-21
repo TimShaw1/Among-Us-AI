@@ -30,12 +30,12 @@ SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore 
 # Load paths - sendDataDir is among us directory
 with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
-    SEND_DATA_PATH = line + "\\sendData2.txt"
-    CHAT_DATA_PATH = line + "\\chatData2.txt"
-    CAN_VOTE_PATH = line + "\\canVote2.txt"      # depreciated
+    SEND_DATA_PATH = line + "\\sendData.txt"
+    CHAT_DATA_PATH = line + "\\chatData.txt"
+    CAN_VOTE_PATH = line + "\\canVote.txt"      # depreciated
     IN_GAME_PATH = line + "\\inGameData.txt"
-    KILL_DATA_PATH = line + "\\killData2.txt"
-    IMPOSTER_DATA_PATH = line + "\\imposterData2.txt"
+    KILL_DATA_PATH = line + "\\killData.txt"
+    IMPOSTER_DATA_PATH = line + "\\imposterData.txt"
 
 # TODO: hardcoded to skeld for now
 MAP = "SHIP"
