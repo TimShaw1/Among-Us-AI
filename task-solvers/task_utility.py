@@ -118,7 +118,7 @@ def is_task_done(task):
     
     # Index error on new ver
     except (IndexError, ValueError):
-        return True
+        return False
 
 def is_urgent_task() -> bool:
     data = getGameData()

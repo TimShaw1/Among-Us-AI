@@ -30,12 +30,12 @@ SABOTAGE_TASKS = ["Reset Reactor", "Fix Lights", "Fix Communications", "Restore 
 # Load paths - sendDataDir is among us directory
 with open("sendDataDir.txt") as f:
     line = f.readline().rstrip()
-    SEND_DATA_PATH = line + "\\sendData.txt"
-    CHAT_DATA_PATH = line + "\\chatData.txt"
-    CAN_VOTE_PATH = line + "\\canVote.txt"      # depreciated
+    SEND_DATA_PATH = line + "\\sendData2.txt"
+    CHAT_DATA_PATH = line + "\\chatData2.txt"
+    CAN_VOTE_PATH = line + "\\canVote2.txt"      # depreciated
     IN_GAME_PATH = line + "\\inGameData.txt"
-    KILL_DATA_PATH = line + "\\killData.txt"
-    IMPOSTER_DATA_PATH = line + "\\imposterData.txt"
+    KILL_DATA_PATH = line + "\\killData2.txt"
+    IMPOSTER_DATA_PATH = line + "\\imposterData2.txt"
 
 # TODO: hardcoded to skeld for now
 MAP = "SHIP"
@@ -353,7 +353,7 @@ def is_task_done(task) -> bool:
         steps = data["task_steps"][index].split('/')
         return steps[0] == steps[1]
     except (IndexError, ValueError):
-        return True
+        return False
     
 def is_urgent_task(tasks : list = None) -> str:
     """Returns the name of the current urgent task, if any"""
