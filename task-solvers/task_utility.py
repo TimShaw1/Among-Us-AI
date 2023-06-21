@@ -118,6 +118,9 @@ def is_task_done(task):
     
     # Index error on new ver
     except (IndexError, ValueError):
+        print("Index / Value error")
+        print(task)
+        print(data["tasks"])
         return False
 
 def is_urgent_task() -> bool:
