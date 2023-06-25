@@ -159,7 +159,7 @@ prompts =   [
 
                  {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"},
                  {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"},
-                 {"role": "system", "content": "If you decide to vote, respond by saying 'VOTE: {COLOR to vote}' or 'VOTE: skip' to skip"},
+                 #{"role": "system", "content": "If you decide to vote, respond by saying 'VOTE: {COLOR to vote}' or 'VOTE: skip' to skip"},
                  {"role": "system", "content": f"If people say {color} is sus or should be voted off, you need to defend youself."},
                  {"role": "system", "content": f"If you are the imposter, try gaslighting people"}
             ]
@@ -229,7 +229,7 @@ while in_meeting() and not decided_to_vote:
 while time.time() - meeting_start_time < get_meeting_time() - 4:
     time.sleep(1/15)
 
-prompts.append({"role": "user", "content": "You have 10 seconds left to vote. How do you vote?"})
+prompts.append({"role": "user", "content": "You have 10 seconds left to vote. How do you vote? Your response should be formatted as 'VOTE: {COLOR to vote}' or 'VOTE: skip' to skip"})
 res = ask_gpt(prompts)
 col_array = ["RED", "BLUE", "GREEN", "PINK",
                 "ORANGE", "YELLOW", "BLACK", "WHITE",
