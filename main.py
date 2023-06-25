@@ -74,7 +74,7 @@ def idle(G):
             if urgent is not None:
                 solve_task(urgent[0])
             nearest = move_to_nearest_node(graph)
-            if urgent and urgent[0] == "Restore Oxygen":
+            if urgent is not None and urgent[0] == "Restore Oxygen":
                 if (is_urgent_task() is not None):
                     # TODO: Position is hard coded to skeld for now
                     move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")), G)
