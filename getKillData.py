@@ -23,8 +23,7 @@ def save_kill_training_data(didKill : bool):
 
     data = getGameData()
 
-    # TODO: load_G is hardcoded to skeld
-    G = load_G("SHIP")
+    G = load_G(data["map_id"])
 
     dict_to_send = {"nearby_players" : len(get_imposter_nearby_players(G)), "nearby_imposters" : len(get_nearby_imposter_players(G)), 
             "lights" : data["lights"], "cams" : are_cams_used(),  

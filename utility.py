@@ -37,7 +37,7 @@ with open("sendDataDir.txt") as f:
     KILL_DATA_PATH = line + "\\killData.txt"
     IMPOSTER_DATA_PATH = line + "\\imposterData.txt"
 
-# TODO: hardcoded to skeld for now
+# starts at skeld, not hardcoded
 MAP = "SHIP"
 
 global gamepad
@@ -71,7 +71,7 @@ def getGameData():
         "speed" : speed, "color" : color, "room" : room, "lights" : lights, 
         "nearbyPlayers" : nearbyPlayers, "playersVent" : playersVent, "playersDead": playersDead}
     """
-    global impostor
+    global impostor, MAP
 
     # number of parameters (lines) in data
     dataLen : int = 15
@@ -96,6 +96,7 @@ def getGameData():
             task_steps = lines[4].rstrip().strip('][').split(", ")
 
             map_id = lines[5].rstrip()
+            MAP = map_id.upper()
 
             dead = bool(int(lines[6].rstrip()))
 
@@ -668,8 +669,7 @@ def generate_graph(graph) -> nx.Graph:
                 if point != point2:
                     G.add_edge(point, point2, weight=round(dist(point, point2),4))
     
-    # TODO: hardcoded to skeld for now
-    write_G(G, "SHIP")
+    write_G(G, getGameData()["map_id"])
     return G
 
 def write_G(G, map_name):
@@ -814,8 +814,7 @@ def should_I_kill():
     """Determines if we should kill"""
     data = getGameData()
 
-    # TODO: load_G is hardcoded to skeld
-    G = load_G("SHIP")
+    G = load_G(data["map_id"])
     
     num_nearby_players = len(get_imposter_nearby_players(G))
     num_nearby_imposters = len(get_nearby_imposter_players(G))
@@ -872,8 +871,7 @@ def focus():
     else:
         print("Window not found")
 
-# TODO: hardcoded to skeld for now
-def move(dest_list : list, G = load_G("SHIP")) -> int:
+def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
     """ Handles player movement, reporting, and kills
 
         Parameters

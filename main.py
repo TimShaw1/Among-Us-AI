@@ -267,13 +267,13 @@ if __name__ == "__main__":
     # Clear previous kill data
     clear_kill_data()
 
+    data = getGameData()
+
     # Load map graph
-    # TODO: hardcoded to skeld for now
-    graph = load_graph_list("SHIP")
+    graph = load_graph_list(data["map_id"])
 
     #G = generate_graph(graph)
-    # TODO: hardcoded to skeld for now
-    G = load_G("SHIP")
+    G = load_G(data["map_id"])
 
     while True:
         ret = main(G)
