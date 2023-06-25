@@ -943,6 +943,10 @@ def move(dest_list : list, G = load_G("SHIP")) -> int:
         if data['speed'] is not None:
             increment *= data['speed'] * 2
 
+        data = getGameData()
+
+        pos = data["position"]
+
         if (dist(pos, dest_list[0]) < increment and len(dest_list) > 1) or dist(pos, dest_list[0]) < increment / 2:
             
             # Reset gamepad
