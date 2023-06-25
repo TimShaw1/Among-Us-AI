@@ -36,6 +36,17 @@ def get_dead_players():
         line = f.readline().rstrip()
         return [translatePlayerColorID(int(x)) for x in line.strip('][').split(", ")[:-1]]
     
+names_dict = {}
+def get_names_dict():
+    with open(MEETING_PATH) as f:
+        f.readline().rstrip()
+        f.readline().rstrip()
+        big_long_input = f.readline().rstrip().strip('][').split(", ")
+        for item in big_long_input:
+            item = item.split("/")
+            names_dict[item[0]] = int(item[1])
+        return names_dict
+    
 def get_last_task():
     with open("last_task.txt") as f:
         line = f.readline().rstrip()
@@ -226,6 +237,8 @@ while in_meeting() and not decided_to_vote:
         print("Rate limit reached")
         break
 
+get_names_dict()
+
 while time.time() - meeting_start_time < get_meeting_time() - 4:
     time.sleep(1/15)
 
@@ -240,6 +253,10 @@ c = "skip"
 for color1 in col_array:
     if color1 in res.upper() and color1 != color:
         c = color1
+if c == "skip":
+    for name in names_dict:
+        if name.lower() in res.lower() and translatePlayerColorID(names_dict[name]) != color:
+            c = translatePlayerColorID(names_dict[name])
 print("Vote: " + res)
 print(c)
 vote(c.upper())
