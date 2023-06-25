@@ -54,7 +54,7 @@ def get_meeting_time():
 def ask_gpt(prompts : str) -> str: 
     print("sent prompt")
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0613",
+        model="gpt-3.5-turbo",
         messages=prompts
     )
 
