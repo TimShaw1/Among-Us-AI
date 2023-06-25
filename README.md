@@ -33,6 +33,7 @@ Video runthrough: https://youtu.be/N7ztLdSIjwQ
 - 8GB DDR4 RAM (again for fast data transfer)
 - Use Windows! The bot is untested on MacOS and Linux.
 - The bot uses your mouse and keyboard. To stop it, press `. To forcibly stop it, press ctrl-alt-delete.
+- The game **must** be in windowed mode!
 
 ## Upcoming Features
 - [ ] Support all maps (currently only Skeld is supported)
