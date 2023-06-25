@@ -12,7 +12,7 @@ Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9
 - and lots of gaslighting
 
 ## Setup Requirements
-Video runthrough: https://youtu.be/lrtt0w4TDWg (OUTDATED)
+Video runthrough: https://youtu.be/N7ztLdSIjwQ
 
 0. Have python installed (I used python 3.9.2)
 1. Clone the repository and run the command `pip install -r requirements.txt`
