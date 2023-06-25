@@ -17,8 +17,9 @@ Video runthrough: https://youtu.be/N7ztLdSIjwQ
 0. Have python installed (I used python 3.9.2)
 1. Clone the repository and run the command `pip install -r requirements.txt`
 2. Download the latest release from [releases](https://github.com/TimShaw1/Among-Us-AI/releases/latest) (both the source code zip AND AmongUsAI-BepInEx)
-    - Extract the zip file, then navigate in until you see the **BepInEx** folder (do **not** navigate into this folder)
+    - Extract the BepInEx zip file, then navigate in until you see the **BepInEx** folder (do **not** navigate into this folder)
     - Select every file, then drag and drop into your Among Us directory (Usually `C:\Program Files (x86)\Steam\steamapps\common\Among Us`)
+    - Also extract the source code and open it in VS Code
 3. Copy the path of your among us install folder and paste it in `sendDataDir.txt`
     - Right click the folder name "Among Us" from the top bar and select "Copy address as text"
 4. Get an API key from your OpenAI account and paste it in a new file called `APIkey.txt`
