@@ -67,7 +67,7 @@ cols_dict = {"RED" : (208, 68, 74), "BLUE" : (62, 91, 234), "GREEN" : (55, 156, 
              "ORANGE" : (241, 156, 70), "YELLOW" : (241, 246, 130), "BLACK" : (97, 111, 122), "WHITE" : (223, 240, 251),
              "PURPLE" : (134, 91, 214), "BROWN" : (138, 110, 83), "CYAN" : (95, 245, 245), "LIME" : (108, 244, 107),
              "MAROON" : (121, 75, 95), "ROSE" : (241, 213, 236), "BANANA" : (239, 244, 199), "GRAY" : (142, 162, 181),
-             "TAN" : (162, 163, 156), "CORAL" : (226, 136, 144), "SKIP" : ()}
+             "TAN" : (162, 163, 156), "CORAL" : (226, 136, 144), "GREY" : (142, 162, 181), "SKIP" : ()}
 
 def col_diff(col1 : tuple, col2 : tuple) -> int:
     return abs(col1[0] - col2[0]) + abs(col1[1] - col2[1]) + abs(col1[2] - col2[2])
@@ -235,7 +235,7 @@ col_array = ["RED", "BLUE", "GREEN", "PINK",
                 "ORANGE", "YELLOW", "BLACK", "WHITE",
                 "PURPLE", "BROWN", "CYAN", "LIME",
                 "MAROON", "ROSE", "BANANA", "GRAY",
-                "TAN", "CORAL"]
+                "TAN", "CORAL", "GREY"]
 c = "skip"
 for color1 in col_array:
     if color1 in res.upper() and color1 != color:
