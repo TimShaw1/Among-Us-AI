@@ -33,7 +33,7 @@ with open("sendDataDir.txt") as f:
     SEND_DATA_PATH = line + "\\sendData.txt"
     CHAT_DATA_PATH = line + "\\chatData.txt"
     CAN_VOTE_PATH = line + "\\canVote.txt"      # depreciated
-    #IN_GAME_PATH = line + "\\inGameData.txt"
+    IN_GAME_PATH = line + "\\inGameData.txt"
     KILL_DATA_PATH = line + "\\killData.txt"
     IMPOSTER_DATA_PATH = line + "\\imposterData.txt"
 
