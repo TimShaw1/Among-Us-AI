@@ -939,11 +939,14 @@ def move(dest_list : list, G = load_G("SHIP")) -> int:
                 press_report()
 
         # Determines how close player should be before removing node from path
-        increment = 0.15
+        increment = 0.2
         if data['speed'] is not None:
             increment *= data['speed'] * 2
 
-        if dist(pos, dest_list[0]) < increment:
+        if (dist(pos, dest_list[0]) < increment and len(dest_list) > 1) or dist(pos, dest_list[0]) < increment / 2:
+            
+            # Reset gamepad
+            gamepad.reset()
 
             # Write last room visited
             room = getGameData()["room"]

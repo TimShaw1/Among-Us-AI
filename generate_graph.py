@@ -7,7 +7,7 @@ from math import dist
 
 #TODO: hardcoded to skeld for now
 graph : list = load_graph_list("SHIP")
-graph = []
+#graph = []
 
 data = getGameData()
 pos = (round(data['position'][0], 4), round(data['position'][1], 4))
