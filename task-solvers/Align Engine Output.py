@@ -14,13 +14,20 @@ dimensions[2] /= 7.4
 dimensions[2] = round(dimensions[2])
 y_center = ((dimensions[1] + round(dimensions[1] / 1.2) + dimensions[3]) / 2)
 
-arrow_pos = None
-arrow_names = ["Arrow", "arrowDown", "arrowUp"]
+# Color is 88 88 95
 
-for name in arrow_names:
-    arrow_pos = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Align Engine Output\\{name}.png", confidence=0.37, region=dimensions)
-    if arrow_pos:
-        break
+while not is_task_done("Align Engine Output"):
+    screenshot = get_screenshot(dimensions)
+    exit = False
 
-pyautogui.moveTo(arrow_pos[0] + 5, arrow_pos[1])
-pyautogui.dragTo(arrow_pos[0], y_center, duration=0.3, tween=pyautogui.easeOutQuad)
+    if is_urgent_task():
+        click_close()
+        raise SystemExit(0)
+
+    for x in range(screenshot.width):
+        for y in range(screenshot.height):
+            pixel = screenshot.getpixel((x, y))
+            if pixel[1] < 90 and pixel[1] > 86 and pixel[0] < 90 and pixel[0] > 86 and pixel[2] < 100 and pixel[2] > 90:
+                pyautogui.moveTo(dimensions[0] + x, dimensions[1] + y) 
+                pyautogui.dragTo(dimensions[0] + x, y_center, abs((dimensions[1] + y) - y_center) / 400)
+                raise SystemExit(0)
