@@ -173,6 +173,10 @@ def move_and_complete_tasks(G, move_list, tasks):
 
         # If meeting was called (also include inspect sample case)
         if return_code == 1 or return_code == 2:
+            # exit case
+            if keyboard.is_pressed('`'):
+                break
+
             if return_code == 2:
                 inspect_sample_flag = True
 
@@ -279,6 +283,9 @@ if __name__ == "__main__":
 
     #G = generate_graph(graph)
     G = load_G(data["map_id"])
+
+    # Print
+    print("The Among Us AI\nHold ` for 7 seconds to stop. Press ctrl+alt+del to forcibly stop a task.")
 
     while True:
         ret = main(G)
