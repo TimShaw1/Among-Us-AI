@@ -15,9 +15,10 @@ x = dimensions[0] + round(dimensions[2] / 1.52)
 y = dimensions[1] + round(dimensions[3] / 1.16)
 pyautogui.click((x,y))
 
-# Bruh
-time.sleep(61)
+click_close()
+raise SystemExit(0)
 
+"""
 y_offset = dimensions[3]
 dimensions[0] += round(dimensions[2] / 2.81)
 dimensions[1] += round(dimensions[3] / 3.2)
@@ -26,3 +27,4 @@ dimensions[3] = round(dimensions[3] / 3.6)
 
 pos = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\Inspect Sample\\anomaly.png", confidence=0.5, region=dimensions)
 pyautogui.click(pos[0], pos[1] + round(y_offset / 2.87))
+"""

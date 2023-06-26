@@ -187,6 +187,11 @@ def move_and_complete_tasks(G, move_list, tasks):
             move_list = sort_shortest_path(G, nearest, move_list, tasks)
             if tsk[0] == "Reset Reactor" or tsk[0] == "Restore Oxygen":
                 move_list.pop(0)
+            if tsk[0] == "Inspect Sample" and return_code == 2:
+                temp = move_list[0]
+                move_list.pop(0)
+                move_list.append(temp)
+
             continue
 
         # If we're done all out tasks

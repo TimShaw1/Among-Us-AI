@@ -108,7 +108,7 @@ def solve_task(task_name=None, task_location=None) -> int:
                 return 1 if task_name != "Inspect Sample" else 2
             time.sleep(1/30)
 
-        return 0
+        return 2 if task_name == "Inspect Sample" else 0
     
     print("Task not found")
     return -1
