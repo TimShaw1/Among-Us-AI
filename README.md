@@ -33,7 +33,7 @@ Video runthrough: https://youtu.be/N7ztLdSIjwQ
 - Install Among Us and this project on an SSD. The AI uses the disk to transfer data, so fast random read/write is important.
 - 8GB DDR4 RAM (again for fast data transfer)
 - Use Windows! The bot is untested on MacOS and Linux.
-- The bot uses your mouse and keyboard. To stop it, press `. To forcibly stop it, press ctrl-alt-delete.
+- The bot uses your mouse and keyboard. To stop it, hold ` for 7 seconds. To forcibly stop it, press ctrl-alt-delete.
 - The game **must** be in windowed mode!
 
 ## Upcoming Features
