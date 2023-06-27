@@ -54,11 +54,13 @@ def write_graph_list(list, map_name):
     
     print(f'Wrote to graphs\{map_name}_graph.pkl')
 
-def load_graph_list(map_name):
+def load_graph_list(map_name) -> list:
     """Load the given map's graph """
-
-    with open(f'graphs\{map_name}_graph.pkl', 'rb') as f:
-        return pickle.load(f)
+    try:
+        with open(f'graphs\{map_name}_graph.pkl', 'rb') as f:
+            return pickle.load(f)
+    except:
+        return []
 
 def getGameData():
     """ 
@@ -871,7 +873,8 @@ def focus():
     else:
         print("Window not found")
 
-def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
+#def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
+def move(dest_list : list, G) -> int:
     """ Handles player movement, reporting, and kills
 
         Parameters
