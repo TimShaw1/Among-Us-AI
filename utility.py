@@ -873,8 +873,7 @@ def focus():
     else:
         print("Window not found")
 
-#def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
-def move(dest_list : list, G) -> int:
+def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
     """ Handles player movement, reporting, and kills
 
         Parameters
