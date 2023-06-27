@@ -281,8 +281,8 @@ if __name__ == "__main__":
     # Load map graph
     graph = load_graph_list(data["map_id"])
 
-    G = generate_graph(graph)
-    #G = load_G(data["map_id"])
+    #G = generate_graph(graph)
+    G = load_G(data["map_id"])
 
     # Print
     print("The Among Us AI\nHold ` for 7 seconds to stop. Press ctrl+alt+del to forcibly stop a task.")
