@@ -3,6 +3,7 @@ import time
 import pyautogui
 
 click_use()
+time.sleep(0.3)
 
 dimensions = get_dimensions()
 dimensions[0] += dimensions[2] / 2.45
