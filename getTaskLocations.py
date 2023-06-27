@@ -57,7 +57,7 @@ try:
         # Check for updated task steps -- fuel engines is broken
         if (change_index >= 0 and not data["dead"]):
             old_data["position"] = data["position"]
-            update_current(data, change_index)
+            update_current(old_data, change_index)
             old_data = copy.deepcopy(data)
             print()
 
