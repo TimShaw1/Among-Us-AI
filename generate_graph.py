@@ -1,4 +1,4 @@
-from utility import *
+from utility import getGameData, load_graph_list, get_smallest_dist, write_graph_list, show_graph
 import keyboard
 import time
 import networkx as nx
@@ -28,5 +28,5 @@ try:
 except KeyboardInterrupt:
     pass
 
-write_graph_list(graph, "SHIP")
+write_graph_list(graph, data["map_id"])
  
