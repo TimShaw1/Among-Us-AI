@@ -412,13 +412,14 @@ def are_lights_called() -> bool:
     data = getGameData()
     return data["lights"]
 
+# Bottom left corner + top right
 def inside_rect(rect : tuple, pos) -> bool:
     return rect[0] <= pos[0] <= rect[2] and rect[1] <= pos[1] <= rect[3]
 
 # TODO: rects are hardcoded to skeld for now
 ship_cams_rects = [(-1.634, -9.307, 2.216, -4.932), (7.767, -8.85, 15.281, -1.142), (-14.123, -1.301, -6.423, 1.403), (-19.202, -8.078, -14.525, -3.576)]
-pb_cams_rects = [(26.203133, -13.906599, 31.621487, -17.724964), (21.546322, -6.849748, 27.46764, -10.9710655), (12.546305, -13.746809, 18.871786, -17.789434),
-                 (14.003149, -18.65808, 19.962936, -22.81785)]
+pb_cams_rects = [(26.203133, -17.724964, 31.621487, -13.906599), (21.546322, -10.9710655, 27.46764, -6.849748), 
+                 (12.546305, -17.789434, 18.871786, -13.746809), (14.003149, -22.81785, 19.962936, -18.65808)]
 
 def on_cams() -> bool:
     # might be bad lmao
@@ -426,8 +427,15 @@ def on_cams() -> bool:
         return False
     data = getGameData()
     pos = data["position"]
+    map_id = data["map_id"].upper()
     onCams = False
-    for rect in ship_cams_rects:
+
+    if map_id == "SHIP":
+        cam_rects = ship_cams_rects
+    elif map_id == "PB":
+        cam_rects = pb_cams_rects
+
+    for rect in cam_rects:
         if inside_rect(rect, pos):
             onCams = True
     return onCams
