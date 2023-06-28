@@ -288,9 +288,6 @@ if __name__ == "__main__":
     print("The Among Us AI\nHold ` for 7 seconds to stop. Press ctrl+alt+del to forcibly stop a task.")
 
     while True:
-        print(on_cams())
-
-    while True:
         ret = main(G)
         if keyboard.is_pressed('`'):
             break
