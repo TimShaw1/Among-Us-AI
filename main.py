@@ -76,7 +76,7 @@ def idle(G):
             nearest = move_to_nearest_node(graph)
             if urgent is not None and urgent[0] == "Restore Oxygen":
                 if (is_urgent_task() is not None):
-                    # TODO: Position is hard coded to skeld for now
+                    # TODO: Position is hard coded to skeld for now - fine for polus
                     move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")), G)
                     solve_task(task_name="Restore Oxygen", task_location="Admin")
                 nearest = move_to_nearest_node(graph)
@@ -148,7 +148,7 @@ def move_and_complete_tasks(G, move_list, tasks):
             nearest = move_to_nearest_node(graph)
 
             if is_urgent_task() is not None:
-                # TODO: Position is hard coded to skeld for now
+                # TODO: Position is hard coded to skeld for now - fine for polus
                 move(list(nx.shortest_path(G, nearest, (6.521158, -7.138555), weight="weight")), G)
                 return_code = solve_task(task_name="Restore Oxygen", task_location="Admin")
             nearest = move_to_nearest_node(graph)
@@ -286,6 +286,9 @@ if __name__ == "__main__":
 
     # Print
     print("The Among Us AI\nHold ` for 7 seconds to stop. Press ctrl+alt+del to forcibly stop a task.")
+
+    while True:
+        print(on_cams())
 
     while True:
         ret = main(G)

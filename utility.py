@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 import random
 import sys
 import os
+import solver
 import keyboard
-from solver import *
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from report import can_report
 from kill import can_kill
@@ -417,6 +417,8 @@ def inside_rect(rect : tuple, pos) -> bool:
 
 # TODO: rects are hardcoded to skeld for now
 ship_cams_rects = [(-1.634, -9.307, 2.216, -4.932), (7.767, -8.85, 15.281, -1.142), (-14.123, -1.301, -6.423, 1.403), (-19.202, -8.078, -14.525, -3.576)]
+pb_cams_rects = [(26.203133, -13.906599, 31.621487, -17.724964), (21.546322, -6.849748, 27.46764, -10.9710655), (12.546305, -13.746809, 18.871786, -17.789434),
+                 (14.003149, -18.65808, 19.962936, -22.81785)]
 
 def on_cams() -> bool:
     # might be bad lmao
@@ -993,7 +995,7 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
                 
                 # catch any weird door bugs
                 if abs(old_time - datetime.now().second) > 3:
-                    solve_task("Open Door")
+                    solver.solve_task("Open Door")
 
                 # move toward x and y component seperately
                 g_points = points_to_gamepad(pos, dest_list[0])
