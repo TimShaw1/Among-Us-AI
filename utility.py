@@ -12,6 +12,7 @@ import random
 import sys
 import os
 import keyboard
+from solver import *
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from report import can_report
 from kill import can_kill
@@ -992,7 +993,7 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
                 
                 # catch any weird door bugs
                 if abs(old_time - datetime.now().second) > 3:
-                    click_use()
+                    solve_task("Open Door")
 
                 # move toward x and y component seperately
                 g_points = points_to_gamepad(pos, dest_list[0])
