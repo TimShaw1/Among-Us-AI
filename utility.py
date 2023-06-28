@@ -15,6 +15,7 @@ import keyboard
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
 from report import can_report
 from kill import can_kill
+from task_utility import click_use
 
 SHIP_TASK_TYPES = {}
 
@@ -45,6 +46,8 @@ gamepad = vg.VX360Gamepad()
 
 global impostor 
 impostor = False
+
+PB_DOOR_LOCATIONS = [(37.641502, -10.066866), (38.974846, -12.105497), (25.77523, -24.922377), (23.96007, -23.106699)]
 
 def write_graph_list(list, map_name):
     """save the current map's graph"""
@@ -903,6 +906,8 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
 
     old_room = "None"
 
+    clicked_use = False
+
     # Main loop
     while len(dest_list) > 0:
 
@@ -947,6 +952,11 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
 
         pos = data["position"]
 
+        for loc in PB_DOOR_LOCATIONS:
+            if (dist(pos, loc) < 1) and not clicked_use:
+                click_use()
+                clicked_use = True
+
         if (dist(pos, dest_list[0]) < increment and len(dest_list) > 1) or dist(pos, dest_list[0]) < increment / 2:
             
             # Reset gamepad
@@ -979,6 +989,11 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
         else:
             # if stuck...
             if abs(old_time - datetime.now().second) > 1 and abs(old_time - datetime.now().second) < 5:
+                
+                # catch any weird door bugs
+                if abs(old_time - datetime.now().second) > 3:
+                    click_use()
+
                 # move toward x and y component seperately
                 g_points = points_to_gamepad(pos, dest_list[0])
                 gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
