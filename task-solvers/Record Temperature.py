@@ -9,7 +9,7 @@ import PIL
 import numpy
 from PIL import ImageFilter
 
-#click_use()
+click_use()
 time.sleep(0.3)
 
 dimensions = get_dimensions()
@@ -24,9 +24,22 @@ x = dimensions[0] + round(dimensions[2] / 3.03)
 y_hi = dimensions[1] + round(dimensions[3] / 3.2)
 y_low = dimensions[1] + round(dimensions[3] / 1.7)
 
+data = getGameData()
+if data["map_id"].upper() == "PB":
+    if data["position"][1] > -8:
+        while not is_task_done("Record Temperature"):
+            pyautogui.click(x, y_low)
+            #time.sleep(1/30)
+    else:
+        while not is_task_done("Record Temperature"):
+            pyautogui.click(x, y_hi)
+            #time.sleep(1/30)
+
+"""
 screenshot = get_screenshot(s_dimensions)
 s2 = PIL.ImageOps.invert(screenshot.convert("L")).point(lambda p: 255 if p > 100 else 0).filter(ImageFilter.GaussianBlur(radius = 2))
 text = pytesseract.image_to_string(s2, config="digits")
 print(text)
 nums = re.findall(r'\b\d+\b', text)[0]
 print(nums)
+"""
