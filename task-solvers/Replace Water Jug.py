@@ -12,5 +12,5 @@ y = dimensions[1] + round(dimensions[3] / 6.75)
 
 pyautogui.moveTo(x,y)
 pyautogui.mouseDown()
-time.sleep(7)
+time.sleep(6.5)
 pyautogui.mouseUp()
