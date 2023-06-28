@@ -118,6 +118,8 @@ def is_task_done(task):
     
     # Index error on new ver
     except (IndexError, ValueError):
+        if task == "Reset Reactor" or task == "Reset Seismic Stabilizers":
+            return not ("Reset Reactor" in data["tasks"] or "Reset Seismic Stabilizers" in data["tasks"])
         print("Index / Value error")
         print(task)
         print(data["tasks"])
