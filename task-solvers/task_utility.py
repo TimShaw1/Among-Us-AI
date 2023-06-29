@@ -41,7 +41,9 @@ def getGameData():
 
             dead = bool(int(lines[6].rstrip()))
 
-        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead]:
+            room = lines[10].rstrip()
+
+        if None in [x,y,status,tasks, task_locations, task_steps, map_id, dead, room]:
             continue
         break
 
@@ -49,7 +51,7 @@ def getGameData():
         if tasks[0] == "Submit Scan" and task_locations[0] == "Hallway":
             tasks.pop(0)
             task_locations.pop(0)
-    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead}
+    return {"position" : (x,y), "status" : status, "tasks" : tasks, "task_locations" : task_locations, "task_steps" : task_steps, "map_id" : map_id, "dead": dead, "room" : room}
 
 def get_screenshot(dimensions=None, window_title="Among Us"):
     if window_title:
