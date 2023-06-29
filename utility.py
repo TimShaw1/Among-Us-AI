@@ -1001,7 +1001,7 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
             old_pos = pos
         else:
             # if stuck...
-            if abs(old_time - datetime.now().second) > 1 and abs(old_time - datetime.now().second) < 5:
+            if abs(old_time - datetime.now().second) > 1 and abs(old_time - datetime.now().second) < 10:
                 
                 # catch any weird door bugs
                 if abs(old_time - datetime.now().second) > 3:
