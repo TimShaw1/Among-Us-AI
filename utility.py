@@ -510,7 +510,9 @@ def get_nearest_task(tasks = None):
                     continue
             
             # Check for correct task but wrong location
-            if location != data["task_locations"][index]:
+            if location != data["task_locations"][index] and "-0/-0" not in data["task_locations"][index]:
+                continue
+            if is_task_done(subdict):
                 continue
 
             # Calculate distance and determine if it is the smallest
