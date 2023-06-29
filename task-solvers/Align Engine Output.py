@@ -28,6 +28,6 @@ while not is_task_done("Align Engine Output"):
         for y in range(screenshot.height):
             pixel = screenshot.getpixel((x, y))
             if pixel[1] < 90 and pixel[1] > 86 and pixel[0] < 90 and pixel[0] > 86 and pixel[2] < 100 and pixel[2] > 90:
-                pyautogui.moveTo(dimensions[0] + x, dimensions[1] + y) 
-                pyautogui.dragTo(dimensions[0] + x, y_center, abs((dimensions[1] + y) - y_center) / 400)
+                pyautogui.moveTo(dimensions[0] + x + 10, dimensions[1] + y) 
+                pyautogui.dragTo(dimensions[0] + x + 10, y_center, abs((dimensions[1] + y) - y_center) / 400)
                 raise SystemExit(0)
