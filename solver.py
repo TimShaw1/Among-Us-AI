@@ -114,7 +114,7 @@ def solve_task(task_name=None, task_location=None) -> int:
         if task_name == "Inspect Sample" or task_name == "Reboot Wifi":
             return 2
         else:
-            return 1
+            return 0
     
     print("Task not found")
     return -1
