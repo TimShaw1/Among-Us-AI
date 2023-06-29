@@ -136,6 +136,8 @@ def move_and_complete_tasks(G, move_list, tasks):
         # If we did the first part, do the second
         if inspect_sample_flag and tsk[0] == "Inspect Sample":
             return_code = solve_task(task_name="Inspect Sample 2", task_location="Medbay")
+        elif inspect_sample_flag and tsk[0] == "Reboot Wifi":
+            return_code = solve_task(task_name="Reboot Wifi 2", task_location="Communications")
         else:
             return_code = solve_task(task_name=tsk[0], task_location=tsk[2])
 
@@ -191,7 +193,7 @@ def move_and_complete_tasks(G, move_list, tasks):
             move_list = sort_shortest_path(G, nearest, move_list, tasks)
             if tsk[0] == "Reset Reactor" or tsk[0] == "Restore Oxygen":
                 move_list.pop(0)
-            if tsk[0] == "Inspect Sample" and return_code == 2:
+            if (tsk[0] == "Inspect Sample" or tsk[0] == "Reboot Wifi") and return_code == 2:
                 temp = move_list[0]
                 move_list.pop(0)
                 move_list.append(temp)

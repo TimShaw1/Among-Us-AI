@@ -105,10 +105,16 @@ def solve_task(task_name=None, task_location=None) -> int:
         while p.poll() is None:
             if utility.in_meeting() or (utility.isDead() != dead) or keyboard.is_pressed('`'):
                 p.kill()
-                return 1 if task_name != "Inspect Sample" else 2
+                if task_name == "Inspect Sample" or task_name == "Reboot Wifi":
+                    return 2
+                else:
+                    return 1
             time.sleep(1/30)
 
-        return 2 if task_name == "Inspect Sample" else 0
+        if task_name == "Inspect Sample" or task_name == "Reboot Wifi":
+            return 2
+        else:
+            return 1
     
     print("Task not found")
     return -1
