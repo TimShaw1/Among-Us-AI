@@ -7,7 +7,20 @@ import collections
 click_use()
 time.sleep(0.3)
 
+# color = 121,143,148
+data = getGameData()
 dim = get_dimensions()
+if data["room"] == "Laboratory":
+    x = dim[0] + round(dim[2] / 3.5)
+    y = dim[1] + round(dim[3] / 6.97)
+
+    y_offset = round(dim[3] / 6.97)
+
+    for i in range(6):
+        pixel = pyautogui.pixel(x, y + y_offset*i)
+        if pixel[0] == 121 and pixel[1] == 143 and pixel[2] == 148:
+            pyautogui.click(x, y + y_offset*i)
+            raise SystemExit(0)
 
 x = dim[0] + round(dim[2] / 4.24)
 y = dim[1] + round(dim[3] / 3.28)
@@ -15,43 +28,53 @@ y = dim[1] + round(dim[3] / 3.28)
 x_offset = round(dim[2] / 34)
 y_offset = round(dim[3] / 19.82)
 
-# path color = 165,162,140
-# block color = 115,112,99
+# path color = 165,162,140 or 205,203,191
+# block color = 115,112,99 or 77,76,66
 # start color = 255, 255, 255
 def get_maze() -> list[list]:
     maze = []
-    for i in range(19):
+    for i in range(7):
         maze.append([])
-        for j in range(7):
+        for j in range(19):
             maze[i].append([])
-            pixel = pyautogui.pixel(x + x_offset*i, y + y_offset*j)
-            if (pixel[0] == 165 and pixel[1] == 162 and pixel[2] == 140) or (pixel[0] == 255 and pixel[1] == 255 and pixel[2] == 255):
+            pixel = pyautogui.pixel(x + x_offset*j, y + y_offset*i)
+            if (pixel[0] == 165 and pixel[1] == 162 and pixel[2] == 140) or (pixel[0] == 255 and pixel[1] == 255 and pixel[2] == 255) or (pixel[0] == 205 and pixel[1] == 203 and pixel[2] == 191):
                 maze[i][j] = 0
             else:
                 maze[i][j] = 1
     return maze
 
 maze = get_maze()
-maze[17][6] = 9
-m = copy.deepcopy(maze)
-wall, clear, goal = 0, 1, 9
-width, height = 18, 7
 
-def bfs(maze, start):
-    print(len(maze))
-    queue = collections.deque()
-    queue.append(start)
-    seen = set([start])
-    while queue:
-        path = queue.popleft()
-        x, y = path
-        if maze[y][x] == goal:
-            return True
-        for x2, y2 in ((x+1,y), (x-1,y), (x,y+1), (x,y-1)): #directions
-            if ( 0 <= x2 < width and  0 <= y2 < height):
-                if maze[y2][x2] != wall and (x2, y2) not in seen: 
-                    queue.append( (x2, y2))
-                    seen.add((x2, y2))
-    return False
+sol = []
+dest = (17, 6)
+start = (1, 0)
 
-print(bfs(maze, (1,0)))
+def search(maze, x, y, seen = []):
+    sol.append((x,y))
+    if (x,y) == dest:
+        return True
+    res = False
+    if (x+1 < 19) and maze[y][x] == 0 and (x+1,y) not in seen:
+        seen.append((x+1,y))
+        res = search(maze, x+1, y, seen)
+    if res == False and (y+1 < 7) and maze[y][x] == 0 and (x,y+1) not in seen:
+        seen.append((x,y+1))
+        res = search(maze, x, y+1, seen)
+    if res == False and (x-1 >0) and maze[y][x] == 0 and (x-1,y) not in seen:
+        seen.append((x-1,y))
+        res = search(maze, x-1, y, seen)
+    if res == False and (y-1 > 0) and maze[y][x] == 0 and (x,y-1) not in seen:
+        seen.append((x,y-1))
+        res = search(maze, x, y-1, seen)
+    if res == False:
+        sol.remove((x,y))
+    return res
+
+search(maze, 1, 0)
+pyautogui.moveTo(x + x_offset*sol[0][0], y + y_offset*sol[0][1])
+sol.pop(0)
+pyautogui.mouseDown()
+for point in sol:
+    pyautogui.moveTo(x + x_offset*point[0], y + y_offset*point[1])
+pyautogui.mouseUp()
