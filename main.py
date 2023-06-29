@@ -6,6 +6,8 @@ from solver import *
 from random import choice
 import keyboard
 
+inspect_sample_flag : bool = False
+
 def printConstantGameData(G):
     """Debugging function to print data from getGameData every 2 seconds"""
     try:
@@ -90,7 +92,7 @@ def idle(G):
 
 def move_and_complete_tasks(G, move_list, tasks):
     # Initialize flags
-    inspect_sample_flag : bool = False
+    global inspect_sample_flag
     can_vote_flag : bool = False
 
     # Find graph node closest to player (helps represent the game as a graph)
@@ -129,7 +131,6 @@ def move_and_complete_tasks(G, move_list, tasks):
 
         # Issue is due do tsk being too high here - get_nearest_task
         if tsk[1] > 1.5:
-            print("Location error, restarting...")
             return -1
 
         # Inspect sample cases
