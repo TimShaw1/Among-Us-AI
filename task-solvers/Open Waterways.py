@@ -20,3 +20,5 @@ for j in range(5):
     pyautogui.dragTo(x + x_offset, y + 2*y_offset, 0.2)
     pyautogui.dragTo(x + 2*x_offset, y + y_offset, 0.2)
     pyautogui.dragTo(x + x_offset, y, 0.2)
+
+time.sleep(5)
