@@ -123,12 +123,14 @@ def is_task_done(task):
         return steps[0] == steps[1]
     
     # Index error on new ver
-    except (IndexError, ValueError):
+    except (IndexError, ValueError) as e:
         if task == "Reset Reactor" or task == "Reset Seismic Stabilizers":
             return not ("Reset Reactor" in data["tasks"] or "Reset Seismic Stabilizers" in data["tasks"])
         print("Index / Value error")
         print(task)
         print(data["tasks"])
+        print(data["task_steps"])
+        print(e)
         return False
 
 def is_urgent_task() -> bool:
