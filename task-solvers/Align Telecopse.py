@@ -5,7 +5,7 @@ import vgamepad as vg
 from math import sin,cos
 import random
 
-#click_use()
+click_use()
 time.sleep(0.8)
 
 dim = get_dimensions()
