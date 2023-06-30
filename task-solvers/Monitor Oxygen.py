@@ -31,8 +31,6 @@ async def main():
         get_y_spots(3)
     )
 
-    print(res)
-
     for i in range(4):
         pyautogui.moveTo(res[i][0])
         pyautogui.mouseDown()
