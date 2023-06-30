@@ -37,7 +37,7 @@ Video runthrough: https://youtu.be/N7ztLdSIjwQ
 - The game **must** be in windowed mode!
 
 ## Upcoming Features
-- [ ] Support all maps (currently only Skeld is supported)
+- [ ] Support all maps (currently only Skeld and Polus are supported)
 - [ ] Full voice chat support using OpenAI whisper
 - [ ] Movement History
 - [ ] Improved Imposter logic
