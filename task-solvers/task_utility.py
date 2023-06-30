@@ -105,6 +105,10 @@ def get_screen_coords():
     while True:
         print(pyautogui.position(), end='\r')
 
+def get_screen_ratio(dim):
+    while True:
+        print(round(abs(dim[2] / (pyautogui.position().x - dim[0])), 2), round(abs(dim[3] / (pyautogui.position().y - dim[1])), 2), end='\r')
+
 def is_task_done(task):
     data = getGameData()
 
