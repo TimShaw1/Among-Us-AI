@@ -17,6 +17,8 @@ def generate_files():
 def chat(can_vote_flag : bool):
     if utility.isDead():
         while utility.in_meeting():
+            if keyboard.is_pressed('`'):
+                raise SystemExit(0)
             time.sleep(1/60)
             continue
         return
@@ -28,6 +30,8 @@ def chat(can_vote_flag : bool):
             return
     p.wait()
     while utility.in_meeting():
+        if keyboard.is_pressed('`'):
+            raise SystemExit(0)
         time.sleep(1/60)
     p.kill()
     utility.clear_kill_data()
