@@ -399,12 +399,13 @@ def is_player_imposter(player : str) -> bool:
         return player in get_fellow_imposters()
     return False
     
+# TODO: incomplete
+cam_areas = {"SHIP" : (-12.7455, -3.397), "PB" : (3.1181712, -12.96315)}
 def are_cams_used() -> bool:
     data = getGameData()
     nearbyPlayers = data["nearbyPlayers"]
     for player in nearbyPlayers.keys():
-        # TODO: Position is hard coded to skeld for now
-        if dist(nearbyPlayers[player], (-12.7455, -3.397)) < 0.5:
+        if dist(nearbyPlayers[player], cam_areas[data["map_id"].upper()]) < 0.5:
             return True
     return False
 
