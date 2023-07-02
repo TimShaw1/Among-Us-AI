@@ -1,11 +1,8 @@
 import time
 from task_utility import *
 import pyautogui
-import vgamepad as vg
 from math import sin,cos
-import random
-import os
-import sys
+import numpy
 
 click_use()
 time.sleep(0.8)
@@ -20,25 +17,25 @@ y = dim[1] + round(dim[3] / 1.24)
 pixel = pyautogui.pixel(x,y)
 
 name = ""
-if pixel == (192, 190, 188):
+if max(abs(numpy.subtract(pixel, (192, 190, 188)))) < 3:
     name = "dyson"
 
-elif pixel == (68, 73, 71):
+elif max(abs(numpy.subtract(pixel, (68, 73, 71)))) < 3:
     name = "ship"
 
-elif pixel == (78, 74, 107):
+elif max(abs(numpy.subtract(pixel, (78, 74, 107)))) < 3:
     name = "gas"
 
-elif pixel == (255, 255, 255):
+elif max(abs(numpy.subtract(pixel, (255, 255, 255)))) < 3:
     name = "galaxy"
 
-elif pixel == (84, 114, 118):
+elif max(abs(numpy.subtract(pixel, (84, 114, 118)))) < 3:
     name = "nebula"
 
-elif pixel == (10, 6, 8):
+elif max(abs(numpy.subtract(pixel, (10, 6, 8)))) < 3:
     name = "broken"
 
-elif pixel == (93, 133, 124):
+elif max(abs(numpy.subtract(pixel, (93, 133, 124)))) < 3:
     name = "green"
 
 x_angle = cos(angles[name])

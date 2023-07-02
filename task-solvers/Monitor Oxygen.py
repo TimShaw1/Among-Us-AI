@@ -20,7 +20,7 @@ async def get_y_spots(i):
     # 126,196,220
     for j in range(round(y_height / 4)):
         pixel = pyautogui.pixel(x + x_offset*i, y + 4*j)
-        if pixel[0] == 126 and pixel[1] == 196 and pixel[2] == 220:
+        if abs(pixel[0] - 126) < 3 and abs(pixel[1] - 196) < 3 and abs(pixel[2] - 220) < 3:
             return [(x + x_offset*i, y + j*4), (x + x_offset*i, dim[1] + y_dests[i])]
         
 async def main():
