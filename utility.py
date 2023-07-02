@@ -922,6 +922,8 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
 
     clicked_use = False
 
+    graph = load_graph_list(data["map_id"])
+
     # Main loop
     while len(dest_list) > 0:
 
@@ -1009,6 +1011,7 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
                     solver.solve_task("Open Door")
 
                 # move toward x and y component seperately
+                move_to_nearest_node(graph)
                 g_points = points_to_gamepad(pos, dest_list[0])
                 gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
                 gamepad.update()
