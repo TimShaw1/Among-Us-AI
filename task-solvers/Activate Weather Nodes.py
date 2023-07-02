@@ -3,6 +3,7 @@ import time
 import pyautogui
 import copy
 import collections
+import numpy
 
 click_use()
 time.sleep(0.3)
@@ -18,7 +19,7 @@ if data["room"] == "Laboratory":
 
     for i in range(6):
         pixel = pyautogui.pixel(x, y + y_offset*i)
-        if pixel[0] == 121 and pixel[1] == 143 and pixel[2] == 148:
+        if max(abs(numpy.subtract(pixel, (121, 143, 148)))) < 3:
             pyautogui.click(x, y + y_offset*i)
             raise SystemExit(0)
 
@@ -38,7 +39,7 @@ def get_maze() -> list[list]:
         for j in range(19):
             maze[i].append([])
             pixel = pyautogui.pixel(x + x_offset*j, y + y_offset*i)
-            if (pixel[0] == 165 and pixel[1] == 162 and pixel[2] == 140) or (pixel[0] == 255 and pixel[1] == 255 and pixel[2] == 255) or (pixel[0] == 205 and pixel[1] == 203 and pixel[2] == 191):
+            if max(abs(numpy.subtract(pixel, (165, 162, 140)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 255)))) < 3 or max(abs(numpy.subtract(pixel, (205, 203, 191)))) < 3:
                 maze[i][j] = 0
             else:
                 maze[i][j] = 1
