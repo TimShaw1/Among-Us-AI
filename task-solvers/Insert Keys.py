@@ -12,7 +12,7 @@ y = round(dimensions[1] + dimensions[3] / 17.14)
 
 x_offset = round(dimensions[2] / 6.64)
 
-if is_urgent_task() is not None:
+if is_urgent_task():
     raise SystemExit(0)
 
 for i in range(3):

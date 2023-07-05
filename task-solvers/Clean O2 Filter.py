@@ -35,7 +35,7 @@ while not is_task_done("Clean O2 Filter"):
                 break
         if (is_task_done("Clean O2 Filter")):
             break
-    if is_urgent_task() is not None:
+    if is_urgent_task():
         raise SystemExit(0)
 
 # Color is 200 149 66

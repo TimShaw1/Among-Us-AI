@@ -18,7 +18,7 @@ y_dests = [round(dim[3] / 1.78), round(dim[3] / 3.68), round(dim[3] / 1.5), roun
 
 async def get_y_spots(i):
     # 126,196,220
-    if is_urgent_task() is not None:
+    if is_urgent_task():
         raise SystemExit(0)
     for j in range(round(y_height / 4)):
         pixel = pyautogui.pixel(x + x_offset*i, y + 4*j)

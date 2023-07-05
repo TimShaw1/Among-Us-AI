@@ -28,7 +28,7 @@ if len(save_dict["click_list"]) > 0:
 
 exit = False
 while not is_task_done("Start Reactor"):
-    if is_urgent_task() is not None:
+    if is_urgent_task():
         raise SystemExit(0)
     screenshot = get_screenshot(dimensions)
     for i in range(3):
