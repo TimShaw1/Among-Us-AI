@@ -157,22 +157,24 @@ except TypeError:
 # Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + nearby_players}
 prompts =   [
                 {"role": "system", "content": 
-                 re.sub(' +', ' ', f'''You are playing the game Among Us. You are in a meeting with your crewmates. 
+                 re.sub(' +', ' ', f'''You are playing the game Among Us in a meeting with your crewmates. Your color is {color}.
                  {get_caller_color()} called the meeting. {"Nobody is" if len(dead_str) == 0 else dead_str + " are"} dead. {tasks_prompt}. The last room you were in was {get_last_room()}.
                  Before the meeting, you were {"not near anyone" if len(nearby_players) == 0 else "near " + str(nearby_players).strip("][")}. {kill_prompt} {found_prompt}
-                 The prompts you see that are not from you, {color}, are messages from your crewmates. You are {color}. Your role is {role}. Your tasks are {tasks}. 
+                 The prompts you see that are not from you, {color}, are messages from your crewmates. Your role is {role}. Your tasks are {tasks}. 
                  There are {get_num_alive_players()} players left alive.
                  {location_prompt}. Your crewmates' and your messages are identified by their color in the prompt. 
                  Reply to prompts with very few words and don't be formal. Try to only use 1 sentence, preferably an improper one. Never return more than 80 alphanumeric characters at a time.
-                 Try to win by voting the impostor out. If your crewmates are agreeing on someone, go along with it unless you are sus of someone else. If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
-                 Only return messages from the {color} player. If you are imposter, do not vote out your fellow imposters'''.replace('\n', ' '))
+                 Try to win by voting the impostor out. If your crewmates are agreeing on someone, go along with it unless you are sus of someone else. 
+                 If your role is impostor, try to get other people voted off by calling them sus and suggesting the group vote them off.
+                 If you are imposter, do not vote out your fellow imposters'''.replace('\n', ' '))
                 },
 
                  {"role": "system", "content": "If someone says 'where' without much context, they are asking where the body was found"},
                  {"role": "system", "content": f"If someone says 'what' or '?' without much context, they are asking {get_caller_color()} why the meeting was called"},
                  #{"role": "system", "content": "If you decide to vote, respond by saying 'VOTE: {COLOR to vote}' or 'VOTE: skip' to skip"},
                  {"role": "system", "content": f"If people say {color} is sus or should be voted off, you need to defend youself."},
-                 {"role": "system", "content": f"If you are the imposter, try gaslighting people"}
+                 {"role": "system", "content": f"If you are the imposter, try gaslighting people"}, 
+                 {"role": "system", "content": "Your responses MUST be of the form {YOUR COLOR}: {your message}. Do not respond in the form {OTHER PLAYER'S COLOR}: { message }."}
             ]
 
 clear_chat()
@@ -198,7 +200,7 @@ decided_to_vote : bool = False
 while in_meeting() and not decided_to_vote:
     if time.time() - meeting_start_time > get_meeting_time() - 8:
         break
-    new_chats = False
+    is_new_chats = False
     chat_history = get_chat_messages()
     
     for chat in chat_history:
@@ -207,11 +209,11 @@ while in_meeting() and not decided_to_vote:
                 prompts.append({"role": "assistant", "content": chat})
             else:
                 prompts.append({"role": "user", "content": chat})
-                new_chats = True
+                is_new_chats = True
             seen_chats.append(chat)
 
     try:
-        if new_chats:
+        if is_new_chats:
             pyautogui.click(x,y)
             time.sleep(0.1)
             response = ask_gpt(prompts)
@@ -225,7 +227,7 @@ while in_meeting() and not decided_to_vote:
                     decided_to_vote = True
                     break
                 if f"{color}: " not in line:
-                    print("skipped")
+                    print(f"skipped: {line}")
                     continue
                 new_response += line
 
