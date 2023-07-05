@@ -37,7 +37,6 @@ lights_dict = {
     "PB": (dimensions[0] + round(dimensions[2] / 4.17), dimensions[1] + round(dimensions[3] / 2.2))
 }
 
-# TODO: hardcoded to skeld
 # reactor
 if rand == 1:
     x, y = reactor_dict[data["map_id"].upper()]
