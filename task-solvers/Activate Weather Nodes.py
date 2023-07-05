@@ -12,6 +12,8 @@ time.sleep(0.3)
 data = getGameData()
 dim = get_dimensions()
 if data["room"] == "Laboratory":
+    if is_urgent_task() is not None:
+        raise SystemExit(0)
     x = dim[0] + round(dim[2] / 3.5)
     y = dim[1] + round(dim[3] / 6.97)
 
@@ -43,6 +45,8 @@ def get_maze() -> list[list]:
                 maze[i][j] = 0
             else:
                 maze[i][j] = 1
+        if is_urgent_task() is not None:
+            raise SystemExit(0)
     return maze
 
 maze = get_maze()
