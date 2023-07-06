@@ -17,10 +17,8 @@ if is_urgent_task():
     click_close()
     raise SystemExit(0)
 
-print(x,y,offset, dimensions)
-
 for i in range(5):
     color = screenshot.getpixel((x + i * offset - dimensions[0], y - dimensions[1]))
     if color[1] < 100:
         pyautogui.click(x + i * offset, y - round(dimensions[3] / 7.5))
-        time.sleep(0.5)
+        time.sleep(0.2)

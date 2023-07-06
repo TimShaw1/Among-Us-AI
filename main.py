@@ -63,11 +63,13 @@ def idle(G):
             break
         nearest = move_to_nearest_node(graph)
         destination = choice(move_list)
-        if "Fix Lights" in data["tasks"]:
+        urgent = is_urgent_task()
+        data = getGameData()
+        if "Fix Lights" in data["tasks"] and urgent is None:
             dict = load_dict()
             loc = "Electrical(10/-11)" if data["map_id"].upper() != "SHIP" else "Electrical"
             destination = tuple(dict["Fix Lights"][loc])
-        urgent = is_urgent_task()
+            urgent = ("Fix Lights", "Electrical(10/-11)")
         if urgent is not None:
             dict = load_dict()
             destination = tuple(dict[urgent[0]][urgent[1]])
@@ -77,6 +79,8 @@ def idle(G):
             urgent = is_urgent_task()
         if urgent is not None and move_return_code == 0:
             urgent = is_urgent_task()
+            if "Fix Lights" in data["tasks"]:
+                urgent = ("Fix Lights", "Electrical(10/-11)")
             if urgent is not None:
                 solve_task(urgent[0])
             nearest = move_to_nearest_node(graph)
@@ -258,8 +262,6 @@ def main(G) -> int:
 
     dead = isDead()
 
-    idle(G)
-
     ret = 0
     while True:
         if isInGame() and not keyboard.is_pressed('`'):
@@ -290,8 +292,8 @@ if __name__ == "__main__":
     # Load map graph
     graph = load_graph_list(data["map_id"])
 
-    G = generate_graph(graph)
-    #G = load_G(data["map_id"])
+    #G = generate_graph(graph)
+    G = load_G(data["map_id"])
 
     # Print
     print("The Among Us AI\nHold ` for 7 seconds to stop. Press ctrl+alt+del to forcibly stop a task.")
