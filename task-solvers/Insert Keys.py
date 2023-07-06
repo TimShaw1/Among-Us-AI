@@ -27,8 +27,8 @@ for i in range(3):
             pixel = pyautogui.pixel(x + i*x_offset, y2 + y_offset*j + q)
             if pixel[0] > 200:
                 pyautogui.moveTo(dimensions[0] + round(dimensions[2] / 4.25), dimensions[1] + round(dimensions[3] / 1.49))
-                pyautogui.moveTo(x + i*x_offset, y2 + j*y_offset + 20, 0.7)
-                pyautogui.moveTo(x + i*x_offset + round(dimensions[2] / 9.6), y2 + j*y_offset + round(dimensions[3] / 11), 0.3)
+                pyautogui.dragTo(x + i*x_offset, y2 + j*y_offset + 20, 0.7)
+                pyautogui.dragTo(x + i*x_offset + round(dimensions[2] / 9.6), y2 + j*y_offset + round(dimensions[3] / 11), 0.3)
                 raise SystemExit(0)
 
 # 206 130 24
