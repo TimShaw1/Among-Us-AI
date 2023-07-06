@@ -13,6 +13,8 @@ if data["map_id"].upper() == "PB":
     for loc in PB_DOOR_LOCATIONS:
         if dist(loc, data["position"]) < 1:
             raise SystemExit(0)
+else:
+    raise SystemExit(0)
 
 dimensions = get_dimensions()
 
