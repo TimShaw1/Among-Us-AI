@@ -65,7 +65,7 @@ def idle(G):
         destination = choice(move_list)
         urgent = is_urgent_task()
         data = getGameData()
-        if "Fix Lights" in data["tasks"] and urgent is None:
+        if "Fix Lights" in data["tasks"] and urgent is None and not isImpostor():
             dict = load_dict()
             loc = "Electrical(10/-11)" if data["map_id"].upper() != "SHIP" else "Electrical"
             destination = tuple(dict["Fix Lights"][loc])
@@ -79,7 +79,7 @@ def idle(G):
             urgent = is_urgent_task()
         if urgent is not None and move_return_code == 0:
             urgent = is_urgent_task()
-            if "Fix Lights" in data["tasks"]:
+            if "Fix Lights" in data["tasks"] and not isImpostor():
                 loc = "Electrical(10/-11)" if data["map_id"].upper() != "SHIP" else "Electrical"
                 urgent = ("Fix Lights", loc)
             if urgent is not None:
