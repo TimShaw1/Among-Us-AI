@@ -69,7 +69,7 @@ def idle(G):
             dict = load_dict()
             loc = "Electrical(10/-11)" if data["map_id"].upper() != "SHIP" else "Electrical"
             destination = tuple(dict["Fix Lights"][loc])
-            urgent = ("Fix Lights", "Electrical(10/-11)")
+            urgent = ("Fix Lights", loc)
         if urgent is not None:
             dict = load_dict()
             destination = tuple(dict[urgent[0]][urgent[1]])
@@ -80,7 +80,8 @@ def idle(G):
         if urgent is not None and move_return_code == 0:
             urgent = is_urgent_task()
             if "Fix Lights" in data["tasks"]:
-                urgent = ("Fix Lights", "Electrical(10/-11)")
+                loc = "Electrical(10/-11)" if data["map_id"].upper() != "SHIP" else "Electrical"
+                urgent = ("Fix Lights", loc)
             if urgent is not None:
                 solve_task(urgent[0])
             nearest = move_to_nearest_node(graph)
