@@ -13,28 +13,22 @@ dimensions = get_dimensions()
 
 data = getGameData()
 if data["task_locations"][data["tasks"].index("Divert Power")] == "Electrical":
-    s_dimensions = copy.deepcopy(dimensions)
-    s_dimensions[0] += round(dimensions[2] / 3.4)
-    s_dimensions[1] += round(dimensions[3] / 1.62)
-    s_dimensions[2] = round(dimensions[2] / 2.44)
-    s_dimensions[3] = round(dimensions[3] / 4.34)
+    x = dimensions[0] + round(dimensions[2] / 3.26)
+    y = dimensions[1] + round(dimensions[3] / 1.415)
 
-    screenshot = get_screenshot()
+    x_offset = round(dimensions[2] / 19.7)
+
     if is_urgent_task():
         click_close()
         raise SystemExit(0)
 
     exit = False
-    for x in range(0, screenshot.width, 10):
-        if exit:
-            break
-        for y in range(0, screenshot.height, 2):
-            pixel = screenshot.getpixel((x,y))
-            if pixel[0] > 250 and pixel[1] > 96 and pixel[1] < 100 and pixel[2] < 2:
-                pyautogui.moveTo(x + dimensions[0], y + dimensions[1])
-                pyautogui.dragTo(x + dimensions[0], y + dimensions[1] - round(dimensions[3] / 10.5), duration=0.2, tween=pyautogui.easeOutQuad)
-                exit = True
-                break
+    for i in range(0, 8):
+        pixel = pyautogui.pixel(x= x + x_offset*i, y= y)
+        if pixel[0] > 250 and pixel[1] > 96 and pixel[1] < 100 and pixel[2] < 2:
+            pyautogui.moveTo(x + x_offset*i, y)
+            pyautogui.dragTo(x + x_offset*i, y - round(dimensions[3] / 10.5), duration=0.2, tween=pyautogui.easeOutQuad)
+            #break
     # 255 98 0
 else:
     x = dimensions[0] + round(dimensions[2] / 2)
