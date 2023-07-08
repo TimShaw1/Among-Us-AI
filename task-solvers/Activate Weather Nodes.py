@@ -41,7 +41,7 @@ def get_maze() -> list[list]:
         for j in range(19):
             maze[i].append([])
             pixel = pyautogui.pixel(x + x_offset*j, y + y_offset*i)
-            if max(abs(numpy.subtract(pixel, (165, 162, 140)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 255)))) < 3 or max(abs(numpy.subtract(pixel, (205, 203, 191)))) < 3:
+            if max(abs(numpy.subtract(pixel, (165, 162, 140)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 249)))) < 3 or max(abs(numpy.subtract(pixel, (205, 203, 191)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 255)))) < 3:
                 maze[i][j] = 0
             else:
                 maze[i][j] = 1
