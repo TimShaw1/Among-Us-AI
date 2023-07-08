@@ -7,6 +7,7 @@ import cv2
 import os
 import pydirectinput
 from wake_keyboard import wake
+from PIL import Image
 
 
 ctypes.windll.user32.SetProcessDPIAware()
@@ -97,6 +98,12 @@ def click_close():
     pydirectinput.moveTo(dim[0] + round(dim[2] / 4.16), dim[1] + round(dim[3] / 8.18))
     pydirectinput.click()
     return
+
+def resize_images(dimensions, task_name):
+    for i in range(1,11):
+        loaded_img = Image.open(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name}\\{i}.png")
+        new_img = loaded_img.resize((round(loaded_img.width * (dimensions[2] / 1920)), round(loaded_img.height*(dimensions[3] / 1080))))
+        new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\{i}.png")
 
 def get_dir():
     return os.getcwd()
