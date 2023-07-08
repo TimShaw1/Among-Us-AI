@@ -100,10 +100,29 @@ def click_close():
     return
 
 def resize_images(dimensions, task_name):
-    for i in range(1,11):
-        loaded_img = Image.open(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name}\\{i}.png")
+    if task_name == "Unlock Manifolds":
+        for i in range(1,11):
+            loaded_img = Image.open(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name}\\{i}.png")
+            new_img = loaded_img.resize((round(loaded_img.width * (dimensions[2] / 1920)), round(loaded_img.height*(dimensions[3] / 1080))))
+            new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\{i}.png")
+            
+    elif task_name == "Fix Wiring":
+        wire_colors = ["red", "blue", "yellow", "pink"]
+        for color in wire_colors:
+            loaded_img = Image.open(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name}\\{color}Wire.png")
+            new_img = loaded_img.resize((round(loaded_img.width * (dimensions[2] / 1920)), round(loaded_img.height*(dimensions[3] / 1080))))
+            new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\{color}Wire.png")
+
+    elif task_name == "Stabilize Steering":
+        loaded_img = Image.open(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name}\\crosshair.png")
         new_img = loaded_img.resize((round(loaded_img.width * (dimensions[2] / 1920)), round(loaded_img.height*(dimensions[3] / 1080))))
-        new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\{i}.png")
+        new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\crosshair.png")
+
+    elif task_name == "Inspect Sample":
+        loaded_img = Image.open(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name}\\anomaly.png")
+        new_img = loaded_img.resize((round(loaded_img.width * (dimensions[2] / 1920)), round(loaded_img.height*(dimensions[3] / 1080))))
+        new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\anomaly.png")
+
 
 def get_dir():
     return os.getcwd()

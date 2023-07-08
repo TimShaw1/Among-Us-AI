@@ -9,8 +9,7 @@ click_use()
 time.sleep(0.8)
 
 dimensions = get_dimensions()
-if (dimensions[2] != 1920 and dimensions[3] != 1080):
-    resize_images(dimensions, "Unlock Manifolds")
+resize_images(dimensions, "Unlock Manifolds")
 dimensions[0] += round(dimensions[2] / 3.4)
 dimensions[1] += round(dimensions[3] / 2.9)
 dimensions[2] = round(dimensions[2] / 2.4)
