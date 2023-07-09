@@ -21,6 +21,7 @@ def chat(can_vote_flag : bool):
                 raise SystemExit(0)
             time.sleep(1/60)
             continue
+        time.sleep(10)
         return
     p = subprocess.Popen(["python", f"chatGPT.py"])
     while p.poll() is None:
@@ -35,7 +36,6 @@ def chat(can_vote_flag : bool):
         time.sleep(1/60)
     p.kill()
     utility.clear_kill_data()
-    time.sleep(6)
 
 def solve_task(task_name=None, task_location=None) -> int:
     """ 
