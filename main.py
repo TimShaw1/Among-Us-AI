@@ -123,6 +123,7 @@ def move_and_complete_tasks(G, move_list, tasks):
 
         # if we died while moving, exit
         if dead != isDead():
+            dead = isDead()
             break
 
         # If we are in a meeting,

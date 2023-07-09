@@ -935,29 +935,30 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
         
         # Get relevant nearby players
         nearby_players = get_nearby_players(G)
-        if isImpostor():
-            for player in get_nearby_imposter_players(G):
-                if player in nearby_players:
-                    nearby_players.remove(player)
+        if not isDead():
+            if isImpostor():
+                for player in get_nearby_imposter_players(G):
+                    if player in nearby_players:
+                        nearby_players.remove(player)
 
-        # Kill logic
-        if impostor:
-            if can_kill() and is_KillTimer_0() and should_I_kill():
-                gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
-                gamepad.update()
-                time.sleep(1/30)
-                gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
-                gamepad.update()
-                time.sleep(1/60)
-        
-        # Report/self report check
-        if can_report():
-            if len(nearby_players) > 1 or on_cams():
-                press_report()
-                time.sleep(1/60)
-            elif not isImpostor():
-                look_around()
-                press_report()
+            # Kill logic
+            if isImpostor():
+                if can_kill() and is_KillTimer_0() and should_I_kill():
+                    gamepad.press_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
+                    gamepad.update()
+                    time.sleep(1/30)
+                    gamepad.release_button(vg.XUSB_BUTTON.XUSB_GAMEPAD_X)
+                    gamepad.update()
+                    time.sleep(1/60)
+            
+            # Report/self report check
+            if can_report():
+                if len(nearby_players) > 1 or on_cams():
+                    press_report()
+                    time.sleep(1/60)
+                elif not isImpostor():
+                    look_around()
+                    press_report()
 
         # Determines how close player should be before removing node from path
         increment = 0.2
