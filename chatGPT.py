@@ -262,4 +262,4 @@ if c == "skip":
 print("Vote: " + res)
 print(c)
 vote(c.upper())
-time.sleep(8)
+time.sleep(6)

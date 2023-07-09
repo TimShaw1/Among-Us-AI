@@ -35,6 +35,7 @@ def chat(can_vote_flag : bool):
         time.sleep(1/60)
     p.kill()
     utility.clear_kill_data()
+    time.sleep(6)
 
 def solve_task(task_name=None, task_location=None) -> int:
     """ 
