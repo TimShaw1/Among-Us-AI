@@ -82,6 +82,8 @@ def idle(G):
             if "Fix Lights" in data["tasks"] and not isImpostor():
                 loc = "Electrical(10/-11)" if data["map_id"].upper() != "SHIP" else "Electrical"
                 urgent = ("Fix Lights", loc)
+            elif "Fix Lights" not in data["tasks"] and urgent[0] == "Fix Lights":
+                urgent = None
             if urgent is not None:
                 solve_task(urgent[0])
             nearest = move_to_nearest_node(graph)
