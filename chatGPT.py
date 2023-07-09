@@ -147,7 +147,7 @@ if len(kill_prompt) > 0:
 found_prompt = f'You found the body in {get_last_room()}.' if get_caller_color() == color and len(dead_str) != 0 else ''
 
 meeting_start_time = time.time()
-time.sleep(4)
+time.sleep(4.5)
 
 try:
     location_prompt = f"Your tasks are in {task_locations}" if None not in task_locations else ""
@@ -262,3 +262,4 @@ if c == "skip":
 print("Vote: " + res)
 print(c)
 vote(c.upper())
+time.sleep(8)
