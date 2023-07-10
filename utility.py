@@ -924,6 +924,8 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
 
     graph = load_graph_list(data["map_id"])
 
+    skip = False
+
     # Main loop
     while len(dest_list) > 0:
 
@@ -1008,20 +1010,23 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
             if abs(old_time - datetime.now().second) > 1 and abs(old_time - datetime.now().second) < 10:
                 
                 # catch any weird door bugs
-                if abs(old_time - datetime.now().second) > 3:
+                if data["map_id"].upper() == "PB" and abs(old_time - datetime.now().second) > 3:
                     solver.solve_task("Open Door")
+                    skip = True
 
-                # move toward x and y component seperately
-                move_to_nearest_node(graph)
-                g_points = points_to_gamepad(pos, dest_list[0])
-                gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
-                gamepad.update()
-                time.sleep(0.3)
-                gamepad.left_joystick_float(x_value_float=0, y_value_float=g_points[1])
-                gamepad.update()
-                time.sleep(0.3)
+                if not skip:
+                    # move toward x and y component seperately
+                    move_to_nearest_node(graph)
+                    g_points = points_to_gamepad(pos, dest_list[0])
+                    gamepad.left_joystick_float(x_value_float=g_points[0], y_value_float=0)
+                    gamepad.update()
+                    time.sleep(0.3)
+                    gamepad.left_joystick_float(x_value_float=0, y_value_float=g_points[1])
+                    gamepad.update()
+                    time.sleep(0.3)
 
         data = getGameData()
+        skip = False
 
         pos = data["position"]
         time.sleep(1/60)
