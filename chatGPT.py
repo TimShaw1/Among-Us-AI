@@ -234,6 +234,7 @@ while in_meeting() and not decided_to_vote:
             response = new_response.replace(f'{color}: ', '')
             print("res: " + response)
             pyautogui.typewrite(f"{response.lower()}\n", interval=0.025)
+            is_new_chats = False
             time.sleep(4)
     except openai.error.RateLimitError:
         print("Rate limit reached")
