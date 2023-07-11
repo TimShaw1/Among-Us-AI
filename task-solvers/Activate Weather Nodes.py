@@ -43,14 +43,13 @@ def get_maze() -> list[list]:
         maze.append([])
         for j in range(19):
             maze[i].append([])
-            if is_urgent_task():
-                raise SystemExit(0)
             pixel = pyautogui.pixel(x + x_offset*j, y + y_offset*i)
             if max(abs(numpy.subtract(pixel, (165, 162, 140)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 249)))) < 3 or max(abs(numpy.subtract(pixel, (205, 203, 191)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 255)))) < 3:
                 maze[i][j] = 0
             else:
                 maze[i][j] = 1
         if is_urgent_task():
+            click_close()
             raise SystemExit(0)
     return maze
 
