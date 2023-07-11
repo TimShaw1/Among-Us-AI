@@ -92,13 +92,6 @@ def click_use():
     pydirectinput.click()
     return
 
-def click_close():
-    wake()
-    dim = get_dimensions()
-    pydirectinput.moveTo(dim[0] + round(dim[2] / 4.16), dim[1] + round(dim[3] / 8.18))
-    pydirectinput.click()
-    return
-
 def resize_images(dimensions, task_name):
     if task_name == "Unlock Manifolds":
         for i in range(1,11):
@@ -123,9 +116,23 @@ def resize_images(dimensions, task_name):
         new_img = loaded_img.resize((round(loaded_img.width * (dimensions[2] / 1920)), round(loaded_img.height*(dimensions[3] / 1080))))
         new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\anomaly.png")
 
+    elif task_name == "close":
+        loaded_img = Image.open(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name}\\closeX.png")
+        new_img = loaded_img.resize((round(loaded_img.width * (dimensions[2] / 1920)), round(loaded_img.height*(dimensions[3] / 1080))))
+        new_img.save(f"{get_dir()}\\task-solvers\\cv2-templates\\{task_name} resized\\closeX.png")
+
 
 def get_dir():
     return os.getcwd()
+
+def click_close():
+    wake()
+    dim = get_dimensions()
+    resize_images(dim, "close")
+    center = pyautogui.locateCenterOnScreen(f"{get_dir()}\\task-solvers\\cv2-templates\\close resized\\closeX.png", confidence=0.7, grayscale=True)
+    pydirectinput.moveTo(center[0], center[1])
+    pydirectinput.click()
+    return
 
 def get_screen_coords():
     while True:
