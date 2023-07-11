@@ -18,10 +18,10 @@ y2 = round(dimensions[1] + dimensions[3] / 10.5)
 x_offset = round(dimensions[2] / 6.64)
 y_offset = round(dimensions[3] / 6.1)
 
-if is_urgent_task():
-    raise SystemExit(0)
-
 while not is_task_done("Insert Keys"):
+    if is_urgent_task():
+        click_close()
+        raise SystemExit(0)
     # red > 200
     for i in range(3):
         for j in range(5):

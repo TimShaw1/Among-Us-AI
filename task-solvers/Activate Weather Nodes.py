@@ -20,6 +20,9 @@ if data["room"] == "Laboratory":
     y_offset = round(dim[3] / 6.97)
 
     for i in range(6):
+        if is_urgent_task():
+            click_close()
+            raise SystemExit(0)
         pixel = pyautogui.pixel(x, y + y_offset*i)
         if max(abs(numpy.subtract(pixel, (121, 143, 148)))) < 3:
             pyautogui.click(x, y + y_offset*i)
@@ -40,6 +43,8 @@ def get_maze() -> list[list]:
         maze.append([])
         for j in range(19):
             maze[i].append([])
+            if is_urgent_task():
+                raise SystemExit(0)
             pixel = pyautogui.pixel(x + x_offset*j, y + y_offset*i)
             if max(abs(numpy.subtract(pixel, (165, 162, 140)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 249)))) < 3 or max(abs(numpy.subtract(pixel, (205, 203, 191)))) < 3 or max(abs(numpy.subtract(pixel, (255, 255, 255)))) < 3:
                 maze[i][j] = 0

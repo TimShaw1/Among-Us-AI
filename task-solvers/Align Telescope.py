@@ -14,8 +14,12 @@ times = {"broken" : 0.9, "nebula" : 2, "dyson" : 2.5, "ship" : 1.4, "galaxy" : 2
 
 x = dim[0] + round(dim[2] / 1.35)
 y = dim[1] + round(dim[3] / 1.24)
+if is_urgent_task():
+    click_close()
+    raise SystemExit(0)
 pixel = pyautogui.pixel(x,y)
 if is_urgent_task():
+    click_close()
     raise SystemExit(0)
 
 name = ""

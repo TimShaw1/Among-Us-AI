@@ -12,6 +12,9 @@ x = dimensions[0] + round(dimensions[2] / 3.12)
 y = dimensions[1] + round(dimensions[3] / 1.2)
 offset = round(dimensions[2] / 11.03)
 
+if is_urgent_task():
+    click_close()
+    raise SystemExit(0)
 screenshot = get_screenshot(dimensions)
 if is_urgent_task():
     click_close()
