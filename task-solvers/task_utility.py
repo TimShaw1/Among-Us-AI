@@ -161,8 +161,10 @@ def is_task_done(task):
 
 def is_urgent_task() -> bool:
     data = getGameData()
+    if data["dead"]:
+        return False
 
-    urgent_tasks = ["Reset Reactor", "Restore Oxygen"]
+    urgent_tasks = ["Reset Reactor", "Restore Oxygen", "Reset Seismic Stabilizers"]
     for task in urgent_tasks:
         if task in data['tasks']:
             return True

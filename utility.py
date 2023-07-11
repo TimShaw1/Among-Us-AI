@@ -371,7 +371,7 @@ def is_urgent_task(tasks : list = None) -> str:
         data = getGameData()
         tasks = data['tasks']
 
-    urgent_tasks = [("Reset Reactor", "Reactor"), ("Restore Oxygen", "Oxygen")]
+    urgent_tasks = [("Reset Reactor", "Reactor"), ("Restore Oxygen", "Oxygen"), ("Reset Seismic Stabilizers", "Laboratory(5/-4)")]
     for task in urgent_tasks:
         if task[0] in tasks:
             return task
