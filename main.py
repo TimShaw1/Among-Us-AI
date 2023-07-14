@@ -265,6 +265,7 @@ def main(G) -> int:
     f.close()
 
     dead = isDead()
+    idle(G)
 
     ret = 0
     while True:

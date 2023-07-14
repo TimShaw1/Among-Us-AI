@@ -35,6 +35,7 @@ def easeInOutExpo(x):
             return 2 - pow(2, -20 * x + 10) / 2
 
 duration = 3.1
+duration -= 1.6
 pyautogui.dragTo(x2,y, duration=duration)
 
 while not is_task_done("Swipe Card"):

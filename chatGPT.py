@@ -6,7 +6,7 @@ import networkx as nx
 import re
 import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/task-solvers")
-from task_utility import get_dimensions, get_screen_coords, wake
+from task_utility import get_dimensions, get_screen_coords, wake, get_screen_ratio
 
 API_KEY = ""
 try:
@@ -182,14 +182,14 @@ seen_chats = []
 
 dimensions = get_dimensions()
 
-x = dimensions[0] + round(dimensions[2] / 1.27)
-y = dimensions[1] + round(dimensions[3] / 7.77)
+x = dimensions[0] + round(dimensions[2] / 1.12)
+y = dimensions[1] + round(dimensions[3] / 19.6)
 wake()
 pyautogui.click(x,y, duration=0.3)
 time.sleep(0.5)
 
-x = dimensions[0] + round(dimensions[2] / 4.54)
-y = dimensions[1] + round(dimensions[3] / 1.19)
+x = dimensions[0] + round(dimensions[2] / 3.44)
+y = dimensions[1] + round(dimensions[3] / 1.28)
 
 pyautogui.click(x,y, duration=0.3)
 time.sleep(0.1)

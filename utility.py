@@ -966,6 +966,8 @@ def move(dest_list : list, G = load_G(getGameData()["map_id"])) -> int:
         increment = 0.2
         if data['speed'] is not None:
             increment *= data['speed'] * 2
+        if isDead():
+            increment -= 0.1
 
         data = getGameData()
 
