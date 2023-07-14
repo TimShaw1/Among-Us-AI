@@ -108,8 +108,8 @@ def skip(dimensions):
 
 def vote(color : str = "SKIP"):
     dimensions = get_dimensions()
-    x = dimensions[0] + round(dimensions[2] / 1.27)
-    y = dimensions[1] + round(dimensions[3] / 7.77)
+    x = dimensions[0] + round(dimensions[2] / 1.12)
+    y = dimensions[1] + round(dimensions[3] / 19.6)
     wake()
     time.sleep(0.1)
 
