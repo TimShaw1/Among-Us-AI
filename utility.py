@@ -730,13 +730,16 @@ def sort_shortest_path(G, nearest, move_list, tasks) -> list[tuple]:
 
     move_list.sort(key = lambda x:nx.shortest_path_length(G, nearest, x, weight="weight"))
     urgent = is_urgent_task()
-    if urgent is not None and not isDead():
-        dict = load_dict()
-        item = tuple(dict[urgent[0]][urgent[1]])
-        if item in move_list:
-            move_list.remove(item)
-        move_list.insert(0, item)
-    return move_list
+    try:
+        if urgent is not None and not isDead():
+            dict = load_dict()
+            item = tuple(dict[urgent[0]][urgent[1]])
+            if item in move_list:
+                move_list.remove(item)
+            move_list.insert(0, item)
+        return move_list
+    except:
+        return move_list
 
 def get_task_list() -> list:
     """

@@ -193,7 +193,6 @@ y = dimensions[1] + round(dimensions[3] / 1.28)
 
 pyautogui.click(x,y, duration=0.3)
 time.sleep(0.1)
-time.sleep(3)
 
 decided_to_vote : bool = False
 
@@ -233,7 +232,8 @@ while in_meeting() and not decided_to_vote:
 
             response = new_response.replace(f'{color}: ', '')
             print("res: " + response)
-            pyautogui.typewrite(f"{response.lower()}\n", interval=0.025)
+            if len(response) <= 100:
+                pyautogui.typewrite(f"{response.lower()}\n", interval=0.025)
             is_new_chats = False
             time.sleep(4)
     except openai.error.RateLimitError:
@@ -242,7 +242,7 @@ while in_meeting() and not decided_to_vote:
 
 get_names_dict()
 
-while time.time() - meeting_start_time < get_meeting_time() - 4:
+while time.time() - meeting_start_time < get_meeting_time() - 12:
     time.sleep(1/15)
 
 prompts.append({"role": "user", "content": "You have 10 seconds left to vote. How do you vote? Your response should be formatted as 'VOTE: {COLOR to vote}' or 'VOTE: skip' to skip"})
