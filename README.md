@@ -26,7 +26,7 @@ Video runthrough: https://youtu.be/N7ztLdSIjwQ
     - https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key
     - you'll need to set up a payment method as their API is not free!
     - place the file in the same folder as `main.py`
-5. Hop into a game and run `main.py`!
+5. Hop into a game (make sure game is windowed) and run `main.py`!
 6. Press ` to stop the bot (you may need to press Ctrl+C in the command line to stop the script)
 
 ## Recommendations
