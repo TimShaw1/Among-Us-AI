@@ -188,7 +188,7 @@ wake()
 pyautogui.click(x,y, duration=0.3)
 time.sleep(0.5)
 
-x = dimensions[0] + round(dimensions[2] / 3.44)
+x = dimensions[0] + round(dimensions[2] / 3)
 y = dimensions[1] + round(dimensions[3] / 1.28)
 
 pyautogui.click(x,y, duration=0.3)
