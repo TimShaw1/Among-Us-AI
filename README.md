@@ -1,4 +1,7 @@
 # Behold: The Among Us AI!
+
+![2024-06-15_10-18-54](https://github.com/TimShaw1/Among-Us-AI/assets/70497517/a7892d57-0d94-45da-b4a5-1658bd4647f1)
+
 The Among Us AI is a bot that I designed in python to play the popular social deduction game Among Us. 
 
 Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9uw
