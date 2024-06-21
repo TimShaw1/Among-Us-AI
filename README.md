@@ -6,6 +6,8 @@ The Among Us AI is a bot that I designed in python to play the popular social de
 
 Here's a video I made detailing the creation process: https://youtu.be/VF41pxxw9uw
 
+#### This bot is currently not functional due to updates made to the game. I'll take a look when I can
+
 ## Features
 - Dynamic movement and intelligent task routing
 - Automated task solving
